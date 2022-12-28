@@ -11,7 +11,7 @@
 4. Next, run:\
    `docker exec <container-ID> composer install`\
    `docker exec <container-ID> php artisan --version`\
-   `docker exec <container-ID> php artisan migrate`\
+   `docker exec <container-ID> php artisan migrate`
 
 5. The API will be running on http://localhost:80.  Test fetches can be made to the API using Telnet or curl.  For example, making a POST request with the fields "name", "email", "password", "c_password" to http://localhost:80. The API can be started or stopped in the Docker program window (the container is named "server")
 
