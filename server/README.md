@@ -9,7 +9,7 @@
    `# composer install`\
    `# php artisan --version`\
    `# php artisan migrate`
-4. The API will be running on http://localhost:80.  Test fetches can be made to the API using Telnet or curl.  For example, making a POST request with the fields "name", "email", "password", "c_password" to http://localhost:80. The API can be started or stopped from Docker Desktop.
+4. The API will be running on http://localhost:80/.  Test fetches can be made to the API using Telnet or curl.  For example, making a POST request with the keys "name", "email", "password", "c_password" to http://localhost:80/api/register. The API can be started or stopped from Docker Desktop.
 
 
 ## How to Navigate the Database
