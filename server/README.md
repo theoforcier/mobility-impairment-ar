@@ -1,3 +1,23 @@
+
+## Getting Started
+
+1. Navigate to /server
+2. (Assuming Docker is installed on the platform) Run:
+   `docker-compose up -d`
+   This may take a few minutes the first time it runs.
+3. Once finished, use:
+   `docker ps`
+   To display a table of currently running Docker containers. Copy the container ID of the image "shouts.dev/laravel"
+4. Next, run:
+   `docker exec <container-ID> composer install`
+   `docker exec <container-ID> php artisan --version`
+   `docker exec <container-ID> php artisan migrate`
+
+5. The API will be running on http://localhost:80.  Test fetches can be made to the API using Telnet or curl.  For example, making a POST request with the fields "name", "email", "password", "c_password" to http://localhost:80. The API can be started or stopped in the Docker program window (the container is named "server")
+
+
+---
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
