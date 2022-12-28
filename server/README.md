@@ -1,19 +1,28 @@
 
 ## Getting Started
 
-1. Navigate to /server
-2. (Assuming Docker is installed on the platform) Run:\
+1. (Assuming Docker Desktop is installed) From the server folder in the command-line, run:\
    `docker-compose up -d`\
    This may take a few minutes the first time it runs.
-3. Once finished, use:\
-   `docker ps`\
-   To display a table of currently running Docker containers. Copy the container ID of the image "shouts.dev/laravel"
-4. Next, run:\
-   `docker exec <container-ID> composer install`\
-   `docker exec <container-ID> php artisan --version`\
-   `docker exec <container-ID> php artisan migrate`
+2. Once finished, open Docker Desktop, go to the Containers page, open the dropdown named "server", and click the container named "shuters-laravel-app".
+3. Navigate to the "Terminal" tab, and run the following commands:\
+   `# composer install`\
+   `# php artisan --version`\
+   `# php artisan migrate`
+4. The API will be running on http://localhost:80.  Test fetches can be made to the API using Telnet or curl.  For example, making a POST request with the fields "name", "email", "password", "c_password" to http://localhost:80. The API can be started or stopped from Docker Desktop.
 
-5. The API will be running on http://localhost:80.  Test fetches can be made to the API using Telnet or curl.  For example, making a POST request with the fields "name", "email", "password", "c_password" to http://localhost:80. The API can be started or stopped in the Docker program window (the container is named "server")
+
+## How to Navigate the Database
+
+The MariaDB database should start and stop automatically with the API.  To navigate the database, go back to the terminal for the container named "shuters-laravel-app".  Enter the command:\
+`# php artisan tinker`
+
+
+SQL commands can then be run using commands in the format:\
+`> DB::select("{SQL-command}")`
+
+For example, to display all tables in the database, run the command:\
+`> DB::select("SHOW TABLES")`
 
 
 ---
