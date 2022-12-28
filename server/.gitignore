@@ -3,6 +3,8 @@
 /public/hot
 /public/storage
 /storage/*.key
+
+# run "composer install" in /server
 /vendor
 #.env
 .env.backup
