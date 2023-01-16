@@ -1,13 +1,140 @@
-body {
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: montserrat, sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+input {
+  appearance: none;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.App {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(to bottom right, #5a7bd0, #fff);
+}
+
+/* Login form styling */
+
+form {
+  display: block;
+  position: relative;
+}
+
+form:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  z-index: 1;
+  background-image: linear-gradient(to top left, #5a7bd0, #fff);
+}
+
+form .form-inner {
+  position: relative;
+  display: block;
+  background-color: #fff;
+  padding: 50px;
+  z-index: 2;
+}
+
+form .form-inner h2 {
+  color: #000;
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+form .form-inner .form-group {
+  display: block;
+  width: 300;
+  margin-bottom: 15px;
+}
+
+form .form-inner .form-group label {
+  display: block;
+  color: #000;
+  font-size: 12px;
+  margin-bottom: 5px;
+  transition: 0.4s;
+}
+
+form .form-inner .form-group:focus-within label {
+  color: #5a7bd0;
+}
+
+form .form-inner .form-group input {
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  background-color: #ececec;
+  border-radius: 8px;
+  transition: 0.4s;
+}
+
+form .form-inner .form-group input:focus {
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+}
+
+form .form-inner input[type="submit"] {
+  padding: 10px 15px;
+  margin-top: 15px;
+  border-radius: 8px;
+  background-image: linear-gradient(
+    to right,
+    #5a7bd0 50%,
+    #5a7bd0 50%,
+    #334f98
+  );
+  background-size: 200%;
+  background-position: 0%;
+  transition: 0.4s;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+form .form-inner input[type="submit"]:hover {
+  background-position: 100% 0%;
+}
+
+form .error {
+  display: block;
+  color: #000;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+form .form-redirect {
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+
+form .form-redirect button {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+form .seperator {
+  width: 350px;
+  height: 1x;
+  object-fit: cover;
+  border: 1px solid #000;
+  align-self: center;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
