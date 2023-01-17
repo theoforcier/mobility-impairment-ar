@@ -33,7 +33,7 @@ class RegisterController extends BaseController
         $user = User::create($input);
         $token = $user->createToken('AppSession');
         $success['token'] = $token->plainTextToken;
-        $success['expires_at'] = $token->accessToken->expired_at;
+        $success['token_expiry'] = $token->accessToken->expired_at;
    
         return $this->sendResponse($success);
     }
@@ -48,7 +48,7 @@ class RegisterController extends BaseController
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
             $token = $Auth::user()->createToken('AppSession');
             $success['token'] = $token->plainTextToken; 
-            $success['expires_at'] = $token->accessToken->expired_at;
+            $success['token_expiry'] = $token->accessToken->expired_at;
    
             return $this->sendResponse($success);
         } 

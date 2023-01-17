@@ -9,6 +9,7 @@ function postHTTP(path, data) {
 	return http(path, data, "POST")
 }
 
+
 function getHTTP(path, data) {
 	/**
 	 * Makes an HTTP GET request to the API
@@ -38,7 +39,7 @@ function http(path, data, method) {
 		}
 
 		if ('token' in localStorage)
-			headers['Authorization'] = 'Bearer ' + "5|25kCMfb8dpNN08nfNUsiT4BDjx7gnsKU4Am8mo1K"//localStorage.token
+			headers['Authorization'] = 'Bearer ' + localStorage.token
 
 		let payload = JSON.parse(JSON.stringify(data))
 
