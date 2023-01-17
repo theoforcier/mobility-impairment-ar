@@ -19,7 +19,7 @@ class RegisterController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required',
             'c_password' => 'required|same:password',
         ]);
@@ -31,10 +31,11 @@ class RegisterController extends BaseController
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-        $success['token'] =  $user->createToken('MyApp')->plainTextToken;
-        $success['name'] =  $user->name;
+        $token = $user->createToken('AppSession');
+        $success['token'] = $token->plainTextToken;
+        $success['expires_at'] = $token->accessToken->expired_at;
    
-        return $this->sendResponse($success, 'User register successfully.');
+        return $this->sendResponse($success);
     }
    
     /**
@@ -45,11 +46,11 @@ class RegisterController extends BaseController
     public function login(Request $request)
     {
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
-            $user = Auth::user(); 
-            $success['token'] =  $user->createToken('MyApp')->plainTextToken; 
-            $success['name'] =  $user->name;
+            $token = $Auth::user()->createToken('AppSession');
+            $success['token'] = $token->plainTextToken; 
+            $success['expires_at'] = $token->accessToken->expired_at;
    
-            return $this->sendResponse($success, 'User login successfully.');
+            return $this->sendResponse($success);
         } 
         else{ 
             return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
