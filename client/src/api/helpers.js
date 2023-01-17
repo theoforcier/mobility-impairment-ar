@@ -1,35 +1,40 @@
 
+/**
+ * Makes an HTTP POST request to the API
+ * @author Cameron Arnold
+ * @param {string} path API model path (eg. "register", "login", etc)
+ * @param {object} data Body of the request
+ * @return {object}     Response from API
+ */
+
 function postHTTP(path, data) {
-	/**
-	 * Makes an HTTP POST request to the API
-	 * @param {string} path API model path (eg. "register", "login", etc)
-	 * @param {object} data Body of the request
-	 * @return {object}     Response from API
-	 */
 	return http(path, data, "POST")
 }
 
 
+/**
+ * Makes an HTTP GET request to the API
+ * @author Cameron Arnold
+ * @param {string} path API model path (eg. "register", "login", etc)
+ * @param {object} data Body of the request
+ * @return {object}     Response from API
+ */
 function getHTTP(path, data) {
-	/**
-	 * Makes an HTTP GET request to the API
-	 * @param {string} path API model path (eg. "register", "login", etc)
-	 * @param {object} data Body of the request
-	 * @return {object}     Response from API
-	 */
+	
 	return http(path, data, "GET")
 }
 
 
+/**
+ * Makes an HTTP request to the API using the provided method
+ * @author Cameron Arnold
+ * @param {string} path   API model path (eg. "register", "login", etc)
+ * @param {object} data   Body of the request
+ * @param {string} method Method type (eg. "POST", "GET", etc)
+ * @return {object}       Response from API
+ */
 function http(path, data, method) {
-	/**
-	 * Makes an HTTP request to the API using the provided method
-	 * @param {string} path   API model path (eg. "register", "login", etc)
-	 * @param {object} data   Body of the request
-	 * @param {string} method Method type (eg. "POST", "GET", etc)
-	 * @return {object}       Response from API
-	 */
-
+	
 	let url = process.env.REACT_APP_API_ROOT + path
 
 	return new Promise(function (resolve, reject) {
