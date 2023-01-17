@@ -72,12 +72,14 @@ function http(path, data, method) {
 
 Example run:
 
-postData('register', {
+let payload = {
 	'name': 'Cam',
 	'password': '1234',
 	'c_password': '1234',
 	'email': '32324awd23324dwadwa3@gmail.com'
-}).then(response => {
+}
+
+getHTTP('register', payload).then(response => {
 	console.log(response)
 })
 
