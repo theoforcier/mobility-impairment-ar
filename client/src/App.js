@@ -1,5 +1,6 @@
 import { useState } from "react";
 import LoginForm from "./components/LoginForm";
+import SignupForm from "./components/SignupForm"
 
 function App() {
   // Temporary admin user, still needs to be connected to database
@@ -8,11 +9,10 @@ function App() {
     password: "admin123",
   };
 
-  // Boolean which tells us if we are on 
-  let isSignup = false;
-
   // Stores user data after logging in (MISSING TOKEN?)
   const [user, setUser] = useState({ email: "" });
+  // Keeps track of current page
+  const [isLogin, setIsLogin] = useState({ isLogin: true })
   // Catch invalid login/signup
   const [error, setError] = useState("");
 
@@ -34,6 +34,11 @@ function App() {
     }
   };
 
+  // Logout function
+  const Logout = () => {
+    setUser({ email: "" });
+  };
+
   // Signup function
   const Signup = (details) => {
     console.log(details);
@@ -42,29 +47,29 @@ function App() {
     // Create db entry
   }
 
-  // Logout function
-  const Logout = () => {
-    setUser({ username: "", email: "" });
-  };
-
-  // Switch between login/signup forms
-  const SwitchScreen = () => {
-    isSignup = !isSignup;
+  // SwitchPage function
+  const SwitchPage = () => {
+    setIsLogin(!isLogin);
+    console.log("LOGIN: " + isLogin);
   }
 
-  // If logged in display welcome, if not display login form
+  // If logged in display welcome, if not display correct form
   return (
     <div className="App">
       {user.email != "" ? (
         <div className="welcome">
           <h2>
-            Welcome, <span>{user.username}</span>
+            Welcome!
           </h2>
           <button onClick={Logout}>Logout</button>
         </div>
       ) : (
-        // Must pass login/signup functions and error to our forms
-        <LoginForm Login={Login} error={error} />
+        // Must pass login/signup/switchscreen functions and error to our forms
+        isLogin ? (
+          <LoginForm Login={Login} SwitchPage={SwitchPage} error={error} />
+        ) : (
+          <SignupForm Signup={Signup} SwitchPage={SwitchPage} error={error} />
+        )
       )}
     </div>
   );

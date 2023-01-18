@@ -20,7 +20,7 @@ input {
   background-image: linear-gradient(to bottom right, #5a7bd0, #fff);
 }
 
-/* Login form styling */
+/* Login/signup form styling */
 
 form {
   display: block;
@@ -43,7 +43,7 @@ form .form-inner {
   position: relative;
   display: block;
   background-color: #fff;
-  padding: 50px;
+  padding: 30px;
   z-index: 2;
 }
 

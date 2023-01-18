@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-function SignupForm({ Signup, error }) {
+function SignupForm({ Signup, SwitchPage, error }) {
   // Login details
   const [details, setDetails] = useState({
     username: "",
@@ -18,11 +18,17 @@ function SignupForm({ Signup, error }) {
     Signup(details);
   };
 
+  const changePage = (e) => {
+    e.preventDefault();
+
+    SwitchPage();
+  }
+
   // Email/username and password fields update state of details
   return (
     <form onSubmit={submitHandler}>
       <div className="form-inner">
-        <h2>Sign In</h2>
+        <h2>Create Account</h2>
         {error != "" ? <div className="error">{error}</div> : ""}
         <div className="form-group">
           <label htmlFor="username">Username</label>
@@ -97,11 +103,11 @@ function SignupForm({ Signup, error }) {
         <input type="submit" value="Create" />
         <hr className="seperator"/>
         <div className="form-redirect">
-          <button class="text-button">Have an account? Sign in here</button>
+          <button onClick={changePage}>Have an account? Sign in here</button>
         </div>
       </div>
     </form>
   );
 }
 
-export default LoginForm;
+export default SignupForm;

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-function LoginForm({ Login, error }) {
+function LoginForm({ Login, SwitchPage, error }) {
   // Login details
   const [details, setDetails] = useState({
     email: "",
@@ -13,6 +13,12 @@ function LoginForm({ Login, error }) {
 
     Login(details);
   };
+
+  const changePage = (e) => {
+    e.preventDefault();
+
+    SwitchPage();
+  }
 
   // Email/username and password fields update state of details
   return (
@@ -42,13 +48,10 @@ function LoginForm({ Login, error }) {
             value={details.password}
           />
         </div>
-        {/*<div className="form-redirect">
-          <button class="text-button">Forgot your password? Click here</button>
-          </div>*/}
         <input type="submit" value="SIGN IN" />
         <hr className="seperator"/>
         <div className="form-redirect">
-          <button class="text-button">No account yet? Create one here</button>
+          <button onClick={changePage}>No account yet? Create one here</button>
         </div>
       </div>
     </form>
