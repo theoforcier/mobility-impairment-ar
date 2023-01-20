@@ -22,7 +22,7 @@ function SignupForm({ Signup, SwitchPage, error }) {
     e.preventDefault();
 
     SwitchPage();
-  }
+  };
 
   // Email/username and password fields update state of details
   return (
@@ -68,8 +68,8 @@ function SignupForm({ Signup, SwitchPage, error }) {
           <label htmlFor="last-name">Last Name</label>
           <input
             type="text"
-            name="username"
-            id="username"
+            name="last-name"
+            id="last-name"
             onChange={(e) =>
               setDetails({ ...details, lastName: e.target.value })
             }

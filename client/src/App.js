@@ -1,62 +1,82 @@
 import { useState } from "react";
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm"
+import { postHTTP, getHTTP } from "./api/helpers"
 
 function App() {
-  // Temporary admin user, still needs to be connected to database
-  const adminUser = {
-    email: "admin@admin.com",
-    password: "admin123",
-  };
-
-  // Stores user data after logging in (MISSING TOKEN?)
-  const [user, setUser] = useState({ email: "" });
+  // Stores user data after logging in / signing up
+  const [user, setUser] = useState({ token: "" });
   // Keeps track of current page
   const [isLogin, setIsLogin] = useState({ isLogin: true })
   // Catch invalid login/signup
   const [error, setError] = useState("");
 
   // Login function
-  const Login = (details) => {
-    console.log(details);
+  const Login = (loginDetails) => {
+    console.log(loginDetails);
+    setError("");
 
-    if (
-      details.email == adminUser.email &&
-      details.password == adminUser.password
-    ) {
-      console.log("Logged in!");
-      setUser({
-        email: details.email,
-      });
-    } else {
-      console.log("Invalid login!");
-      setError("Email or password is incorrect!");
+    let payload = {
+      'email': loginDetails.email,
+      'password': loginDetails.password
     }
+
+    // Send login request to API
+    postHTTP('login', payload).then(response => {
+      // If login succeeds, set user token
+      if (response.success) {
+        console.log(response);
+        setUser(response.data.token);
+      // If login fails, set error message
+      } else {
+        console.log(response.data);
+        setError("Email or password is incorrect!");
+      }
+    })
   };
 
-  // Logout function
+  // Logout function, return to login page
   const Logout = () => {
-    setUser({ email: "" });
+    setUser({ token: "" });
+    setIsLogin({ isLogin: true })
   };
 
   // Signup function
-  const Signup = (details) => {
-    console.log(details);
-    // Check if email is already registered
+  const Signup = (signupDetails) => {
+    console.log(signupDetails);
+    setError("");
 
-    // Create db entry
+    let payload = {
+      'name': signupDetails.firstName + " " + signupDetails.lastName,
+      'email': signupDetails.email,
+      'password': signupDetails.password,
+      'c_password': signupDetails.confirmPass
+    }
+
+    // Send register request to API
+    postHTTP('register', payload).then(response => {
+      // If register succeeds, set user token (log in)
+      if (response.success) {
+        console.log(response);
+        setUser(response.data.token);
+      // If register fails, set error message
+      } else {
+        console.log(response.data);
+        setError("Email already in use!");
+      }
+    })
   }
 
   // SwitchPage function
   const SwitchPage = () => {
+    setError("");
     setIsLogin(!isLogin);
-    console.log("LOGIN: " + isLogin);
   }
 
   // If logged in display welcome, if not display correct form
   return (
     <div className="App">
-      {user.email != "" ? (
+      {user.token != "" ? (
         <div className="welcome">
           <h2>
             Welcome!
