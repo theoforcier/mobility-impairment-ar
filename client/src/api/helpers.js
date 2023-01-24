@@ -6,8 +6,7 @@
  * @param {object} data Body of the request
  * @return {object}     Response from API
  */
-
-function postHTTP(path, data={}) {
+export function postHTTP(path, data={}) {
 	return http(path, data, "POST")
 }
 
@@ -19,8 +18,7 @@ function postHTTP(path, data={}) {
  * @param {object} data Body of the request
  * @return {object}     Response from API
  */
-function getHTTP(path, data={}) {
-	
+export function getHTTP(path, data={}) {	
 	return http(path, data, "GET")
 }
 

@@ -18,7 +18,7 @@ function LoginForm({ Login, SwitchPage, error }) {
     e.preventDefault();
 
     SwitchPage();
-  }
+  };
 
   // Email/username and password fields update state of details
   return (
