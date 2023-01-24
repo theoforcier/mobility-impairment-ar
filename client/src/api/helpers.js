@@ -69,7 +69,7 @@ function http(path, data, method) {
 					params[key] = JSON.stringify(params[key])
 			}
 
-			payload.body = params
+			payload.body = JSON.stringify(params)
 		}
 
 		// Send fetch request, and return result
