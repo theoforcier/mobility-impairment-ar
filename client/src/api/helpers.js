@@ -6,8 +6,7 @@
  * @param {object} data Body of the request
  * @return {object}     Response from API
  */
-
-export function postHTTP(path, data) {
+export function postHTTP(path, data={}) {
 	return http(path, data, "POST")
 }
 
@@ -19,8 +18,7 @@ export function postHTTP(path, data) {
  * @param {object} data Body of the request
  * @return {object}     Response from API
  */
-export function getHTTP(path, data) {
-	
+export function getHTTP(path, data={}) {	
 	return http(path, data, "GET")
 }
 
@@ -39,6 +37,7 @@ function http(path, data, method) {
 
 	return new Promise(function (resolve, reject) {
 
+		// Build headers
 		let headers = {
 			'Content-type': 'application/json'
 		}
@@ -46,20 +45,33 @@ function http(path, data, method) {
 		if ('token' in localStorage)
 			headers['Authorization'] = 'Bearer ' + localStorage.token
 
-		let payload = JSON.parse(JSON.stringify(data))
-
-		for (let key in payload) {
-			if (typeof payload[key] == "object")
-				payload[key] = JSON.stringify(payload[key])
+		// Build fetch payload
+		let payload = {
+			method: method,
+			headers: new Headers(headers),
+			//credentials: 'include',
+			//mode: "cors"
 		}
 
-		fetch(url, {
-			method: method,
-			//credentials: 'include',
-			//mode: "cors",
-			headers: new Headers(headers),
-			body: JSON.stringify(payload)
-		})
+		// Include user-provided parameters
+		if (method == "GET") {
+			let params = new URLSearchParams(obj).toString();
+			if (params)
+				url += "?" + params
+
+		} else {
+			let params = JSON.parse(JSON.stringify(data))
+
+			for (let key in params) {
+				if (typeof params[key] == "object")
+					params[key] = JSON.stringify(params[key])
+			}
+
+			payload.body = params
+		}
+
+		// Send fetch request, and return result
+		fetch(url, payload)
 			.then(function(response){
 				if (response.ok)
 					return response.json();
@@ -85,7 +97,7 @@ let payload = {
 	'email': '32324awd23324dwadwa3@gmail.com'
 }
 
-getHTTP('register', payload).then(response => {
+postHTTP('register', payload).then(response => {
 	console.log(response)
 })
 

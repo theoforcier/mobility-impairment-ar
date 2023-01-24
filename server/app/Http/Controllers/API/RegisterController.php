@@ -45,7 +45,7 @@ class RegisterController extends BaseController
      */
     public function login(Request $request)
     {
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password]) && isset($Auth)) { 
             $token = $Auth::user()->createToken('AppSession');
             $success['token'] = $token->plainTextToken; 
             $success['token_expiry'] = $token->accessToken->expired_at;
