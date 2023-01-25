@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function LoginForm({ Login, SwitchPage, error }) {
+function LoginForm({ Login, ChangePage, error }) {
   // Login details
   const [details, setDetails] = useState({
     email: "",
@@ -14,10 +14,10 @@ function LoginForm({ Login, SwitchPage, error }) {
     Login(details);
   };
 
-  const changePage = (e) => {
+  const switchForm = (e) => {
     e.preventDefault();
 
-    SwitchPage();
+    ChangePage("signup");
   };
 
   // Email/username and password fields update state of details
@@ -49,9 +49,9 @@ function LoginForm({ Login, SwitchPage, error }) {
           />
         </div>
         <input type="submit" value="SIGN IN" />
-        <hr className="seperator"/>
+        <hr className="seperator" />
         <div className="form-redirect">
-          <button onClick={changePage}>No account yet? Create one here</button>
+          <button onClick={switchForm}>No account yet? Create one here</button>
         </div>
       </div>
     </form>
