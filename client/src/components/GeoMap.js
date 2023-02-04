@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 
-const MyMap = () => {
+const GeoMap = () => {
   const [location, setLocation] = useState({ lat: 0, lng: 0 });
 
   useEffect(() => {
@@ -26,4 +26,4 @@ const MyMap = () => {
   );
 }
 
-export default MyMap;
+export default GeoMap;
