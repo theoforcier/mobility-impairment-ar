@@ -3,6 +3,11 @@ import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
 import { postHTTP, getHTTP } from "./api/helpers";
 import { PAGES } from "./pages";
+import {BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import GeoMap from "./components/GeoMap"
 
 function App() {
   // Stores user data after logging in / signing up
@@ -90,6 +95,11 @@ function App() {
       ) : (
         <SignupForm Signup={Signup} ChangePage={ChangePage} error={error} />
       )}
+      {/* <GeoMap className='MapContainers'>
+        <div className="App">
+      
+        </div>
+      </GeoMap> */}
     </div>
   );
 }
