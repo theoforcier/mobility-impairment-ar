@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('friend_id')->constrained('users');
             $table->timestamps();
 
-            $table->primary(['user1_id', 'user2_id']);
+            $table->primary(['user_id', 'friend_id']);
         });
     }
 
