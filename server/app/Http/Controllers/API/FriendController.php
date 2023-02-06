@@ -8,8 +8,8 @@ use App\Http\Requests\Friend\DestroyRequest;
 use App\Http\Requests\Friend\UpdateRequest;
 use App\Http\Requests\Friend\IndexRequest;
 
-use App\Http\Resources\FriendCollection;
-use App\Http\Resources\FriendResource;
+use App\Http\Resources\UserCollection;
+use App\Http\Resources\UserResource;
 
 use Illuminate\Http\Request;
 use App\Models\Friend;
@@ -49,13 +49,13 @@ class FriendController extends BaseController
 
     public function friends(IndexRequest $request)
     {
-        $data = new FriendCollection(auth()->user()->friends);
+        $data = new UserCollection(auth()->user()->friends);
         return $data;
     }
 
     public function pending(IndexRequest $request)
     {
-        $data = new FriendCollection(auth()->user()->pendingFriendsTo);
+        $data = new UserCollection(auth()->user()->pendingFriendsTo);
         return $this->sendResponse($data);
     }
 

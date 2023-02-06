@@ -95,4 +95,10 @@ class User extends Authenticatable
         return $this->mergedRelationWithModel(User::class, 'friends_view');
     }
 
+    public function searchUsers($str)
+    {
+        return User::where('display_name', 'like', '%'.$str.'%')
+            ->where('id', '!=', auth()->id())
+            ->get();
+    }
 }

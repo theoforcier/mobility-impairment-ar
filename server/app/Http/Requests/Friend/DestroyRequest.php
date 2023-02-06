@@ -17,6 +17,7 @@ class DestroyRequest extends BaseFormRequest
         return [
             'friend_id' => [
                 'required',
+                'integer', 'gt:0',
                 Rule::exists('friends','friend_id')->where(function ($query) {
                     return $query->where('user_id', auth()->id())
                         ->where('friend_id', $this->request->get('friend_id'))

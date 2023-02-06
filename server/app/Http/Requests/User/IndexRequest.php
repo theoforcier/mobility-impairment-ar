@@ -15,9 +15,7 @@ class IndexRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'display_name' =>  'sometimes|string|max:25|unique:users,display_name',
-            'first_name' =>    'sometimes|string|max:15',
-            'last_name' =>     'sometimes|string|max:15'
+            'display_name' =>  'required|string|max:25'
         ];
     }
 }

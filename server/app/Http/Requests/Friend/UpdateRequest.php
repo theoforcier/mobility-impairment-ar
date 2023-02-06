@@ -18,6 +18,7 @@ class UpdateRequest extends BaseFormRequest
         return [
             'friend_id' => [
                 'required',
+                'integer', 'gt:0',
                 Rule::exists('friends', 'user_id')
                     ->where('friend_id', auth()->id())
             ]

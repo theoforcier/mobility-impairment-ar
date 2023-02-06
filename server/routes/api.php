@@ -30,8 +30,9 @@ Route::controller(RegisterController::class)->group(function() {
 Route::middleware('auth:sanctum')->group( function () {
 
     Route::prefix('user')->group(function () {
-        Route::get('/', [UserController::class, 'show']);
-        Route::put('/', [UserController::class, 'update']);
+        Route::get('/',       [UserController::class, 'show']);
+        Route::get('/search', [UserController::class, 'index']);
+        Route::put('/',       [UserController::class, 'update']);
     });
 
     Route::prefix('friend')->group(function () {
