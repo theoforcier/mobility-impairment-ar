@@ -16,6 +16,7 @@ class StoreRequest extends BaseFormRequest
         return [
             'friend_id' => [
                 'required', 
+                'integer', 'gt:0',
                 'exists:users,id', 
                 'unique:friends,friend_id,NULL,id,user_id,'.auth()->id(),
                 function($attribute, $value, $fail) {

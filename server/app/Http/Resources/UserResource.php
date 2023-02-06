@@ -4,9 +4,9 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class FriendResource extends JsonResource
+class UserResource extends JsonResource
 {
-    public static $wrap = 'friend';
+    public static $wrap = 'user';
 
     public function toArray($request): array
     {
