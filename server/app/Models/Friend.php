@@ -17,7 +17,7 @@ class Friend extends Model
 
     public function users(): HasMany
     {
-        return $this->hasMany(User::class, 'friends', 'user1_id', 'user2_id');
+        return $this->hasMany(User::class, 'friends', 'user_id', 'friend_id');
     }
 
 
