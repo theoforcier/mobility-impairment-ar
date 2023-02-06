@@ -25,9 +25,10 @@ input {
 form {
   display: block;
   position: relative;
+  width: 80vw;
 }
 
-form:after {
+form::after {
   content: "";
   display: block;
   position: absolute;
@@ -130,9 +131,6 @@ form .form-redirect button {
 }
 
 form .seperator {
-  width: 350px;
-  height: 1x;
-  object-fit: cover;
   border: 1px solid #000;
   align-self: center;
   margin-top: 25px;
