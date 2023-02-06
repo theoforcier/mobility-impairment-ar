@@ -49,8 +49,43 @@ class User extends Authenticatable
     ];
 
 
-    public function friends(): HasMany
+
+    public function friendsTo()
     {
-        return $this->hasMany(Friend::class, 'display_name');
+        return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id')
+            ->withPivot('accepted')
+            ->withTimeStamps();
+    }
+
+    
+    public function friendsFrom()
+    {
+        return $this->belongsToMany(User::class, 'friends', 'friend_id', 'user_id')
+            ->withPivot('accepted')
+            ->withTimeStamps();
+    }
+
+
+    public function pendingFriendsTo()
+    {
+        return $this->friendsTo()->wherePivot('accepted', false);
+    }
+
+
+    public function pendingFriendsFrom()
+    {
+        return $this->friendsFrom()->wherePivot('accepted', false);
+    }
+
+
+    public function acceptedFriendsTo()
+    {
+        return $this->friendsTo()->wherePivot('accepted', true);
+    }
+
+
+    public function acceptedFriendsFrom()
+    {
+        return $this->friendsFrom()->wherePivot('accepted', true);
     }
 }
