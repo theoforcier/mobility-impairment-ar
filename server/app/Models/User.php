@@ -7,12 +7,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Staudenmeir\LaravelMergedRelations\Eloquent\HasMergedRelationships;
+
+use App\Models\Friend;
+
+
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasMergedRelationships;
 
     protected $table = 'users';
 
@@ -49,8 +54,45 @@ class User extends Authenticatable
     ];
 
 
-    public function friends(): HasMany
+    public function friendsTo(): BelongsToMany
     {
-        return $this->hasMany(Friend::class, 'display_name');
+        return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id')
+            ->withPivot('accepted')
+            ->withTimestamps();
     }
+
+ 
+    public function friendsFrom(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'friends', 'friend_id', 'user_id')
+            ->withPivot('accepted')
+            ->withTimestamps();
+    }
+
+
+    public function pendingFriendsTo(): BelongsToMany
+    {
+        return $this->friendsTo()->wherePivot('accepted', false);
+    }
+    
+    public function pendingFriendsFrom(): BelongsToMany
+    {
+        return $this->friendsFrom()->wherePivot('accepted', false);
+    }
+    
+    public function acceptedFriendsTo(): BelongsToMany
+    {
+        return $this->friendsTo()->wherePivot('accepted', true);
+    }
+    
+    public function acceptedFriendsFrom(): BelongsToMany
+    {
+        return $this->friendsFrom()->wherePivot('accepted', true);
+    }
+
+    public function friends()
+    {
+        return $this->mergedRelationWithModel(User::class, 'friends_view');
+    }
+
 }

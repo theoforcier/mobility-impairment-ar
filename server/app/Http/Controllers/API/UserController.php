@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
    
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Http\Requests\User\UpdateRequest;
+use App\Http\Requests\User\IndexRequest;
 use App\Models\User;
 
 
@@ -21,4 +22,5 @@ class UserController extends BaseController
         auth()->user()->update($request->input());
         return $this->show();
     }
+
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Friend;
 
 use App\Http\Requests\BaseFormRequest;
+use Illuminate\Validation\Rule;
 
 class IndexRequest extends BaseFormRequest
 {
@@ -13,10 +14,6 @@ class IndexRequest extends BaseFormRequest
 
     public function rules(): array
     {
-        return [
-            'display_name' =>  'sometimes|string',
-            'first_name' =>    'sometimes|string',
-            'last_name' =>     'sometimes|string',
-        ];
+        return [];
     }
 }
