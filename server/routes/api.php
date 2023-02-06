@@ -8,6 +8,7 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\FriendController;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -34,7 +35,11 @@ Route::middleware('auth:sanctum')->group( function () {
     });
 
     Route::prefix('friend')->group(function () {
-        Route::get('/', [FriendController::class, 'index']);
+        Route::post('/',       [FriendController::class, 'store']);
+        Route::get('/',        [FriendController::class, 'friends']);
+        Route::get('/pending', [FriendController::class, 'pending']);
+        Route::put('/',        [FriendController::class, 'accept']);
+        Route::delete('/',     [FriendController::class, 'destroy']);
     });
     
 });
