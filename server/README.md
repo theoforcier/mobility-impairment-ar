@@ -57,7 +57,7 @@ For example, to display all tables in the database, run the command:\
 |--|--|--|--|--|
 | GET | /user | | Return the current user | ✔️ |
 | PUT | /user | `email`, `display_name`, `first_name`, `last_name`, `password` | Update the current user | ✔️ |
-| GET | /user | `display_name` | Return list of matching users | ✔️ |
+| GET | /user/search | `display_name` | Return list of matching users | ✔️ |
 
 ### Friend Resource
 
