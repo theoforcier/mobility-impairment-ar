@@ -100,7 +100,7 @@ function SignupForm({ Signup, ChangePage, error }) {
             value={details.confirmPass}
           />
         </div>
-        <input type="submit" value="Create" />
+        <input type="submit" value="CREATE" />
         <hr className="seperator" />
         <div className="form-redirect">
           <button onClick={switchForm}>Have an account? Sign in here</button>
