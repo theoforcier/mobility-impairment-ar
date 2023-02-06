@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\RegisterController;
+use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\FriendController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +25,16 @@ Route::controller(RegisterController::class)->group(function() {
     Route::post('login', 'login');
 });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::middleware('auth:sanctum')->group( function () {
+
+    Route::prefix('user')->group(function () {
+        Route::get('/', [UserController::class, 'show']);
+        Route::put('/', [UserController::class, 'update']);
+    });
+
+    Route::prefix('friend')->group(function () {
+        Route::get('/', [FriendController::class, 'index']);
+    });
+    
 });
