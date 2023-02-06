@@ -47,8 +47,8 @@ For example, to display all tables in the database, run the command:\
 
 | Endpoint | URI | Parameters | Description | Requires Authentication? |
 |--|--|--|--|--|
-| POST | /register | `email`\ `display_name`\ `first_name`\ `last_name`\ `password`\ `c_password`| Register a new user | ❌ |
-| PUT | /login | `email`\ `password` | Return a new session token | ❌|
+| POST | /register | `email`, `display_name`, `first_name`, `last_name`, `password`, `c_password`| Register a new user | ❌ |
+| PUT | /login | `email`, `password` | Return a new session token | ❌|
 
 
 ### User Resource
@@ -56,7 +56,7 @@ For example, to display all tables in the database, run the command:\
 | Endpoint | URI | Parameters | Description | Requires Authentication? |
 |--|--|--|--|--|
 | GET | /user | | Return the current user | ✔️ |
-| PUT | /user | `email`\ `display_name`\ `first_name`\ `last_name`\ `password` | Update the current user | ✔️ |
+| PUT | /user | `email`, `display_name`, `first_name`, `last_name`, `password` | Update the current user | ✔️ |
 
 ### Friend Resource
 
