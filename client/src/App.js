@@ -50,17 +50,16 @@ function App() {
 
   // Signup function
   const Signup = (signupDetails) => {
-    console.log(signupDetails);
     setError("");
 
     let payload = {
-      name: signupDetails.firstName + " " + signupDetails.lastName,
+      first_name: signupDetails.firstName,
+      last_name: signupDetails.lastName,
       email: signupDetails.email,
+      display_name: signupDetails.username,
       password: signupDetails.password,
       c_password: signupDetails.confirmPass,
     };
-
-    console.log(payload);
 
     // Send register request to API
     postHTTP("register", payload).then((response) => {
