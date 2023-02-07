@@ -91,6 +91,11 @@ function App() {
       ) : (
         <SignupForm Signup={Signup} ChangePage={ChangePage} error={error} />
       )}
+      {/* <GeoMap className='MapContainers'>
+        <div className="App">
+      
+        </div>
+      </GeoMap> */}
     </div>
   );
 }
