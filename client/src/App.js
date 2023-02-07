@@ -8,6 +8,7 @@ import {BrowserRouter,
   Route,
 } from "react-router-dom";
 import GeoMap from "./components/GeoMap"
+import "App.css"
 
 function App() {
   // Stores user data after logging in / signing up
@@ -91,11 +92,6 @@ function App() {
       ) : (
         <SignupForm Signup={Signup} ChangePage={ChangePage} error={error} />
       )}
-      {/* <GeoMap className='MapContainers'>
-        <div className="App">
-      
-        </div>
-      </GeoMap> */}
     </div>
   );
 }
