@@ -3,6 +3,11 @@ import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
 import { postHTTP, getHTTP } from "./api/helpers";
 import { PAGES } from "./pages";
+import {BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import GeoMap from "./components/GeoMap"
 
 function App() {
   // Stores user data after logging in / signing up
@@ -79,10 +84,7 @@ function App() {
   return (
     <div className="App">
       {user.token != "" ? (
-        <div className="welcome">
-          <h2>Welcome!</h2>
-          <button onClick={Logout}>Logout</button>
-        </div>
+        <GeoMap className='MapContainers' />
       ) : // Must pass login/signup/changepage functions and error to our forms
       page == PAGES.LOGIN ? (
         <LoginForm Login={Login} ChangePage={ChangePage} error={error} />
