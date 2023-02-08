@@ -6,7 +6,7 @@
  * @param {object} data Body of the request
  * @return {object}     Response from API
  */
-function postHTTP(path, data={}) {
+export function postHTTP(path, data={}) {
 	return http(path, data, "POST")
 }
 
@@ -18,8 +18,8 @@ function postHTTP(path, data={}) {
  * @param {object} data Body of the request
  * @return {object}     Response from API
  */
-function getHTTP(path, data={}) {
-	return http(path, data, "GET", isURLEncoded=true)
+export function getHTTP(path, data={}) {
+	return http(path, data, "GET", true)
 }
 
 
@@ -30,7 +30,7 @@ function getHTTP(path, data={}) {
  * @param {object} data Body of the request
  * @return {object}     Response from API
  */
-function putHTTP(path, data={}) {
+export function putHTTP(path, data={}) {
 	return http(path, data, "PUT")
 }
 
@@ -43,7 +43,7 @@ function putHTTP(path, data={}) {
  * @param {object} data Body of the request
  * @return {object}     Response from API
  */
-function deleteHTTP(path, data={}) {
+export function deleteHTTP(path, data={}) {
 	return http(path, data, "DELETE")
 }
 
