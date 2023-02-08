@@ -14,13 +14,17 @@ input {
 
 .App {
   height: 100vh;
+}
+
+/* Login/signup form styling */
+
+.Form {
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background-image: linear-gradient(to bottom right, #5a7bd0, #fff);
 }
-
-/* Login/signup form styling */
 
 form {
   display: block;
@@ -136,6 +140,8 @@ form .seperator {
   margin-top: 25px;
   margin-bottom: 25px;
 }
+
+/* Map Styling */
 
 .leaflet-container {
   width: 100wh; 

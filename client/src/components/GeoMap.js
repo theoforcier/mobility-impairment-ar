@@ -23,10 +23,10 @@ const GeoMap = () => {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
       {/*<Marker position={[42.984268, -81.247528]}>
-      <Popup>
-      A pretty CSS3 popup. <br /> Easily customizable.
-    </Popup>
-  </Marker>*/}
+        <Popup>
+        A pretty CSS3 popup. <br /> Easily customizable.
+        </Popup>
+    </Marker>*/}
     </MapContainer>
   );
 }
