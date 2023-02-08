@@ -1,6 +1,7 @@
 import { useState } from "react";
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
+import GeoMap from "./components/GeoMap";
 import { postHTTP, getHTTP } from "./api/helpers";
 import { PAGES } from "./pages";
 
