@@ -19,7 +19,7 @@ function postHTTP(path, data={}) {
  * @return {object}     Response from API
  */
 function getHTTP(path, data={}) {
-	return http(path, data, "GET", isURLEncoded=true)
+	return http(path, data, "GET", true)
 }
 
 
