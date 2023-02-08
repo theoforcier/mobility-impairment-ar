@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { postHTTP, getHTTP } from "./api/helpers";
-import { PAGES } from "./pages";
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
 import GeoMap from "./components/GeoMap";
+import { postHTTP, getHTTP } from "./api/helpers";
+import { PAGES } from "./pages";
 
 function App() {
   // Stores user data after logging in / signing up
@@ -21,6 +21,7 @@ function App() {
 
   // Login function
   const Login = (loginDetails) => {
+    console.log(loginDetails);
     setError("");
 
     let payload = {
@@ -79,16 +80,15 @@ function App() {
   return (
     <div className="App">
       {user.token != "" ? (
-        <GeoMap className='MapContainers' />
+        <div className="welcome">
+          <h2>Welcome!</h2>
+          <button onClick={Logout}>Logout</button>
+        </div>
       ) : // Must pass login/signup/changepage functions and error to our forms
       page == PAGES.LOGIN ? (
-        <div className="Form">
-          <LoginForm Login={Login} ChangePage={ChangePage} error={error} />
-        </div>
+        <LoginForm Login={Login} ChangePage={ChangePage} error={error} />
       ) : (
-        <div className="Form">
-          <SignupForm Signup={Signup} ChangePage={ChangePage} error={error} />
-        </div>
+        <SignupForm Signup={Signup} ChangePage={ChangePage} error={error} />
       )}
     </div>
   );

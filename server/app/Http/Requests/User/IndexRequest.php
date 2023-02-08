@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Requests\Friend;
+namespace App\Http\Requests\User;
 
+//use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Requests\BaseFormRequest;
-use Illuminate\Validation\Rule;
 
 class IndexRequest extends BaseFormRequest
 {
@@ -14,6 +14,8 @@ class IndexRequest extends BaseFormRequest
 
     public function rules(): array
     {
-        return [];
+        return [
+            'display_name' =>  'required|string|max:25'
+        ];
     }
 }

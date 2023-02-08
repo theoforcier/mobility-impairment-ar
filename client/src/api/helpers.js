@@ -6,7 +6,7 @@
  * @param {object} data Body of the request
  * @return {object}     Response from API
  */
-export function postHTTP(path, data={}) {
+function postHTTP(path, data={}) {
 	return http(path, data, "POST")
 }
 
@@ -18,9 +18,35 @@ export function postHTTP(path, data={}) {
  * @param {object} data Body of the request
  * @return {object}     Response from API
  */
-export function getHTTP(path, data={}) {	
-	return http(path, data, "GET")
+function getHTTP(path, data={}) {
+	return http(path, data, "GET", isURLEncoded=true)
 }
+
+
+/**
+ * Makes an HTTP PUT request to the API
+ * @author Cameron Arnold
+ * @param {string} path API model path (eg. "register", "login", etc)
+ * @param {object} data Body of the request
+ * @return {object}     Response from API
+ */
+function putHTTP(path, data={}) {
+	return http(path, data, "PUT")
+}
+
+
+
+/**
+ * Makes an HTTP DELETE request to the API
+ * @author Cameron Arnold
+ * @param {string} path API model path (eg. "register", "login", etc)
+ * @param {object} data Body of the request
+ * @return {object}     Response from API
+ */
+function deleteHTTP(path, data={}) {
+	return http(path, data, "DELETE")
+}
+
 
 
 /**
@@ -31,10 +57,10 @@ export function getHTTP(path, data={}) {
  * @param {string} method Method type (eg. "POST", "GET", etc)
  * @return {object}       Response from API
  */
-function http(path, data, method) {
-	
-	let url = process.env.REACT_APP_API_ROOT + path
+function http(path, data, method, isURLEncoded=false) {
 
+	let url = process.env.REACT_APP_API_ROOT + path
+	
 	return new Promise(function (resolve, reject) {
 
 		// Build headers
@@ -42,33 +68,36 @@ function http(path, data, method) {
 			'Content-type': 'application/json'
 		}
 
-		if ('token' in localStorage)
+		if ('token' in localStorage) {
 			headers['Authorization'] = 'Bearer ' + localStorage.token
-
-		// Build fetch payload
-		let payload = {
-			method: method,
-			headers: new Headers(headers),
-			//credentials: 'include',
-			//mode: "cors"
+			headers['Accept'] = 'application/json'
 		}
 
-		// Include user-provided parameters
-		if (method == "GET") {
-			let params = new URLSearchParams(obj).toString();
+		// Build payload
+		let payload = {
+			method: method
+		}
+
+		if (isURLEncoded) {
+			const params = new URLSearchParams(data).toString();
 			if (params)
 				url += "?" + params
+		}
 
-		} else {
+		else {
 			let params = JSON.parse(JSON.stringify(data))
-
-			for (let key in params) {
-				if (typeof params[key] == "object")
+			Object.keys(params).forEach(key => {
+				if (typeof params[key] == 'object')
 					params[key] = JSON.stringify(params[key])
-			}
+			})
 
 			payload.body = JSON.stringify(params)
 		}
+
+
+		// Finally set headers
+		payload.headers = new Headers(headers)
+
 
 		// Send fetch request, and return result
 		fetch(url, payload)
@@ -85,20 +114,3 @@ function http(path, data, method) {
 	})
 }
 
-
-/*
-
-Example run:
-
-let payload = {
-	'name': 'Cam',
-	'password': '1234',
-	'c_password': '1234',
-	'email': '32324awd23324dwadwa3@gmail.com'
-}
-
-postHTTP('register', payload).then(response => {
-	console.log(response)
-})
-
-*/
