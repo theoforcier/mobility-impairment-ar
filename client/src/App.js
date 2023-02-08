@@ -4,7 +4,6 @@ import { PAGES } from "./pages";
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
 import GeoMap from "./components/GeoMap";
-import "./geomap.css";
 
 function App() {
   // Stores user data after logging in / signing up
