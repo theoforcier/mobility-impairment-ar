@@ -6,7 +6,7 @@
 
 1. (Assuming Docker Desktop is installed) From the server folder in the command-line, run:\
 
-`docker-compose up -d`\
+`docker-compose up -d`
 
 This may take a few minutes the first time it runs.
 
@@ -14,9 +14,9 @@ This may take a few minutes the first time it runs.
 
 3. Navigate to the "Terminal" tab, and run the following commands:\
 
-`# composer install`\
+`# composer install`
 
-`# php artisan --version`\
+`# php artisan --version`
 
 `# php artisan migrate`
 
@@ -63,8 +63,8 @@ For example, to display all tables in the database, run the command:\
 
 | Endpoint | URI | Parameters | Description | Requires Authentication? |
 |--|--|--|--|--|
-| POST | /friend | `friend_id` | Send a friend request | ✔️ |
+| POST | /friend/{user_id} | | Send a friend request | ✔️ |
 | GET | /friend |  | Return list of friends | ✔️ |
 | GET | /friend/pending |  | Return list of pending friend requests | ✔️ |
-| PUT | /friend | `friend_id` | Accept a pending friend request | ✔️ |
-| DELETE | /friend | `friend_id` | Delete a friend or pending friend request | ✔️ |
+| PUT | /friend/{user_id} | | Accept a pending friend request | ✔️ |
+| DELETE | /friend/{user_id} | | Delete a friend or pending friend request | ✔️ |
