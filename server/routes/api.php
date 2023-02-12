@@ -36,7 +36,7 @@ Route::middleware('auth:sanctum')->group( function () {
     });
 
     Route::prefix('friends')->group(function () {
-        Route::post('{user}',   [FriendController::class, 'store']);
+        Route::post('/',        [FriendController::class, 'store']);
         Route::get('/',         [FriendController::class, 'friends']);
         Route::get('pending',   [FriendController::class, 'pending']);
         Route::put('{user}',    [FriendController::class, 'accept']);

@@ -3,14 +3,10 @@
 namespace App\Http\Requests\Friend;
 
 use App\Http\Requests\BaseFormRequest;
+use App\Models\User;
 
 class StoreRequest extends BaseFormRequest
 {
-
-    protected function prepareForValidation() 
-    {
-        $this->merge(['friend_id' => $this->route('user')->id]);
-    }
 
     public function authorize(): bool
     {
@@ -20,14 +16,7 @@ class StoreRequest extends BaseFormRequest
     public function rules(): array
     {
         return [
-            'friend_id' => [
-                'unique:friends,friend_id,NULL,id,user_id,'.auth()->id(),
-                function($attribute, $value, $fail) {
-                    if (auth()->id() == $value) {
-                        $fail("Cannot befriend yourself");
-                    }
-                }
-            ]
+            'display_name' => 'required|string|max:25'
         ];
     }
 }

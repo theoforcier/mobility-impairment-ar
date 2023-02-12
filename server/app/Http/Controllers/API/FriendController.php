@@ -27,16 +27,18 @@ class FriendController extends BaseController
         $this->model = $model;
     }
 
-
-    public function store(User $user, StoreRequest $request)
+    public function store(StoreRequest $request)
     {
-        $data = auth()->user()->friendsTo()->attach($user->id);
-        return $this->sendResponse($data);
+        $error = $this->model->friend($request->input()['display_name']);
+
+        if (!$error)
+            return $this->sendResponse();
+        return $this->sendError($error);
     }
 
     public function destroy(User $user, DestroyRequest $request)
     {
-        $success = $this->model->unfriend($user->id);
+        $success = $this->model->unfriend($user);
         return $this->sendResponse(null);
     }
 
