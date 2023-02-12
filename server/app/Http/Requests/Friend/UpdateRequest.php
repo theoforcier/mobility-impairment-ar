@@ -2,12 +2,20 @@
 
 namespace App\Http\Requests\Friend;
 
-//use Illuminate\Foundation\Http\FormRequest;
 use App\Http\Requests\BaseFormRequest;
 use Illuminate\Validation\Rule;
 
+use App\Models\Friend;
+
+
 class UpdateRequest extends BaseFormRequest
 {
+
+    protected function prepareForValidation() 
+    {
+        $this->merge(['friend_id' => $this->route('user')->id]);
+    }
+
     public function authorize(): bool
     {
         return true;
@@ -17,8 +25,6 @@ class UpdateRequest extends BaseFormRequest
     {
         return [
             'friend_id' => [
-                'required',
-                'integer', 'gt:0',
                 Rule::exists('friends', 'user_id')
                     ->where('friend_id', auth()->id())
             ]

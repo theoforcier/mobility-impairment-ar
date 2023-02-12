@@ -12,6 +12,7 @@ use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Friend;
 
 
@@ -27,23 +28,21 @@ class FriendController extends BaseController
     }
 
 
-    public function store(StoreRequest $request)
+    public function store(User $user, StoreRequest $request)
     {
-        $data = auth()->user()->friendsTo()->attach($request['friend_id']);
+        $data = auth()->user()->friendsTo()->attach($user->id);
         return $this->sendResponse($data);
     }
 
-    public function destroy(DestroyRequest $request)
+    public function destroy(User $user, DestroyRequest $request)
     {
-        $success = $this->model->unfriend($request['friend_id']);
-        if ($success)
-            return $this->sendResponse(null);
-        return $this->sendError("Unable to find/delete record.");
+        $success = $this->model->unfriend($user->id);
+        return $this->sendResponse(null);
     }
 
-    public function accept(UpdateRequest $request)
+    public function accept(User $user, UpdateRequest $request)
     {
-        auth()->user()->friendsFrom()->updateExistingPivot($request['friend_id'], ['accepted' => true]);
+        auth()->user()->friendsFrom()->updateExistingPivot($user->id, ['accepted' => true]);
         return $this->sendResponse(null);
     }
 
