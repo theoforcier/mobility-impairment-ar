@@ -63,8 +63,8 @@ For example, to display all tables in the database, run the command:\
 
 | Endpoint | URI | Parameters | Description | Requires Authentication? |
 |--|--|--|--|--|
-| POST | /friend/{user_id} | | Send a friend request | ✔️ |
+| POST | /friend/`{user_id}` | | Send a friend request | ✔️ |
 | GET | /friend |  | Return list of friends | ✔️ |
 | GET | /friend/pending |  | Return list of pending friend requests | ✔️ |
-| PUT | /friend/{user_id} | | Accept a pending friend request | ✔️ |
-| DELETE | /friend/{user_id} | | Delete a friend or pending friend request | ✔️ |
+| PUT | /friend/`{user_id}` | | Accept a pending friend request | ✔️ |
+| DELETE | /friend/`{user_id}` | | Delete a friend or pending friend request | ✔️ |
