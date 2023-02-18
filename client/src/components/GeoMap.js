@@ -55,14 +55,6 @@ const GeoMap = () => {
       <LocationMarker/>
       <MainUIBtn></MainUIBtn>
     </MapContainer>
-    // <div style={{ position: 'relative', height: '100vh' }}>
-    // <MapContainer center={position} zoom={50} style={{ height: '100vh' }}>
-    //   <TileLayer />
-    //   <MainUIBtn></MainUIBtn>
-    //   <Marker position={position}>
-    //   </Marker>
-    // </MapContainer>
-    // </div>
   );
 }
 
