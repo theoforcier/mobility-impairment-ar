@@ -17,18 +17,24 @@ const LocationMarker = () => {
   const [position, setPosition] = useState(null);
 
   const map = useMap();
+  var circle = L.circle([0.1, 0.1], {radius: 0.1});
+  circle.addTo(map);
 
   useEffect(() => {
-    // Update marker location every 5 seconds
-    const interval = setInterval(() => {
+    const updatePosition = () => {
       map.locate().on("locationfound", function (e) {
         setPosition(e.latlng);
-        map.flyTo(e.latlng, map.getZoom());
-        const radius = e.accuracy;
-        const circle = L.circle(e.latlng, radius);
-        circle.addTo(map);
+        map.panTo(e.latlng);
+        circle.setRadius(e.accuracy);
+        circle.setLatLng(e.latlng);
       });
-    }, 5000);
+    }
+    // Find initial position
+    updatePosition()
+    // Update position every 5 seconds
+    const interval = setInterval(() => {
+      updatePosition()
+    }, 5*1000);
     return () => clearInterval(interval);
   }, [map]);
 
@@ -39,7 +45,7 @@ const LocationMarker = () => {
 
 const GeoMap = () => {
   return (
-    <MapContainer center={[42.984268, -81.247528]} zoom={13}>
+    <MapContainer center={[42.955649464967046, -81.22525549094281]} zoom={17} dragging={false} scrollWheelZoom={false} minZoom={16} maxZoom={18}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
