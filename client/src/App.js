@@ -1,6 +1,10 @@
 import { useState } from "react";
+import {Button} from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+
 import { postHTTP, getHTTP } from "./api/helpers";
 import { PAGES } from "./pages";
+
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
 import GeoMap from "./components/GeoMap";
@@ -70,7 +74,7 @@ function App() {
         // If register fails, set error message
       } else {
         console.log(response.data);
-        setError("Registration error!");
+        setError("Username or email already in use!");
       }
     });
   };
