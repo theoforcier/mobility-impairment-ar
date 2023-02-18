@@ -1,19 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
+// import Container from 'react-bootstrap';
+import { Button, Container } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser,faUsers, faStar , faUserPlus} from "@fortawesome/free-solid-svg-icons";
+import './MainUIBtn.css'
 
 const MainUIBtn = () => {
     return(
-        <div className="position-fixed bottom-0 end-0 p-3" style={{ height: "50px", width: "50px", position: 'absolute', top: 450, left: 650, zIndex: 9999 }}>
-            <Button className="rounded-circle me-4" variant="primary"> <FontAwesomeIcon icon={faUser} /></Button>
-
-            <Button className="rounded-circle me-4" variant="primary"> <FontAwesomeIcon icon={faUsers} /></Button>
-            <Button className="rounded-circle" variant="primary"> <FontAwesomeIcon icon={faStar} /></Button>
-            <Button className="rounded-circle" variant="primary"> <FontAwesomeIcon icon={faUserPlus} /></Button>
-        </div>
-        
+        <Container className="position-fixed bottom-0 end-0 me-1" style={{zIndex: 9999 }}>
+                <div className='mb-3'>
+                <Button className="rounded-circle"> <FontAwesomeIcon icon={faUser} /></Button>
+                </div>
+                <div className='mb-3'>
+                <Button className="rounded-circle"> <FontAwesomeIcon icon={faUsers} /></Button>
+                </div>
+                <div className='mb-3'>
+                <Button className="rounded-circle"> <FontAwesomeIcon icon={faStar} /></Button>
+                </div>
+                <div className='mb-3'>
+                <Button className="rounded-circle"> <FontAwesomeIcon icon={faUserPlus} /></Button>
+                </div>
+        </Container>
     );
 }
 
