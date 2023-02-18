@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import MainUIBtn from './MainUIBtn'
 import L from 'leaflet';
 import { MapContainer, useMap, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css'
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
 
 // Creating marker
 let DefaultIcon = L.icon({
@@ -51,7 +53,16 @@ const GeoMap = () => {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
       <LocationMarker/>
+      <MainUIBtn></MainUIBtn>
     </MapContainer>
+    // <div style={{ position: 'relative', height: '100vh' }}>
+    // <MapContainer center={position} zoom={50} style={{ height: '100vh' }}>
+    //   <TileLayer />
+    //   <MainUIBtn></MainUIBtn>
+    //   <Marker position={position}>
+    //   </Marker>
+    // </MapContainer>
+    // </div>
   );
 }
 

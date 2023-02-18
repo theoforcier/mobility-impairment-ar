@@ -7,6 +7,12 @@ use Illuminate\Validation\Rule;
 
 class DestroyRequest extends BaseFormRequest
 {
+    
+    protected function prepareForValidation() 
+    {
+        $this->merge(['friend_id' => $this->route('user')->id]);
+    }
+
     public function authorize(): bool
     {
         return true;
@@ -16,8 +22,6 @@ class DestroyRequest extends BaseFormRequest
     {
         return [
             'friend_id' => [
-                'required',
-                'integer', 'gt:0',
                 Rule::exists('friends','friend_id')->where(function ($query) {
                     return $query->where('user_id', auth()->id())
                         ->where('friend_id', $this->request->get('friend_id'))

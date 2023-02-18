@@ -12,6 +12,7 @@ use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Friend;
 
 
@@ -26,24 +27,24 @@ class FriendController extends BaseController
         $this->model = $model;
     }
 
-
     public function store(StoreRequest $request)
     {
-        $data = auth()->user()->friendsTo()->attach($request['friend_id']);
-        return $this->sendResponse($data);
+        $error = $this->model->friend($request->input()['display_name']);
+
+        if (!$error)
+            return $this->sendResponse();
+        return $this->sendError($error);
     }
 
-    public function destroy(DestroyRequest $request)
+    public function destroy(User $user, DestroyRequest $request)
     {
-        $success = $this->model->unfriend($request['friend_id']);
-        if ($success)
-            return $this->sendResponse(null);
-        return $this->sendError("Unable to find/delete record.");
+        $success = $this->model->unfriend($user);
+        return $this->sendResponse(null);
     }
 
-    public function accept(UpdateRequest $request)
+    public function accept(User $user, UpdateRequest $request)
     {
-        auth()->user()->friendsFrom()->updateExistingPivot($request['friend_id'], ['accepted' => true]);
+        auth()->user()->friendsFrom()->updateExistingPivot($user->id, ['accepted' => true]);
         return $this->sendResponse(null);
     }
 
@@ -55,7 +56,7 @@ class FriendController extends BaseController
 
     public function pending(IndexRequest $request)
     {
-        $data = new UserCollection(auth()->user()->pendingFriendsTo);
+        $data = new UserCollection(auth()->user()->pendingFriendsFrom);
         return $this->sendResponse($data);
     }
 

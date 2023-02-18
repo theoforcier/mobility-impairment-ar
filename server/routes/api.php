@@ -35,12 +35,12 @@ Route::middleware('auth:sanctum')->group( function () {
         Route::put('/',       [UserController::class, 'update']);
     });
 
-    Route::prefix('friend')->group(function () {
-        Route::post('/',       [FriendController::class, 'store']);
-        Route::get('/',        [FriendController::class, 'friends']);
-        Route::get('/pending', [FriendController::class, 'pending']);
-        Route::put('/',        [FriendController::class, 'accept']);
-        Route::delete('/',     [FriendController::class, 'destroy']);
+    Route::prefix('friends')->group(function () {
+        Route::post('/',        [FriendController::class, 'store']);
+        Route::get('/',         [FriendController::class, 'friends']);
+        Route::get('pending',   [FriendController::class, 'pending']);
+        Route::put('{user}',    [FriendController::class, 'accept']);
+        Route::delete('{user}', [FriendController::class, 'destroy']);
     });
     
 });
