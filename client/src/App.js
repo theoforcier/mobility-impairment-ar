@@ -36,11 +36,9 @@ function App() {
     postHTTP("login", payload).then((response) => {
       // If login succeeds, set user token
       if (response.success) {
-        console.log(response);
         setUser({ token: response.data.token });
         // If login fails, set error message
       } else {
-        console.log(response.data);
         setError("Email or password is incorrect!");
       }
     });
@@ -69,11 +67,9 @@ function App() {
     postHTTP("register", payload).then((response) => {
       // If register succeeds, set user token (log in)
       if (response.success) {
-        console.log(response);
         setUser({ token: response.data.token });
         // If register fails, set error message
       } else {
-        console.log(response.data);
         setError("Username or email already in use!");
       }
     });

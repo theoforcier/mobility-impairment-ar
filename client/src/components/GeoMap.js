@@ -46,7 +46,7 @@ const LocationMarker = () => {
 
 const GeoMap = () => {
   return (
-    <MapContainer center={[42.955649464967046, -81.22525549094281]} zoom={17} dragging={false} scrollWheelZoom={false} minZoom={16} maxZoom={18}>
+    <MapContainer center={[42.955649464967046, -81.22525549094281]} zoom={17} dragging={false} scrollWheelZoom={false} doubleClickZoom={false} minZoom={16} maxZoom={18}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
