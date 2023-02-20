@@ -9,7 +9,7 @@ import './MainUIBtn.css'
 
 const MainUIBtn = () => {
     return(
-        <Container className="position-fixed bottom-0 end-0 me-1" style={{zIndex: 9999 }}>
+        <Container className="position-fixed bottom-0 end-1 me-1" style={{zIndex: 9999 }}>
                 <div className='mb-3'>
                 <Button className="rounded-circle"> <FontAwesomeIcon icon={faUser} /></Button>
                 </div>
