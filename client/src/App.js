@@ -79,7 +79,7 @@ function App() {
     });
   };
 
-  // If logged in (token is set) display welcome, if not display correct form
+  // If logged in (token is set) display map, if not display correct form
   return (
     <div className="App">
       {user.token != "" ? (
