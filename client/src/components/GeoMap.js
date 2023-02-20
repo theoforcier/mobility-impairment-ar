@@ -5,6 +5,9 @@ import { MapContainer, useMap, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css'
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import MainUIInfo from './MainUIInfo';
+import { Container, Row, Col } from 'react-bootstrap';
+
 
 
 // Creating marker
@@ -54,6 +57,7 @@ const GeoMap = () => {
       />
       <LocationMarker/>
       <MainUIBtn></MainUIBtn>
+      <MainUIInfo></MainUIInfo>
     </MapContainer>
   );
 }
