@@ -1,0 +1,58 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.Friend {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to bottom right, #5a7bd0, #fff);
+}
+
+.Friend .return-back{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.friendRequest{
+  text-align: center;
+}
+
+/*
+Style the card that will store all of the friend requests
+*/
+.friendRequest .friendRequestCard {
+  text-align: left;
+  height: 160px;
+  width: 100%;
+}
+
+.myFriends{
+  text-align: center;
+}
+
+.myFriends .myFriendsCard{
+  text-align: left;
+  height: 160px;
+  width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
