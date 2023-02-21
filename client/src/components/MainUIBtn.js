@@ -7,11 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser,faUsers, faStar , faUserPlus} from "@fortawesome/free-solid-svg-icons";
 import './MainUIBtn.css'
 
-const MainUIBtn = () => {
+const MainUIBtn = ({ ChangePage }) => {
     return(
         <Container className="position-fixed bottom-0 end-1 me-1" style={{zIndex: 9999 }}>
                 <div className='mb-3'>
-                <Button className="rounded-circle"> <FontAwesomeIcon icon={faUser} /></Button>
+                <Button className="rounded-circle" onClick={() => ChangePage("profile")}> <FontAwesomeIcon icon={faUser} /></Button>
                 </div>
                 <div className='mb-3'>
                 <Button className="rounded-circle"> <FontAwesomeIcon icon={faUsers} /></Button>

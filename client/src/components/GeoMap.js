@@ -6,7 +6,6 @@ import 'leaflet/dist/leaflet.css'
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
-
 // Creating marker
 let DefaultIcon = L.icon({
     iconUrl: icon,
@@ -33,10 +32,10 @@ const LocationMarker = () => {
     }
     // Find initial position
     updatePosition()
-    // Update position every 5 seconds
+    // Update position every 3 seconds
     const interval = setInterval(() => {
       updatePosition()
-    }, 5*1000);
+    }, 3*1000);
     return () => clearInterval(interval);
   }, [map]);
 
@@ -45,15 +44,15 @@ const LocationMarker = () => {
   );
 }
 
-const GeoMap = () => {
+const GeoMap = ({ ChangePage }) => {
   return (
-    <MapContainer center={[42.955649464967046, -81.22525549094281]} zoom={17} dragging={false} scrollWheelZoom={false} minZoom={16} maxZoom={18}>
+    <MapContainer center={[42.955649464967046, -81.22525549094281]} zoom={17} dragging={false} scrollWheelZoom={false} doubleClickZoom={false} minZoom={16} maxZoom={18}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
       <LocationMarker/>
-      <MainUIBtn></MainUIBtn>
+      <MainUIBtn ChangePage={ChangePage} />
     </MapContainer>
   );
 }
