@@ -2,6 +2,8 @@ import { Button, Container, CardGroup, Card } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Profile = () => {
+  // TEMPORARY: JUST A PLACEHOLDER FOR PROFILE SCREEN
+
   return (
     <CardGroup style={{ zIndex: 9999 }}>
       <Card>
