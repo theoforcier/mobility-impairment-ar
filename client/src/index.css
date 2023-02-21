@@ -18,7 +18,7 @@ input {
 
 /* Login/signup form styling */
 
-.Form {
+.Landing {
   height: 100vh;
   display: flex;
   align-items: center;
@@ -26,13 +26,13 @@ input {
   background-image: linear-gradient(to bottom right, #5a7bd0, #fff);
 }
 
-form {
+.Landing form {
   display: block;
   position: relative;
   width: 80vw;
 }
 
-form::after {
+.Landing form::after {
   content: "";
   display: block;
   position: absolute;
@@ -44,7 +44,7 @@ form::after {
   background-image: linear-gradient(to top left, #5a7bd0, #fff);
 }
 
-form .form-inner {
+.Landing form .form-inner {
   position: relative;
   display: block;
   background-color: #fff;
@@ -52,20 +52,20 @@ form .form-inner {
   z-index: 2;
 }
 
-form .form-inner h2 {
+.Landing form .form-inner h2 {
   color: #000;
   font-size: 28px;
   font-weight: 500;
   margin-bottom: 30px;
 }
 
-form .form-inner .form-group {
+.Landing form .form-inner .form-group {
   display: block;
   width: 300;
   margin-bottom: 15px;
 }
 
-form .form-inner .form-group label {
+.Landing form .form-inner .form-group label {
   display: block;
   color: #000;
   font-size: 12px;
@@ -73,11 +73,11 @@ form .form-inner .form-group label {
   transition: 0.4s;
 }
 
-form .form-inner .form-group:focus-within label {
+.Landing form .form-inner .form-group:focus-within label {
   color: #5a7bd0;
 }
 
-form .form-inner .form-group input {
+.Landing form .form-inner .form-group input {
   display: block;
   width: 100%;
   padding: 10px 15px;
@@ -86,11 +86,11 @@ form .form-inner .form-group input {
   transition: 0.4s;
 }
 
-form .form-inner .form-group input:focus {
+.Landing form .form-inner .form-group input:focus {
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
 }
 
-form .form-inner input[type="submit"] {
+.Landing form .form-inner input[type="submit"] {
   padding: 10px 15px;
   margin-top: 15px;
   border-radius: 8px;
@@ -108,24 +108,24 @@ form .form-inner input[type="submit"] {
   cursor: pointer;
 }
 
-form .form-inner input[type="submit"]:hover {
+.Landing form .form-inner input[type="submit"]:hover {
   background-position: 100% 0%;
 }
 
-form .error {
+.Landing form .error {
   display: block;
   color: #000;
   font-size: 16px;
   margin-bottom: 15px;
 }
 
-form .form-redirect {
+.Landing form .form-redirect {
   text-align: center;
   padding-top: 5px;
   padding-bottom: 10px;
 }
 
-form .form-redirect button {
+.Landing form .form-redirect button {
   background: none;
   border: none;
   margin: 0;
@@ -134,7 +134,7 @@ form .form-redirect button {
   text-decoration: underline;
 }
 
-form .seperator {
+.Landing form .seperator {
   border: 1px solid #000;
   align-self: center;
   margin-top: 25px;

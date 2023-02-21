@@ -8,7 +8,7 @@ export default function AddFriend() {
       <br></br>
         <h1>Add Friends</h1>
 
-        <Form>
+        <Form className='friend-form'>
 
             <Form.Group controlId='formUsername'>
                 <Form.Control className="mx-auto" type="text" placeholder='Enter Username of Player' size='lg' />
