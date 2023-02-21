@@ -8,6 +8,7 @@ import { PAGES } from "./pages";
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
 import GeoMap from "./components/GeoMap";
+import Profile from "./components/Profile";
 
 function App() {
   // Stores user data after logging in / signing up
@@ -37,6 +38,7 @@ function App() {
       // If login succeeds, set user token
       if (response.success) {
         setUser({ token: response.data.token });
+        ChangePage(PAGES.MAIN);
         // If login fails, set error message
       } else {
         setError("Email or password is incorrect!");
@@ -68,6 +70,7 @@ function App() {
       // If register succeeds, set user token (log in)
       if (response.success) {
         setUser({ token: response.data.token });
+        ChangePage(PAGES.MAIN);
         // If register fails, set error message
       } else {
         setError("Username or email already in use!");
@@ -75,11 +78,16 @@ function App() {
     });
   };
 
-  // If logged in (token is set) display map, if not display correct form
+  // Display appropriate page/form
   return (
     <div className="App">
-      {user.token != "" ? (
-        <GeoMap className='MapContainers' />
+      {page == PAGES.MAIN ? (
+        <div className="Game">
+          <GeoMap className='MapContainers' ChangePage={ChangePage} />
+        </div>
+      ) : 
+      page == PAGES.PROFILE ? (
+        <Profile />
       ) : // Must pass login/signup/changepage functions and error to our forms
       page == PAGES.LOGIN ? (
         <div className="Form">

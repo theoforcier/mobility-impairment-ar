@@ -44,7 +44,7 @@ const LocationMarker = () => {
   );
 }
 
-const GeoMap = () => {
+const GeoMap = ({ ChangePage }) => {
   return (
     <MapContainer center={[42.955649464967046, -81.22525549094281]} zoom={17} dragging={false} scrollWheelZoom={false} doubleClickZoom={false} minZoom={16} maxZoom={18}>
       <TileLayer
@@ -52,7 +52,7 @@ const GeoMap = () => {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
       <LocationMarker/>
-      <MainUIBtn></MainUIBtn>
+      <MainUIBtn ChangePage={ChangePage} />
     </MapContainer>
   );
 }
