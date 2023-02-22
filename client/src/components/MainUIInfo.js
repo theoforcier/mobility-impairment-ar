@@ -4,8 +4,8 @@ import './MainUIInfo.css'
 
 const MainUIInfo = () => {
     return (
-        <div className="container">
-          <div className="row">
+        <Container className="d-flex justify-content-between">
+          <Row>
             <div className="col-6">
               <div className="box" style={{ borderRadius: "20px" }}>
                 <p style={{ color: "#5a7bd0", textAlign: "center"}} ><br/><b>Distance Travelled</b> <br /><h1 style={{ color: "#5a7bd0", textAlign: "center", textShadow: "1px 1px 1px #000", fontSize: "30px"}}>1542M</h1></p>
@@ -17,8 +17,8 @@ const MainUIInfo = () => {
               
               </div>
             </div>
-          </div>
-        </div>
+          </Row>
+        </Container>
       );
 }
 export default MainUIInfo
