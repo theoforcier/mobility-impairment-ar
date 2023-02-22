@@ -70,7 +70,11 @@ class UserCustomTaskController extends BaseController
     public function remaining(Request $request)
     {
         $remaining = $this->model->remainingToday();
-        return $this->sendResponse(['remaining_tasks' => $remaining]);
+
+        return $this->sendResponse([
+            'remaining' => $remaining['remaining'], 
+            'next_task' => $remaining['next_task']
+        ]);
     }
 
     public function destroy(UserCustomTask $task, DestroyRequest $request)

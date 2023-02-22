@@ -26,9 +26,21 @@ class UserCustomTask extends Model
     public function remainingToday()
     {
         $yesterday = Carbon::yesterday();
-        $recentTasksCount = auth()->user()->customTasks()->where('created_at', '>', $yesterday)->count();
-        $remaining = config('constants.tasks.user_custom.max_daily') - $recentTasksCount;
-        return $remaining;
+        $recentTasks = auth()->user()->customTasks()
+            ->where('created_at', '>', $yesterday)
+            ->orderBy('created_at')
+            ->get();
+
+        $maxDaily = config('constants.tasks.user_custom.max_daily');
+        $count = $maxDaily - count($recentTasks);
+
+        $next = null;
+        if (count($recentTasks)) {
+            $oldest = new Carbon($recentTasks[0]->created_at);
+            $next = $oldest->addDay();
+        }
+
+        return ['remaining' => $count, 'next_task' => $next];
     }
 
     public function markComplete($taskId)
