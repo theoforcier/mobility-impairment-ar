@@ -27,7 +27,7 @@ export default function AddFriend() {
   }
 
   return (
-    <div>
+    <div className="add-friends">
       <br></br>
         <h1>Add Friends</h1>
         <form className='friend-form' onSubmit={submitHandler}>
@@ -35,7 +35,7 @@ export default function AddFriend() {
                 <Form.Control className="mx-auto" type="text" placeholder='Enter Username of Player' size='lg' onChange={(e) => setNewUser({ display_name: e.target.value })} />
             </Form.Group>
             <br />
-            <Button variant="primary" type="submit"> Send Request </Button>
+            <Button className="req-button" type="submit"> Send Request </Button>
         </form>
         <hr style={{ border: "1px solid black" }} />
     </div>

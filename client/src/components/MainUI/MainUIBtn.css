@@ -11,4 +11,5 @@
   
   .rounded-circle:hover {
     transform: scale(1.1);
+    background-color: #334f98;
   }

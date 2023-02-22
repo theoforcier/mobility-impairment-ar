@@ -1,6 +1,11 @@
 import AddFriend from './AddFriend';
 import MyFriends from './MyFriends';
 import FriendRequest from './FriendRequest';
+import { Button } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+
 import './Friends.css';
 
 function Friends({ ChangePage }) {
@@ -10,7 +15,7 @@ function Friends({ ChangePage }) {
         <AddFriend />
         <MyFriends />
         <FriendRequest />
-        <button className="return-back" onClick={() => ChangePage("main")}>Return</button>
+        <Button className="rounded-circle" onClick={() => ChangePage("main")}> <FontAwesomeIcon icon={faXmark}/> </Button>
         <br></br>
       </div>
     </div>
