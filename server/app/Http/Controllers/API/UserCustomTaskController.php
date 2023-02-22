@@ -72,6 +72,7 @@ class UserCustomTaskController extends BaseController
         $remaining = $this->model->remainingToday();
 
         return $this->sendResponse([
+            'maximum'   => $remaining['maximum'],
             'remaining' => $remaining['remaining'], 
             'next_task' => $remaining['next_task']
         ]);
