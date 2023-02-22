@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('bio')->nullable();
             $table->integer('points_total')->default(0);
+            $table->integer('meters_travelled')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
