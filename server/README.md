@@ -75,7 +75,8 @@ For example, to display all tables in the database, run the command:\
 | Endpoint | URI | Parameters | Description | Requires Authentication? |
 |--|--|--|--|--|
 | POST | /user/tasks/custom | | Create a new task  | ✔️ |
-| PUT | /user/tasks/custom/{task_id} | `description`, `completed` | Update a task (can only update active tasks) | ✔️ |
+| PUT | /user/tasks/custom/{task_id}/rename | `description` | Change the description of an active task | ✔️ |
+| PUT | /user/tasks/custom/{task_id}/complete | | Mark an active task as completed | ✔️ |
 | GET | /user/tasks/custom/{task_id} |  | Return the task | ✔️ |
 | GET | /user/tasks/custom | `completed*` | Return list of tasks. If `completed=0`, return active tasks.  If `completed=1`, return completed tasks. | ✔️ |
 | DELETE | /user/tasks/custom/{task_id} | | Delete an active task | ✔️ |
