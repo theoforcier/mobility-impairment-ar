@@ -40,7 +40,7 @@ class UserCustomTask extends Model
             $next = $oldest->addDay();
         }
 
-        return ['remaining' => $count, 'next_task' => $next];
+        return ['maximum' => $maxDaily, 'remaining' => $count, 'next_task' => $next];
     }
 
     public function markComplete($taskId)
