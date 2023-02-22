@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { postHTTP, getHTTP } from "./api/helpers";
+import { postHTTP } from "./api/helpers";
 import { PAGES } from "./pages";
 import LoginForm from "./components/LandingForms/LoginForm";
 import SignupForm from "./components/LandingForms/SignupForm";
@@ -37,9 +37,13 @@ function App() {
     postHTTP("login", payload).then((response) => {
       // If login succeeds, set user token
       if (response.success) {
-        setUser({ token: response.data.token });
-        ChangePage(PAGES.MAIN);
-        // If login fails, set error message
+        if ('token' in response.data && response.data.token) {
+          const userToken = response.data.token.split('|')[1];
+          localStorage.setItem('token', userToken);
+          setUser({ token: userToken });
+          ChangePage(PAGES.MAIN);
+        } 
+      // If login fails, set error message
       } else {
         setError("Email or password is incorrect!");
       }
@@ -70,6 +74,7 @@ function App() {
       // If register succeeds, set user token (log in)
       if (response.success) {
         setUser({ token: response.data.token });
+        localStorage.setItem('token', response.data.token);
         ChangePage(PAGES.MAIN);
         // If register fails, set error message
       } else {

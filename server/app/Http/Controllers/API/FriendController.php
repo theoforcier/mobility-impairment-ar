@@ -51,7 +51,7 @@ class FriendController extends BaseController
     public function friends(IndexRequest $request)
     {
         $data = new UserCollection(auth()->user()->friends);
-        return $data;
+        return $this->sendResponse($data);
     }
 
     public function pending(IndexRequest $request)
