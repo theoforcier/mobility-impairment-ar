@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MainUIBtn from './MainUIBtn'
 import L from 'leaflet';
-import { MapContainer, useMap, TileLayer, Marker } from 'react-leaflet';
+import { MapContainer, useMap, TileLayer, Marker, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css'
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -50,11 +50,12 @@ const LocationMarker = () => {
 
 const GeoMap = () => {
   return (
-    <MapContainer center={[42.955649464967046, -81.22525549094281]} zoom={17} dragging={false} scrollWheelZoom={false} minZoom={16} maxZoom={18}>
+    <MapContainer center={[42.955649464967046, -81.22525549094281]} zoom={17} zoomControl={false} dragging={false} scrollWheelZoom={false} minZoom={16} maxZoom={18}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
+      <ZoomControl position='bottomright'/>
       <LocationMarker/>
       <MainUIBtn></MainUIBtn>
       <MainUIInfo></MainUIInfo>
