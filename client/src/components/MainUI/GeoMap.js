@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import L from "leaflet";
-import { MapContainer, useMap, TileLayer, Marker } from "react-leaflet";
+import { MapContainer, useMap, TileLayer, Marker,ZoomControl } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import MainUIInfo from './MainUIInfo';
+
 
 import MainUIBtn from "./MainUIBtn";
 
@@ -50,6 +52,7 @@ const GeoMap = ({ ChangePage }) => {
     <MapContainer
       center={[42.955649464967046, -81.22525549094281]}
       zoom={17}
+      zoomControl={false}
       dragging={false}
       scrollWheelZoom={false}
       doubleClickZoom={false}
@@ -61,7 +64,9 @@ const GeoMap = ({ ChangePage }) => {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
       <LocationMarker />
+      <ZoomControl position='bottomright'/>
       <MainUIBtn ChangePage={ChangePage} />
+      <MainUIInfo></MainUIInfo>
     </MapContainer>
   );
 };
