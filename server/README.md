@@ -48,7 +48,7 @@ For example, to display all tables in the database, run the command:\
 | Endpoint | URI | Parameters | Description | Requires Authentication? |
 |--|--|--|--|--|
 | POST | /register | `email`, `display_name`, `first_name`, `last_name`, `password`, `c_password`| Register a new user | ❌ |
-| PUT | /login | `email`, `password` | Return a new session token | ❌|
+| POST | /login | `email`, `password` | Return a new session token | ❌|
 
 
 ### User Resource
@@ -68,3 +68,14 @@ For example, to display all tables in the database, run the command:\
 | GET | /friends/pending |  | Return list of pending friend requests | ✔️ |
 | PUT | /friends/{user_id} | | Accept a pending friend request | ✔️ |
 | DELETE | /friends/{user_id} | | Delete a friend or pending friend request | ✔️ |
+
+
+### User Custom Tasks Resource
+
+| Endpoint | URI | Parameters | Description | Requires Authentication? |
+|--|--|--|--|--|
+| POST | /user/tasks/custom | | Create a new task  | ✔️ |
+| PUT | /user/tasks/custom/{task_id} | `description`, `completed` | Update a task (can only update active tasks) | ✔️ |
+| GET | /user/tasks/custom/{task_id} |  | Return the task | ✔️ |
+| GET | /user/tasks/custom | `completed*` | Return list of tasks. If `completed=0`, return active tasks.  If `completed=1`, return completed tasks. | ✔️ |
+| DELETE | /user/tasks/custom/{task_id} | | Delete an active task | ✔️ |

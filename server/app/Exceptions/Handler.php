@@ -6,6 +6,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 
 class Handler extends ExceptionHandler
@@ -51,13 +52,23 @@ class Handler extends ExceptionHandler
         });
 
         $this->renderable(function (NotFoundHttpException $e, $request) {
-            if ($request->is('api/friend/*')) { // <- Add your condition here
-                return response()->json([
-                    'success' => false,
-                    'message' => "User record with id ".$request->route('user')." not found."
-                ], 200);
-            }
+
+            return response()->json([
+                'success' => false,
+                'message' => "Record not found."
+            ], 200);
+            
         });
+
+        $this->renderable(function (AccessDeniedHttpException $e, $request) {
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 200);
+            
+        });
+        
     }
 
 }
