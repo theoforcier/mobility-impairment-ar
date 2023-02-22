@@ -31,6 +31,7 @@ Route::controller(RegisterController::class)->group(function() {
 Route::middleware('auth:sanctum')->group( function () {
 
     Route::prefix('user/tasks/custom')->group(function() {
+        Route::get('remaining',       [UserCustomTaskController::class, 'remaining']);
         Route::get('{task}',          [UserCustomTaskController::class, 'show']);
         Route::put('{task}/rename',   [UserCustomTaskController::class, 'rename']);
         Route::put('{task}/complete', [UserCustomTaskController::class, 'complete']);

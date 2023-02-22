@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 use DB;
 use Exception;
+use Carbon\Carbon;
 
 
 class UserCustomTask extends Model
@@ -20,6 +21,14 @@ class UserCustomTask extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function remainingToday()
+    {
+        $yesterday = Carbon::yesterday();
+        $recentTasksCount = auth()->user()->customTasks()->where('created_at', '>', $yesterday)->count();
+        $remaining = config('constants.tasks.user_custom.max_daily') - $recentTasksCount;
+        return $remaining;
     }
 
     public function markComplete($taskId)

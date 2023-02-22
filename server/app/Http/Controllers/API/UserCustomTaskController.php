@@ -7,6 +7,7 @@ use App\Http\Requests\UserCustomTask\IndexRequest;
 use App\Http\Requests\UserCustomTask\StoreRequest;
 use App\Http\Requests\UserCustomTask\UpdateRequest;
 use App\Http\Requests\UserCustomTask\DestroyRequest;
+use Illuminate\Http\Request;
 
 use App\Http\Resources\CustomTaskResource;
 use App\Http\Resources\CustomTaskCollection;
@@ -64,6 +65,12 @@ class UserCustomTaskController extends BaseController
         
         $task->completed = 1;
         return $this->taskResponse($task);
+    }
+
+    public function remaining(Request $request)
+    {
+        $remaining = $this->model->remainingToday();
+        return $this->sendResponse(['remaining_tasks' => $remaining]);
     }
 
     public function destroy(UserCustomTask $task, DestroyRequest $request)
