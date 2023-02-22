@@ -36,13 +36,13 @@ code {
   background-color: #334f98;
 }
 
-.Friend .req-button {
+.Friend .send-button {
   background-color: #5a7bd0;
   border: none;
   transition: transform 0.1s ease-in-out;
 }
 
-.Friend .req-button:hover {
+.Friend .send-button:hover {
   transform: scale(1.05);
   background-color: #334f98;
 }
@@ -51,7 +51,11 @@ code {
   text-align: center;
 }
 
-.friendRequest{
+.add-friends .alert {
+  
+}
+
+.friendRequest {
   text-align: center;
   padding-bottom: 5px;
 }
@@ -60,9 +64,22 @@ code {
 Style the card that will store all of the friend requests
 */
 .friendRequest .friendRequestCard {
-  text-align: inherit;
+  text-align: left;
   height: 160px;
   width: 100%;
+}
+
+.card-button {
+  background-color: #5a7bd0;
+  width: 40px;
+  border: none;
+  outline: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  scale: 0.8;
+}
+
+.card-button:hover {
+  background-color: #334f98;
 }
 
 .myFriends{

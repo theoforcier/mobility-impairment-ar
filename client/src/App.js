@@ -73,9 +73,12 @@ function App() {
     postHTTP("register", payload).then((response) => {
       // If register succeeds, set user token (log in)
       if (response.success) {
-        setUser({ token: response.data.token });
-        localStorage.setItem('token', response.data.token);
-        ChangePage(PAGES.MAIN);
+        if ('token' in response.data && response.data.token) {
+          const userToken = response.data.token.split('|')[1];
+          localStorage.setItem('token', userToken);
+          setUser({ token: userToken });
+          ChangePage(PAGES.MAIN);
+        } 
         // If register fails, set error message
       } else {
         setError("Username or email already in use!");

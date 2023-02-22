@@ -1,16 +1,16 @@
 import React from 'react'
 import { useState, useEffect } from "react";
-import { Card, ListGroup } from 'react-bootstrap'
+import { Card, ListGroup, Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 import { getHTTP } from "../../api/helpers";
 
-export default function MyFriends() {
-  const [friends, setFriends] = useState( [] );
+export default function MyFriends({ friends, setFriends }) {
 
   useEffect(() => {
     getHTTP("friends").then((response) => {
-      console.log(response);
       setFriends(response.data.users);
     });
   }, []);
@@ -23,7 +23,14 @@ export default function MyFriends() {
         <Card.Body className="overflow-auto"> 
           <ListGroup variant="flush">
             {friends.map((friend) => (
-              <ListGroup.Item key={friend.display_name}>{friend.display_name}</ListGroup.Item>
+              <ListGroup.Item className="d-flex justify-content-between align-items-center" key={friend.display_name}>
+                <span>
+                  {friend.display_name}
+                </span>
+                <div>
+                  <Button className="card-button"> <FontAwesomeIcon icon={faUser} /></Button>
+                </div>
+              </ListGroup.Item>
             ))}
           </ListGroup>
         </Card.Body>

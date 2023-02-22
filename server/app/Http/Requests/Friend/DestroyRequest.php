@@ -22,12 +22,7 @@ class DestroyRequest extends BaseFormRequest
     {
         return [
             'friend_id' => [
-                Rule::exists('friends','friend_id')->where(function ($query) {
-                    return $query->where('user_id', auth()->id())
-                        ->where('friend_id', $this->request->get('friend_id'))
-                        ->orwhere('user_id', $this->request->get('friend_id'))
-                        ->where('friend_id', auth()->id());
-                })
+
             ]
         ];
     }
