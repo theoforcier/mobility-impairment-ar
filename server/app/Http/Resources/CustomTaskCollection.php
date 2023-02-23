@@ -4,14 +4,14 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class UserCollection extends ResourceCollection
+class CustomTaskCollection extends ResourceCollection
 {
     public static $wrap = '';
 
     public function toArray($request): array
     {
         return [
-            'users' => $this->collection,
+            'tasks' => $this->collection,
             'count' => $this->count()
         ];
     }

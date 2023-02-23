@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\FriendController;
+use App\Http\Controllers\API\UserCustomTaskController;
 
 
 
@@ -28,6 +29,16 @@ Route::controller(RegisterController::class)->group(function() {
 
 
 Route::middleware('auth:sanctum')->group( function () {
+
+    Route::prefix('user/tasks/custom')->group(function() {
+        Route::get('remaining',       [UserCustomTaskController::class, 'remaining']);
+        Route::get('{task}',          [UserCustomTaskController::class, 'show']);
+        Route::put('{task}/rename',   [UserCustomTaskController::class, 'rename']);
+        Route::put('{task}/complete', [UserCustomTaskController::class, 'complete']);
+        Route::get('/',               [UserCustomTaskController::class, 'index']);
+        Route::post('/',              [UserCustomTaskController::class, 'store']);
+        Route::delete('{task}',       [UserCustomTaskController::class, 'destroy']);
+    });
 
     Route::prefix('user')->group(function () {
         Route::get('/',       [UserController::class, 'show']);

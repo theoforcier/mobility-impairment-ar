@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Staudenmeir\LaravelMergedRelations\Eloquent\HasMergedRelationships;
 
 use App\Models\Friend;
@@ -31,6 +32,7 @@ class User extends Authenticatable
         'display_name',
         'first_name',
         'last_name',
+        'bio',
         'password'
     ];
 
@@ -101,4 +103,10 @@ class User extends Authenticatable
             ->where('id', '!=', auth()->id())
             ->get();
     }
+
+    public function customTasks(): HasMany
+    {
+        return $this->HasMany(UserCustomTask::class);
+    }
+
 }
