@@ -16,7 +16,7 @@ const MainUIBtn = ({ ChangePage }) => {
                 <Button className="rounded-circle"> <FontAwesomeIcon icon={faUsers} /></Button>
                 </div>
                 <div className='mb-3'>
-                <Button className="rounded-circle"> <FontAwesomeIcon icon={faStar} /></Button>
+                <Button className="rounded-circle" onClick={() => ChangePage("tasks")}> <FontAwesomeIcon icon={faStar} /></Button>
                 </div>
                 <div className='mb-3'>
                 <Button className="rounded-circle" onClick={() => ChangePage("friends")}> <FontAwesomeIcon icon={faUserPlus} /></Button>
