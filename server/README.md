@@ -90,7 +90,7 @@ For example, to display all tables in the database, run the command:\
 | Endpoint | URI | Parameters | Description | Requires Authentication? |
 |--|--|--|--|--|
 | GET | /user/tasks/basic/{task_id} |  | Return the task | ✔️ |
-| GET | /user/tasks/custom | `completed*` | Return list of tasks. If `completed=0`, return active tasks.  If `completed=1`, return completed tasks. | ✔️ |
+| GET | /user/tasks/basic | `completed*` | Return list of tasks. If `completed=0`, return active tasks.  If `completed=1`, return completed tasks. | ✔️ |
 | PUT | /user/tasks/basic/{task_id}/complete | | Mark an active task as completed and return the next task | ✔️ |
 | PUT | /user/tasks/basic/{task_id}/reroll | | Delete an active task and return the next task | ✔️ |
 
