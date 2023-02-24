@@ -3,5 +3,6 @@ export const PAGES = {
   SIGNUP: "signup",
   MAIN: "main",
   PROFILE: "profile",
-  FRIENDS: "friends"
+  FRIENDS: "friends",
+  TASKS: "tasks"
 };

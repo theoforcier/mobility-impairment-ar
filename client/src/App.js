@@ -92,7 +92,7 @@ function App() {
       {page == PAGES.MAIN ? (
         <GeoMap className="MapContainers" ChangePage={ChangePage} />
       ) : page == PAGES.PROFILE ? (
-        <Profile />
+        <Profile ChangePage={ChangePage} />
       ) : page == PAGES.FRIENDS ? (
         <Friends ChangePage={ChangePage} />
       ) : // Must pass login/signup/changepage functions and error to our forms
