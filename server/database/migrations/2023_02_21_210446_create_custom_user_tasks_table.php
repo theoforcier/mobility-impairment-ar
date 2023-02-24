@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('friends', function (Blueprint $table) {
+        Schema::create('custom_user_tasks', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');;
-            $table->foreignId('friend_id')->constrained('users')->onDelete('cascade');;
-            $table->boolean('accepted')->default(0);
+            $table->string('description');
+            $table->boolean('completed')->default(0);
+            $table->integer('points_reward')->default(config('constants.tasks.user_custom.points_reward'));
             $table->timestamps();
-
-            $table->primary(['user_id', 'friend_id']);
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('friends');
+        Schema::dropIfExists('custom_user_tasks');
     }
 };

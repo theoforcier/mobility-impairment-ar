@@ -3,31 +3,31 @@
 namespace App\Http\Controllers\API;
    
 use App\Http\Controllers\API\BaseController as BaseController;
-use App\Http\Requests\UserCustomTask\IndexRequest;
-use App\Http\Requests\UserCustomTask\StoreRequest;
-use App\Http\Requests\UserCustomTask\UpdateRequest;
-use App\Http\Requests\UserCustomTask\DestroyRequest;
+use App\Http\Requests\CustomUserTask\IndexRequest;
+use App\Http\Requests\CustomUserTask\StoreRequest;
+use App\Http\Requests\CustomUserTask\UpdateRequest;
+use App\Http\Requests\CustomUserTask\DestroyRequest;
 use Illuminate\Http\Request;
 
 use App\Http\Resources\CustomTaskResource;
 use App\Http\Resources\CustomTaskCollection;
 
-use App\Models\UserCustomTask;
+use App\Models\CustomUserTask;
 
 
 
-class UserCustomTaskController extends BaseController
+class CustomUserTaskController extends BaseController
 {
 
-    protected UserCustomTask $model;
+    protected CustomUserTask $model;
 
-    public function __construct(UserCustomTask $model)
+    public function __construct(CustomUserTask $model)
     {
         $this->model = $model;
     }
 
 
-    public function show(UserCustomTask $task): object
+    public function show(CustomUserTask $task): object
     {
         return $this->taskResponse($task);
     }
@@ -50,13 +50,13 @@ class UserCustomTaskController extends BaseController
         return $this->taskResponse($task);
     }
 
-    public function rename(UserCustomTask $task, UpdateRequest $request)
+    public function rename(CustomUserTask $task, UpdateRequest $request)
     {
         $task->update($request->input());
         return $this->taskResponse($task);
     }
 
-    public function complete(UserCustomTask $task, UpdateRequest $request)
+    public function complete(CustomUserTask $task, UpdateRequest $request)
     {
         $error = $this->model->markComplete($task->id);
 
@@ -78,13 +78,13 @@ class UserCustomTaskController extends BaseController
         ]);
     }
 
-    public function destroy(UserCustomTask $task, DestroyRequest $request)
+    public function destroy(CustomUserTask $task, DestroyRequest $request)
     {
         $task->delete();
         return $this->sendResponse();
     }
 
-    protected function taskResponse(UserCustomTask $task)
+    protected function taskResponse(CustomUserTask $task)
     {
         return $this->sendResponse(new CustomTaskResource($task));
     }
