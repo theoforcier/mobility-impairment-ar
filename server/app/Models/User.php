@@ -55,6 +55,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // Set default values on Model instance
+    protected $attributes = [
+        'points_total' => 0,
+        'meters_travelled' => 0
+    ];
+
 
     public function friendsTo(): BelongsToMany
     {
@@ -106,7 +112,12 @@ class User extends Authenticatable
 
     public function customTasks(): HasMany
     {
-        return $this->HasMany(UserCustomTask::class);
+        return $this->HasMany(CustomUserTask::class);
+    }
+
+    public function basicTasks(): HasMany
+    {
+        return $this->HasMany(BasicUserTask::class);
     }
 
 }

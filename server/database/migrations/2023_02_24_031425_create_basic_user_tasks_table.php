@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_custom_tasks', function (Blueprint $table) {
+        Schema::create('basic_user_tasks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->string('description');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');;
+            $table->foreignId('task_type_id')->constrained('task_types');
+            $table->foreignId('task_difficulty_id')->constrained('task_difficulties');
             $table->boolean('completed')->default(0);
-            $table->integer('points_reward')->default(config('constants.tasks.user_custom.points_reward'));
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_custom_tasks');
+        Schema::dropIfExists('basic_user_tasks');
     }
 };

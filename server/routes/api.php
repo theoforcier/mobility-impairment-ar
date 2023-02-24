@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\FriendController;
-use App\Http\Controllers\API\UserCustomTaskController;
+use App\Http\Controllers\API\CustomUserTaskController;
+use App\Http\Controllers\API\BasicUserTaskController;
 
 
 
@@ -31,13 +32,20 @@ Route::controller(RegisterController::class)->group(function() {
 Route::middleware('auth:sanctum')->group( function () {
 
     Route::prefix('user/tasks/custom')->group(function() {
-        Route::get('remaining',       [UserCustomTaskController::class, 'remaining']);
-        Route::get('{task}',          [UserCustomTaskController::class, 'show']);
-        Route::put('{task}/rename',   [UserCustomTaskController::class, 'rename']);
-        Route::put('{task}/complete', [UserCustomTaskController::class, 'complete']);
-        Route::get('/',               [UserCustomTaskController::class, 'index']);
-        Route::post('/',              [UserCustomTaskController::class, 'store']);
-        Route::delete('{task}',       [UserCustomTaskController::class, 'destroy']);
+        Route::get('remaining',       [CustomUserTaskController::class, 'remaining']);
+        Route::get('{task}',          [CustomUserTaskController::class, 'show']);
+        Route::put('{task}/rename',   [CustomUserTaskController::class, 'rename']);
+        Route::put('{task}/complete', [CustomUserTaskController::class, 'complete']);
+        Route::get('/',               [CustomUserTaskController::class, 'index']);
+        Route::post('/',              [CustomUserTaskController::class, 'store']);
+        Route::delete('{task}',       [CustomUserTaskController::class, 'destroy']);
+    });
+
+    Route::prefix('user/tasks/basic')->group(function() {
+        Route::get('{task}',          [BasicUserTaskController::class, 'show']);
+        Route::put('{task}/complete', [BasicUserTaskController::class, 'complete']);
+        Route::get('/',               [BasicUserTaskController::class, 'index']);
+        Route::put('{task}/reroll',   [BasicUserTaskController::class, 'reroll']);
     });
 
     Route::prefix('user')->group(function () {
