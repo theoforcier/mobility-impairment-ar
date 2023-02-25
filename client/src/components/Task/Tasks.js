@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.css";
-import { Card, ProgressBar, Col } from "react-bootstrap";
+import { Card, ProgressBar, Col, Modal, ButtonGroup } from "react-bootstrap";
 import "./Tasks.css";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 
@@ -27,6 +27,15 @@ const Progress = ({ progress, total }) => {
 };
 
 const Tasks = ({ ChangePage }) => {
+  const [showModal, setShowModal] = useState(false);
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleShowModal = () => {
+    setShowModal(true);
+  };
+
   return (
     <div className="Tasks">
       <div style={{ margin: "10px" }}>
@@ -49,6 +58,28 @@ const Tasks = ({ ChangePage }) => {
                   </Card.Subtitle>
                   <Card.Text>
                     <Progress progress={task.progress} total={task.total} />
+                    <ButtonGroup style={{ marginTop: "1rem" }}>
+                      <Button onClick={handleShowModal} style={{ marginRight: "5px" }}>Edit Task</Button>
+                      <Button color="green" >
+                        Complete Task
+                      </Button>
+                    </ButtonGroup>
+                    <Modal show={showModal} onHide={handleCloseModal}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Edit Task</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <p>Edit part</p>
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="secondary" onClick={handleCloseModal}>
+                          Cancel
+                        </Button>
+                        <Button variant="primary" onClick={handleCloseModal}>
+                          Save Changes
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
                   </Card.Text>
                 </Card.Body>
               ))}
