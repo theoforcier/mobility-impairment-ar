@@ -21,7 +21,7 @@ function SignupForm({ Signup, ChangePage, error }) {
   const switchForm = (e) => {
     e.preventDefault();
 
-    ChangePage("login");
+    ChangePage("login", "");
   };
 
   // Email/username and password fields update state of details
