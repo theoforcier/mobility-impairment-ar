@@ -10,7 +10,7 @@ import './Profile.css'
 import { getHTTP } from "../../api/helpers";
 
 function Profile({ ChangePage }) {
-  const [user, setUser] = useState({ email: "", display_name: "", first_name: "", last_name: "", meter_traveled: "", point_total: "" });
+  const [user, setUser] = useState({ bio: "", email: "", display_name: "", first_name: "", last_name: "", meter_traveled: "", point_total: "" });
 
   useEffect(() => {
     getHTTP("user").then((response) => {
@@ -25,7 +25,7 @@ function Profile({ ChangePage }) {
         <br></br>
         
         <div className="d-flex justify-content-left">
-          <Button className="rounded-circle" onClick={() => ChangePage("main")}> <FontAwesomeIcon icon={faXmark}/> </Button>
+          <Button className="rounded-circle" onClick={() => ChangePage("main", "")}> <FontAwesomeIcon icon={faXmark}/> </Button>
         </div>
         
         <br></br>

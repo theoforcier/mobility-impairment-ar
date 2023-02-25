@@ -9,19 +9,20 @@ import SignupForm from "./components/LandingForms/SignupForm";
 import GeoMap from "./components/MainUI/GeoMap";
 import Profile from "./components/Profile/Profile";
 import Friends from "./components/Friends/Friends";
+import FriendProfile from "./components/Profile/FriendProfile";
 
 function App() {
   // Stores user data after logging in / signing up
   const [user, setUser] = useState({ token: "" });
   // Keeps track of current page
-  const [page, setPage] = useState(PAGES.LOGIN);
+  const [page, setPage] = useState({ current: PAGES.LOGIN, modifier: "" });
   // Catch invalid login/signup
   const [error, setError] = useState("");
 
   // ChangePage function
-  const ChangePage = (newPage) => {
+  const ChangePage = (newPage, mod) => {
     setError("");
-    setPage(newPage);
+    setPage({ current: newPage, modifier: mod });
   };
 
   // Login function
@@ -41,7 +42,7 @@ function App() {
           const userToken = response.data.token.split('|')[1];
           localStorage.setItem('token', userToken);
           setUser({ token: userToken });
-          ChangePage(PAGES.MAIN);
+          ChangePage(PAGES.MAIN, "");
         } 
       // If login fails, set error message
       } else {
@@ -53,7 +54,7 @@ function App() {
   // Logout function, return to login page
   const Logout = () => {
     setUser({ token: "" });
-    ChangePage(PAGES.LOGIN);
+    ChangePage(PAGES.LOGIN, "");
   };
 
   // Signup function
@@ -77,7 +78,7 @@ function App() {
           const userToken = response.data.token.split('|')[1];
           localStorage.setItem('token', userToken);
           setUser({ token: userToken });
-          ChangePage(PAGES.MAIN);
+          ChangePage(PAGES.MAIN, "");
         } 
         // If register fails, set error message
       } else {
@@ -89,14 +90,16 @@ function App() {
   // Display appropriate page/form
   return (
     <div className="App">
-      {page == PAGES.MAIN ? (
+      {page.current == PAGES.MAIN ? (
         <GeoMap className="MapContainers" ChangePage={ChangePage} />
-      ) : page == PAGES.PROFILE ? (
+      ) : page.current == PAGES.PROFILE ? (
         <Profile ChangePage={ChangePage} />
-      ) : page == PAGES.FRIENDS ? (
+      ) : page.current == PAGES.FRIENDS ? (
         <Friends ChangePage={ChangePage} />
+      ) : page.current == PAGES.FRIEND_PROFILE ? (
+        <FriendProfile ChangePage={ChangePage} page={page} />
       ) : // Must pass login/signup/changepage functions and error to our forms
-      page == PAGES.LOGIN ? (
+      page.current == PAGES.LOGIN ? (
         <div className="Landing">
           <LoginForm Login={Login} ChangePage={ChangePage} error={error} />
         </div>
