@@ -7,7 +7,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 import { getHTTP } from "../../api/helpers";
 
-export default function MyFriends({ friends, setFriends, ChangePage }) {
+export default function MyFriends({ friends, setFriends }) {
 
   useEffect(() => {
     getHTTP("friends").then((response) => {
@@ -23,12 +23,12 @@ export default function MyFriends({ friends, setFriends, ChangePage }) {
         <Card.Body className="overflow-auto"> 
           <ListGroup variant="flush">
             {friends.map((friend) => (
-              <ListGroup.Item className="d-flex justify-content-between align-items-center" key={friend.id}>
+              <ListGroup.Item className="d-flex justify-content-between align-items-center" key={friend.display_name}>
                 <span>
                   {friend.display_name}
                 </span>
                 <div>
-                  <Button className="card-button" onClick={() => ChangePage("friend_profile", friend)}> <FontAwesomeIcon icon={faUser} /></Button>
+                  <Button className="card-button"> <FontAwesomeIcon icon={faUser} /></Button>
                 </div>
               </ListGroup.Item>
             ))}

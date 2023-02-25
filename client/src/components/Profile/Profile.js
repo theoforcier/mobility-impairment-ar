@@ -1,37 +1,52 @@
-import { useState, useEffect } from "react";
-import Info from './Info';
-import Activity from './Activity'
-import { Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css'; 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { Button, Container, CardGroup, Card } from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import './Profile.css'
-import { getHTTP } from "../../api/helpers";
-
-function Profile({ ChangePage }) {
-  const [user, setUser] = useState({ bio: "", email: "", display_name: "", first_name: "", last_name: "", meter_traveled: "", point_total: "" });
-
-  useEffect(() => {
-    getHTTP("user").then((response) => {
-      setUser(response.data);
-    });
-  }, []);
+const Profile = () => {
+  // TEMPORARY: JUST A PLACEHOLDER FOR PROFILE SCREEN
 
   return (
-    <div className="Profile">
-        <Info user={user} setUser={setUser} />
-        <Activity user={user} />
-        <br></br>
-        
-        <div className="d-flex justify-content-left">
-          <Button className="rounded-circle" onClick={() => ChangePage("main", "")}> <FontAwesomeIcon icon={faXmark}/> </Button>
-        </div>
-        
-        <br></br>
-        <br></br>
-        <br></br>
-    </div>
+    <CardGroup style={{ zIndex: 9999 }}>
+      <Card>
+        <Card.Img variant="top" src="holder.js/100px160" />
+        <Card.Body>
+          <Card.Title>Card title</Card.Title>
+          <Card.Text>
+            This is a wider card with supporting text below as a natural lead-in
+            to additional content. This content is a little bit longer.
+          </Card.Text>
+        </Card.Body>
+        <Card.Footer>
+          <small className="text-muted">Last updated 3 mins ago</small>
+        </Card.Footer>
+      </Card>
+      <Card>
+        <Card.Img variant="top" src="holder.js/100px160" />
+        <Card.Body>
+          <Card.Title>Card title</Card.Title>
+          <Card.Text>
+            This card has supporting text below as a natural lead-in to
+            additional content.{' '}
+          </Card.Text>
+        </Card.Body>
+        <Card.Footer>
+          <small className="text-muted">Last updated 3 mins ago</small>
+        </Card.Footer>
+      </Card>
+      <Card>
+        <Card.Img variant="top" src="holder.js/100px160" />
+        <Card.Body>
+          <Card.Title>Card title</Card.Title>
+          <Card.Text>
+            This is a wider card with supporting text below as a natural lead-in
+            to additional content. This card has even longer content than the
+            first to show that equal height action.
+          </Card.Text>
+        </Card.Body>
+        <Card.Footer>
+          <small className="text-muted">Last updated 3 mins ago</small>
+        </Card.Footer>
+      </Card>
+    </CardGroup>
   );
 }
 

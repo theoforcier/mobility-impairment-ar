@@ -17,9 +17,9 @@ function Friends({ ChangePage }) {
     <div>
       <div className="Friend">
         <AddFriend />
-        <MyFriends friends={friends} setFriends={setFriends} ChangePage={ChangePage} />
+        <MyFriends friends={friends} setFriends={setFriends} />
         <FriendRequest friends={friends} setFriends={setFriends} />
-        <Button className="rounded-circle" onClick={() => ChangePage("main", "")}> <FontAwesomeIcon icon={faXmark}/> </Button>
+        <Button className="rounded-circle" onClick={() => ChangePage("main")}> <FontAwesomeIcon icon={faXmark}/> </Button>
         <br></br>
       </div>
     </div>
