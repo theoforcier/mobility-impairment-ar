@@ -10,7 +10,7 @@ const MainUIBtn = ({ ChangePage }) => {
     return(
         <Container className="position-fixed bottom-0 end-1 me-1" style={{zIndex: 9999 }}>
                 <div className='mb-3'>
-                <Button className="rounded-circle" onClick={() => ChangePage("profile", "")}> <FontAwesomeIcon icon={faUser} /></Button>
+                <Button className="rounded-circle" onClick={() => ChangePage("profile")}> <FontAwesomeIcon icon={faUser} /></Button>
                 </div>
                 <div className='mb-3'>
                 <Button className="rounded-circle"> <FontAwesomeIcon icon={faUsers} /></Button>
@@ -19,7 +19,7 @@ const MainUIBtn = ({ ChangePage }) => {
                 <Button className="rounded-circle" onClick={() => ChangePage("tasks")}> <FontAwesomeIcon icon={faStar} /></Button>
                 </div>
                 <div className='mb-3'>
-                <Button className="rounded-circle" onClick={() => ChangePage("friends", "")}> <FontAwesomeIcon icon={faUserPlus} /></Button>
+                <Button className="rounded-circle" onClick={() => ChangePage("friends")}> <FontAwesomeIcon icon={faUserPlus} /></Button>
                 </div>
         </Container>
     );

@@ -4,6 +4,5 @@ export const PAGES = {
   MAIN: "main",
   PROFILE: "profile",
   FRIENDS: "friends",
-  FRIEND_PROFILE: "friend_profile",
-  TASKS: "tasks"
+  Tasks: "tasks",
 };
