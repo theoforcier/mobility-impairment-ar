@@ -76,8 +76,21 @@ For example, to display all tables in the database, run the command:\
 |--|--|--|--|--|
 | POST | /user/tasks/custom | | Create a new task  | ✔️ |
 | GET | /user/tasks/custom/remaining |  | Return the remaining number of new tasks able to be created today | ✔️ |
-| PUT | /user/tasks/custom/{task_id}/rename | `description` | Change the description of an active task | ✔️ |
-| PUT | /user/tasks/custom/{task_id}/complete | | Mark an active task as completed | ✔️ |
 | GET | /user/tasks/custom/{task_id} |  | Return the task | ✔️ |
 | GET | /user/tasks/custom | `completed*` | Return list of tasks. If `completed=0`, return active tasks.  If `completed=1`, return completed tasks. | ✔️ |
+| PUT | /user/tasks/custom/{task_id}/rename | `description` | Change the description of an active task | ✔️ |
+| PUT | /user/tasks/custom/{task_id}/complete | | Mark an active task as completed | ✔️ |
 | DELETE | /user/tasks/custom/{task_id} | | Delete an active task | ✔️ |
+
+
+
+
+### User Basic Tasks Resource
+
+| Endpoint | URI | Parameters | Description | Requires Authentication? |
+|--|--|--|--|--|
+| GET | /user/tasks/basic/{task_id} |  | Return the task | ✔️ |
+| GET | /user/tasks/basic | `completed*` | Return list of tasks. If `completed=0`, return active tasks.  If `completed=1`, return completed tasks. | ✔️ |
+| PUT | /user/tasks/basic/{task_id}/complete | | Mark an active task as completed and return the next task | ✔️ |
+| PUT | /user/tasks/basic/{task_id}/reroll | | Delete an active task and return the next task | ✔️ |
+

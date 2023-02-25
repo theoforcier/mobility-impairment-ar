@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Requests\UserCustomTask;
+namespace App\Http\Requests\CustomUserTask;
 
 use App\Http\Requests\BaseFormRequest;
-use Illuminate\Validation\Rule;
 
-class DestroyRequest extends BaseFormRequest
+class UpdateRequest extends BaseFormRequest
 {
-    
+
     public function authorize(): bool
     {
         $task = $this->route('task');
@@ -16,6 +15,8 @@ class DestroyRequest extends BaseFormRequest
 
     public function rules(): array
     {
-        return [];
+        return [
+            'description' => 'sometimes|string'
+        ];
     }
 }

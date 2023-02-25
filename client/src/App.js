@@ -10,6 +10,7 @@ import GeoMap from "./components/MainUI/GeoMap";
 import Profile from "./components/Profile/Profile";
 import Friends from "./components/Friends/Friends";
 import FriendProfile from "./components/Profile/FriendProfile";
+import Tasks from "./components/Task/Tasks"
 
 function App() {
   // Stores user data after logging in / signing up
@@ -98,6 +99,8 @@ function App() {
         <Friends ChangePage={ChangePage} />
       ) : page.current == PAGES.FRIEND_PROFILE ? (
         <FriendProfile ChangePage={ChangePage} page={page} />
+      ) : page.current == PAGES.Tasks ? (
+        <Tasks ChangePage={ChangePage} />
       ) : // Must pass login/signup/changepage functions and error to our forms
       page.current == PAGES.LOGIN ? (
         <div className="Landing">

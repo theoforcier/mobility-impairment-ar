@@ -12,7 +12,7 @@ use Exception;
 use Carbon\Carbon;
 
 
-class UserCustomTask extends Model
+class CustomUserTask extends Model
 {
     use HasFactory;
 

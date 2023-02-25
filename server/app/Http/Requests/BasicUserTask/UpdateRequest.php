@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\UserCustomTask;
+namespace App\Http\Requests\CustomUserTask;
 
 use App\Http\Requests\BaseFormRequest;
 
@@ -15,8 +15,6 @@ class UpdateRequest extends BaseFormRequest
 
     public function rules(): array
     {
-        return [
-            'description' => 'sometimes|string'
-        ];
+        return [];
     }
 }
