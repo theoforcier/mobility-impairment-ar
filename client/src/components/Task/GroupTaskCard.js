@@ -59,7 +59,7 @@ const GroupTaskCard = ({ ChangePage }) => {
                     <Progress progress={task.progress} total={task.total} />
                     <div className="button-group-container">
                       <Button
-                        classname="edit-button rounded-circle"
+                        className="edit-button rounded-circle"
                         onClick={handleShowModal}
                         style={{ marginRight: "5px" }}
                       >

@@ -51,10 +51,6 @@ code {
   text-align: center;
 }
 
-.add-friends .alert {
-  
-}
-
 .friendRequest {
   text-align: center;
   padding-bottom: 5px;
@@ -69,7 +65,7 @@ Style the card that will store all of the friend requests
   width: 100%;
 }
 
-.card-button {
+.Friend .card-button {
   background-color: #5a7bd0;
   width: 40px;
   border: none;
@@ -78,7 +74,7 @@ Style the card that will store all of the friend requests
   scale: 0.8;
 }
 
-.card-button:hover {
+.Friend .card-button:hover {
   background-color: #334f98;
 }
 

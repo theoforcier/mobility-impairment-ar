@@ -59,13 +59,13 @@ const PersonalTaskCard = ({ ChangePage }) => {
                     <Progress progress={task.progress} total={task.total} />
                     <div className="button-group-container">
                       <Button
-                        classname="edit-button rounded-circle"
+                        className="edit-button rounded-circle"
                         onClick={handleShowModal}
                         style={{ marginRight: "5px" }}
                       >
                         <FontAwesomeIcon icon={faPencilSquare} />
                       </Button>
-                      <Button classname="complete-button rounded-circle">
+                      <Button className="complete-button rounded-circle">
                         <FontAwesomeIcon icon={faCheck} />
                       </Button>
                     </div>
