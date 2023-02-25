@@ -99,7 +99,7 @@ function App() {
         <Friends ChangePage={ChangePage} />
       ) : page.current == PAGES.FRIEND_PROFILE ? (
         <FriendProfile ChangePage={ChangePage} page={page} />
-      ) : page.current == PAGES.Tasks ? (
+      ) : page.current == PAGES.TASKS ? (
         <Tasks ChangePage={ChangePage} />
       ) : // Must pass login/signup/changepage functions and error to our forms
       page.current == PAGES.LOGIN ? (
