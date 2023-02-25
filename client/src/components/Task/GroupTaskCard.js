@@ -65,7 +65,7 @@ const GroupTaskCard = ({ ChangePage }) => {
                       >
                         <FontAwesomeIcon icon={faPencilSquare} />
                       </Button>
-                      <Button classname="complete-button rounded-circle">
+                      <Button className="complete-button rounded-circle">
                         <FontAwesomeIcon icon={faCheck} />
                       </Button>
                     </div>
