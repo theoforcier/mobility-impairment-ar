@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilSquare, faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Button, Form, Card, ProgressBar, Col, Modal } from "react-bootstrap";
 import "./Tasks.css";
 import CardHeader from "react-bootstrap/esm/CardHeader";
+import { getHTTP, putHTTP } from "../../api/helpers";
 
 const taskList = [
   { name: "Travel 800m", progress: 621, total: 800, points: 20 },
@@ -25,6 +26,16 @@ const Progress = ({ progress, total }) => {
 };
 
 const PersonalTaskCard = ({ ChangePage }) => {
+  /*useEffect(() => {
+    getHTTP("user/tasks/basic").then((response) => {
+      if (response.success) {
+        response.tasks.foreach(task => {
+          //MODIFY TASKLIST
+        })
+      }
+    });
+  }, []);*/
+
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => {
     setShowModal(false);

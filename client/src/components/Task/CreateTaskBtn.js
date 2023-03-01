@@ -5,9 +5,12 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, Form, Modal } from "react-bootstrap";
 import "./Tasks.css";
+import { postHTTP } from "../../api/helpers";
 
 const CreateTaskBtn = ({ ChangePage }) => {
+  const [newTask, setNewTask] = useState({ name: "", goal: "" });
   const [showModal, setShowModal] = useState(false);
+
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -15,8 +18,19 @@ const CreateTaskBtn = ({ ChangePage }) => {
   const handleShowModal = () => {
     setShowModal(true);
   };
+
   const handleSaveModal = () => {
     setShowModal(false);
+
+    let payload = {
+      description: newTask.goal
+    };
+
+    postHTTP("user/tasks/custom", payload).then((response) => {
+      if (response.success) {
+        console.log(response);
+      }
+    });
   };
 
   return (
@@ -42,6 +56,9 @@ const CreateTaskBtn = ({ ChangePage }) => {
               <Form.Label>Task Name</Form.Label>
               <Form.Control
                 type="text"
+                onChange={(e) =>
+                  setNewTask({ ...newTask, name: e.target.value })
+                }
                 //   value={editedName}
                 //   onChange={(e) => setEditedName(e.target.value)}
               />
@@ -50,9 +67,12 @@ const CreateTaskBtn = ({ ChangePage }) => {
             <Form.Group controlId="formTaskGoal">
               <Form.Label>Task Goal</Form.Label>
               <Form.Control
-              //   type="number"
-              //   value={editedGoal}
-              //   onChange={(e) => setEditedGoal(e.target.value)}
+                onChange={(e) =>
+                  setNewTask({ ...newTask, goal: e.target.value })
+                }
+                //   type="number"
+                //   value={editedGoal}
+                //   onChange={(e) => setEditedGoal(e.target.value)}
               />
             </Form.Group>
           </Form>
