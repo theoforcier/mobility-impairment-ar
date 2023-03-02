@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilSquare, faCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPencilSquare,
+  faCheck,
+  faRepeat,
+} from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button, Form, Card, ProgressBar, Col, Modal } from "react-bootstrap";
 import "./Tasks.css";
@@ -33,9 +37,7 @@ const PersonalTaskCard = ({ ChangePage }) => {
     console.log(basicTasks);
   }, []);
 
-  const checkAddFriendProgress = () => {
-
-  };
+  const checkAddFriendProgress = () => {};
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -52,6 +54,10 @@ const PersonalTaskCard = ({ ChangePage }) => {
     setShowModal(false);
   };
 
+  const handleReroll = () => {};
+
+  const handleComplete = () => {};
+
   return (
     <div>
       <div className="row justify-content-center">
@@ -62,58 +68,39 @@ const PersonalTaskCard = ({ ChangePage }) => {
               {basicTasks.map((task) => (
                 <Card.Body>
                   <Card.Title>{task.label}</Card.Title>
-                  <Card.Text>
-                    0 of {task.quantity}m travelled<br></br>
-                    {task.points_reward} points
-                  </Card.Text>
-                  <Progress progress={task.progress} total={task.quantity} />
+                  {task.quantity > 1 ? (
+                    <Card.Subtitle>
+                      0 of {task.quantity}m travelled<br></br>
+                      {task.points_reward} points
+                      {task.progress == 0 ? (
+                        <Progress progress={0} total={task.quantity} />
+                      ) : (
+                        <Progress
+                          progress={task.progress}
+                          total={task.quantity}
+                        />
+                      )}
+                    </Card.Subtitle>
+                  ) : (
+                    <Card.Subtitle>{task.points_reward} points</Card.Subtitle>
+                  )}
+
                   <Card.Text>
                     <div className="button-group-container">
                       <Button
                         className="edit-button rounded-circle"
-                        onClick={handleShowModal}
+                        onClick={handleReroll}
                         style={{ marginRight: "5px" }}
                       >
-                        <FontAwesomeIcon icon={faPencilSquare} />
+                        <FontAwesomeIcon icon={faRepeat} />
                       </Button>
-                      <Button className="complete-button rounded-circle">
+                      <Button
+                        className="complete-button rounded-circle"
+                        onClick={handleComplete}
+                      >
                         <FontAwesomeIcon icon={faCheck} />
                       </Button>
                     </div>
-                    <Modal show={showModal} onHide={handleCloseModal}>
-                      <Modal.Header closeButton>
-                        <Modal.Title>Edit Task</Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                        <Form>
-                          <Form.Group controlId="formTaskName">
-                            <Form.Label>Task Name</Form.Label>
-                            <Form.Control
-                              type="text"
-                              //   value={editedName}
-                              //   onChange={(e) => setEditedName(e.target.value)}
-                            />
-                          </Form.Group>
-
-                          <Form.Group controlId="formTaskGoal">
-                            <Form.Label>Task Goal</Form.Label>
-                            <Form.Control
-                            //   type="number"
-                            //   value={editedGoal}
-                            //   onChange={(e) => setEditedGoal(e.target.value)}
-                            />
-                          </Form.Group>
-                        </Form>
-                      </Modal.Body>
-                      <Modal.Footer>
-                        <Button variant="danger" onClick={handleDelete}>
-                          Delete
-                        </Button>
-                        <Button variant="primary" onClick={handleSaveModal}>
-                          Save Changes
-                        </Button>
-                      </Modal.Footer>
-                    </Modal>
                   </Card.Text>
                 </Card.Body>
               ))}

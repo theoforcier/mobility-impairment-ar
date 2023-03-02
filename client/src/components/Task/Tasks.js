@@ -7,6 +7,7 @@ import "./Tasks.css";
 import PersonalTaskCard from "./PersonalTaskCard";
 import GroupTaskCard from "./GroupTaskCard";
 import CreateTaskBtn from "./CreateTaskBtn";
+import CustomTaskCard from "./CustomTaskCard";
 
 const Tasks = ({ ChangePage }) => {
   return (
@@ -18,6 +19,9 @@ const Tasks = ({ ChangePage }) => {
         <div>
           <br></br>
           <PersonalTaskCard></PersonalTaskCard>
+          <br></br>
+          <hr></hr>
+          <CustomTaskCard></CustomTaskCard>
           <br></br>
           <hr></hr>
           <GroupTaskCard></GroupTaskCard>
