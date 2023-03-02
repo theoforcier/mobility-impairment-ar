@@ -8,11 +8,6 @@ import "./Tasks.css";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 import { getHTTP, putHTTP } from "../../api/helpers";
 
-const taskList = [
-  { name: "Travel 800m", progress: 621, total: 800, points: 20 },
-  { name: "Travel 900m", progress: 780, total: 900, points: 14 },
-];
-
 const Progress = ({ progress, total }) => {
   const percentage = Math.floor((progress / total) * 100);
 
@@ -26,17 +21,22 @@ const Progress = ({ progress, total }) => {
 };
 
 const PersonalTaskCard = ({ ChangePage }) => {
-  /*useEffect(() => {
+  const [showModal, setShowModal] = useState(false);
+  const [basicTasks, setBasicTasks] = useState([]);
+
+  useEffect(() => {
     getHTTP("user/tasks/basic").then((response) => {
       if (response.success) {
-        response.tasks.foreach(task => {
-          //MODIFY TASKLIST
-        })
+        setBasicTasks(response.data.tasks);
       }
     });
-  }, []);*/
+    console.log(basicTasks);
+  }, []);
 
-  const [showModal, setShowModal] = useState(false);
+  const checkAddFriendProgress = () => {
+
+  };
+
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -59,15 +59,15 @@ const PersonalTaskCard = ({ ChangePage }) => {
           <Col md={6}>
             <Card>
               <CardHeader> Personal Tasks</CardHeader>
-              {taskList.map((task) => (
+              {basicTasks.map((task) => (
                 <Card.Body>
-                  <Card.Title>{task.name}</Card.Title>
-                  <Card.Subtitle>
-                    {task.progress}m of {task.total}m travelled<br></br>
-                    {task.points} points
-                  </Card.Subtitle>
+                  <Card.Title>{task.label}</Card.Title>
                   <Card.Text>
-                    <Progress progress={task.progress} total={task.total} />
+                    0 of {task.quantity}m travelled<br></br>
+                    {task.points_reward} points
+                  </Card.Text>
+                  <Progress progress={task.progress} total={task.quantity} />
+                  <Card.Text>
                     <div className="button-group-container">
                       <Button
                         className="edit-button rounded-circle"
