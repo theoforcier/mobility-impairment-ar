@@ -69,12 +69,14 @@ class BasicUserTask extends Model
 
         try {
 
-            // Update the user's points total            
+            // Find the task       
             $task = $this->find($taskId);
 
+            // We can only mark active tasks as complete
             if ($task->completed)
                 throw new Exception("Task is already marked as completed.");
 
+            // Update the user's points total
             $affected = DB::table('users')
                 ->where('id', auth()->id())
                 ->increment('points_total', $task->pointsReward());
@@ -88,11 +90,19 @@ class BasicUserTask extends Model
             if ($affected != 1)
                 throw new Exception("Task completion status could not be updated.");
 
-            // Assign a new task
-            $newTask = $this->assignNewTask(auth()->user());
+            // Assign a new task if necessary
+            $tasksCreatedToday = auth()->user()->basicTasks()
+                ->where('created_at', '>', Carbon::yesterday())
+                ->count();
+                
+            $maxDaily = config('constants.tasks.user_basic.max_daily');
 
-            if (!$newTask)
-                throw new Exception("User could not be assigned a new task.");
+            if ($tasksCreatedToday < $maxDaily) {
+                $newTask = $this->assignNewTask(auth()->user());
+
+                if (!$newTask)
+                    throw new Exception("User could not be assigned a new task.");
+            }
             
         } catch(\Exception $e) {
 

@@ -8,7 +8,7 @@ return [
             'points_reward' => 200
         ],
         'user_basic' => [
-            'max_active' => 3
+            'max_daily' => 3
         ]
     ]
 ];

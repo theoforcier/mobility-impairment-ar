@@ -44,10 +44,10 @@ class RegisterController extends BaseController
         $success['token'] = $token->plainTextToken;
         $success['token_expiry'] = $token->accessToken->expired_at;
    
-        // Assign basic tasks
-        $maxActive = config('constants.tasks.user_basic.max_active');
+        // Assign initial basic tasks
+        $maxDaily = config('constants.tasks.user_basic.max_daily');
         $basicTasksModel = new BasicUserTask;
-        for ($i = 0; $i < $maxActive; $i++) {
+        for ($i = 0; $i < $maxDaily; $i++) {
             $basicTasksModel->assignNewTask($user);
         }
 

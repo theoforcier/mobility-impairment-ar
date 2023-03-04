@@ -16,6 +16,13 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+
+        // Assign basic tasks
+        $schedule->call(function () {
+            //DB::table('recent_users')->delete();
+
+            
+        })->daily();
     }
 
     /**
