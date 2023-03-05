@@ -26,7 +26,9 @@ class UserController extends BaseController
     
     public function show(): object
     {
-        return $this->sendResponse(auth()->user()->toArray());
+        $user = auth()->user()->toArray();
+        $user['meters_travelled'] = auth()->user()->totalMetersTravelled();
+        return $this->sendResponse($user);
     }
 
     

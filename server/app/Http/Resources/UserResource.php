@@ -15,7 +15,7 @@ class UserResource extends JsonResource
             'display_name' => $this->display_name,
             'bio' => $this->bio,
             'points_total' => $this->points_total,
-            'meters_travelled' => $this->meters_travelled,
+            'meters_travelled' => $this->totalMetersTravelled(),
             'created_at' => $this->created_at
         ];
     }

@@ -58,7 +58,6 @@ class User extends Authenticatable
     // Set default values on Model instance
     protected $attributes = [
         'points_total' => 0,
-        'meters_travelled' => 0
     ];
 
 
@@ -118,6 +117,21 @@ class User extends Authenticatable
     public function basicTasks(): HasMany
     {
         return $this->HasMany(BasicUserTask::class);
+    }
+
+    public function totalPoints()
+    {
+        return $this->customTasks->sum('points_reward') + $this->basicTasks->sum('points_reward');
+    }
+
+    public function distances(): HasMany
+    {
+        return $this->HasMany(UserDistance::class);
+    }
+
+    public function totalMetersTravelled()
+    {
+        return $this->distances->sum('meters');
     }
 
 }

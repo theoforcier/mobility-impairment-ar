@@ -50,7 +50,7 @@ class CustomUserTask extends Model
         try {
 
             // Update the user's points total            
-            $task = $this->where('id', $taskId)->first();
+            $task = $this->where('id', $taskId)->firstOrFail();
 
             if ($task->completed)
                 throw new Exception("Task is already marked as completed.");
