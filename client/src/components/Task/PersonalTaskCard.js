@@ -31,32 +31,24 @@ const PersonalTaskCard = ({ ChangePage }) => {
   useEffect(() => {
     getHTTP("user/tasks/basic").then((response) => {
       if (response.success) {
+        console.log(response);
         setBasicTasks(response.data.tasks);
       }
     });
-    console.log(basicTasks);
   }, []);
 
   const checkAddFriendProgress = () => {};
 
-  const handleCloseModal = () => {
-    setShowModal(false);
+  const handleReroll = (rerollTask) => {
+    console.log("user/tasks/basic/" + rerollTask.id + "/reroll");
+    putHTTP("user/tasks/basic/" + rerollTask.id + "/reroll").then((response) => {
+      if (response.success) {
+        setBasicTasks([...basicTasks.filter(task => task.id != rerollTask.id), response.data.new_task]);
+      }
+    });
   };
 
-  const handleShowModal = () => {
-    setShowModal(true);
-  };
-  const handleSaveModal = () => {
-    setShowModal(false);
-  };
-
-  const handleDelete = () => {
-    setShowModal(false);
-  };
-
-  const handleReroll = () => {};
-
-  const handleComplete = () => {};
+  const handleComplete = (task) => {};
 
   return (
     <div>
@@ -68,10 +60,10 @@ const PersonalTaskCard = ({ ChangePage }) => {
               {basicTasks.map((task) => (
                 <Card.Body>
                   <Card.Title>{task.label}</Card.Title>
-                  {task.quantity > 1 ? (
+                  <Card.Subtitle>{task.points_reward} points</Card.Subtitle>
+                  {task.auto_completed == 1 ? (
                     <Card.Subtitle>
-                      0 of {task.quantity}m travelled<br></br>
-                      {task.points_reward} points
+                      0 of {task.quantity} {task.units}s<br></br>
                       {task.progress == 0 ? (
                         <Progress progress={0} total={task.quantity} />
                       ) : (
@@ -82,14 +74,14 @@ const PersonalTaskCard = ({ ChangePage }) => {
                       )}
                     </Card.Subtitle>
                   ) : (
-                    <Card.Subtitle>{task.points_reward} points</Card.Subtitle>
+                    <Card.Subtitle>Ready to complete</Card.Subtitle>
                   )}
 
                   <Card.Text>
                     <div className="button-group-container">
                       <Button
-                        className="edit-button rounded-circle"
-                        onClick={handleReroll}
+                        className="reroll-button rounded-circle"
+                        onClick={() => handleReroll(task)}
                         style={{ marginRight: "5px" }}
                       >
                         <FontAwesomeIcon icon={faRepeat} />
