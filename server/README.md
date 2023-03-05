@@ -59,6 +59,13 @@ For example, to display all tables in the database, run the command:\
 | PUT | /user | `email`, `display_name`, `first_name`, `last_name`, `password` | Update the current user | ✔️ |
 | GET | /user/search | `display_name` | Return list of matching users | ✔️ |
 
+### Distance Resource
+
+| Endpoint | URI | Parameters | Description | Requires Authentication? |
+|--|--|--|--|--|
+| GET | /distance | `date*` | Return the distance travelled today.  If `date` (in the format YYYY-MM-DD) is provided, return the distance travelled on that date.  | ✔️ |
+| POST | /distance/add | `meters` | Add X meters to the user's distance travelled today, and return the new number. | ✔️ |
+
 ### Friend Resource
 
 | Endpoint | URI | Parameters | Description | Requires Authentication? |

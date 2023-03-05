@@ -8,7 +8,7 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\FriendController;
 use App\Http\Controllers\API\CustomUserTaskController;
 use App\Http\Controllers\API\BasicUserTaskController;
-
+use App\Http\Controllers\API\UserDistanceController;
 
 
 /*
@@ -60,6 +60,11 @@ Route::middleware('auth:sanctum')->group( function () {
         Route::get('pending',   [FriendController::class, 'pending']);
         Route::put('{user}',    [FriendController::class, 'accept']);
         Route::delete('{user}', [FriendController::class, 'destroy']);
+    });
+
+    Route::prefix('distance')->group(function () {
+        Route::get('/',      [UserDistanceController::class, 'show']);
+        Route::post('/add',  [UserDistanceController::class, 'add']);
     });
     
 });

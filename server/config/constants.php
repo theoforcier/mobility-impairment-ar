@@ -10,5 +10,9 @@ return [
         'user_basic' => [
             'max_active' => 3
         ]
+    ],
+    'distance' => [
+        'max_increment' => 1000
     ]
+
 ];

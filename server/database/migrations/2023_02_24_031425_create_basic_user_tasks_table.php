@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('basic_user_tasks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');;
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('task_type_id')->constrained('task_types');
             $table->foreignId('task_difficulty_id')->constrained('task_difficulties');
+            $table->integer('points_reward')->default(0);
             $table->boolean('completed')->default(0);
             $table->timestamps();
         });
