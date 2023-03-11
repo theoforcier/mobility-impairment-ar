@@ -15,18 +15,17 @@ const Tasks = ({ ChangePage }) => {
       <div>
         <h1 style={{ textAlign: "center" }}>My Tasks</h1>
       </div>
-      <div className="row justify-content-center">
+      <div>
         <div>
           <br></br>
           <PersonalTaskCard></PersonalTaskCard>
-          <br></br>
           <hr></hr>
           <CustomTaskCard></CustomTaskCard>
-          <br></br>
           <hr></hr>
+          {/* 
           <GroupTaskCard></GroupTaskCard>
           <br></br>
-          <br></br>
+          */}
           <div
             className="fixed-bottom"
             style={{

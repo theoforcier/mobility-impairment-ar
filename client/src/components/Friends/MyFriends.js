@@ -11,7 +11,9 @@ export default function MyFriends({ friends, setFriends, ChangePage }) {
 
   useEffect(() => {
     getHTTP("friends").then((response) => {
-      setFriends(response.data.users);
+      if (response.success){
+        setFriends(response.data.users);
+      }
     });
   }, []);
 
