@@ -14,7 +14,10 @@ const CustomTaskCard = ({ ChangePage }) => {
   const [currentTask, setCurrentTask] = useState(null);
 
   useEffect(() => {
-    getHTTP("user/tasks/custom").then((response) => {
+    let payload = {
+      completed: 0
+    }
+    getHTTP("user/tasks/custom", payload).then((response) => {
       if (response.success) {
         // Setting custom task state
         setCustomTasks(response.data.tasks);
@@ -30,7 +33,8 @@ const CustomTaskCard = ({ ChangePage }) => {
     setCurrentTask(task);
     setShowModal(true);
   };
-  const saveTask = (taskId) => {
+
+  const saveTask = () => {
     let payload = {
       description: currentTask.description
     }
@@ -38,7 +42,7 @@ const CustomTaskCard = ({ ChangePage }) => {
     putHTTP("user/tasks/custom/" + currentTask.id + "/rename", payload).then((response) => {
       if (response.success) {
         const updatedCustomTasks = [...customTasks];
-        const taskIndex = updatedCustomTasks.findIndex((task) => task.id == taskId);
+        const taskIndex = updatedCustomTasks.findIndex((task) => task.id == currentTask.id);
         updatedCustomTasks[taskIndex].description = currentTask.description;
         setCustomTasks(updatedCustomTasks);
       }
@@ -54,6 +58,15 @@ const CustomTaskCard = ({ ChangePage }) => {
     });
     setShowModal(false);
   };
+
+  const completeTask = (taskId) => {
+    putHTTP("user/tasks/custom/" + taskId + "/complete").then((response) => {
+      if (response.success) {
+        console.log(response);
+        setCustomTasks(customTasks.filter((task) => task.id != taskId));
+      }
+    });
+  }
 
   return (
     <div>
@@ -71,12 +84,15 @@ const CustomTaskCard = ({ ChangePage }) => {
                   <div className="button-group-container">
                     <Button
                       className="card-button"
-                      onClick={() => handleShowModal(task)}
+                      onClick={ () => handleShowModal(task) }
                       style={{ marginRight: "5px" }}
                     >
                       <FontAwesomeIcon icon={faPencilSquare} />
                     </Button>
-                    <Button className="card-button">
+                    <Button 
+                      className="card-button"
+                      onClick={ () => completeTask(task.id) }
+                    >
                       <FontAwesomeIcon icon={faCheck} />
                     </Button>
                   </div>

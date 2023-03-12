@@ -27,7 +27,10 @@ const PersonalTaskCard = ({ ChangePage }) => {
   const [basicTasks, setBasicTasks] = useState([]);
 
   useEffect(() => {
-    getHTTP("user/tasks/basic").then((response) => {
+    let payload = {
+      completed: 0
+    }
+    getHTTP("user/tasks/basic", payload).then((response) => {
       if (response.success) {
         // Adding progress to each task object
         response.data.tasks.map(task => {
@@ -68,17 +71,24 @@ const PersonalTaskCard = ({ ChangePage }) => {
     })
   };
 
-  const handleReroll = (rerollTask) => {
-    putHTTP("user/tasks/basic/" + rerollTask.id + "/reroll").then((response) => {
+  const rerollTask = (taskId) => {
+    putHTTP("user/tasks/basic/" + taskId + "/reroll").then((response) => {
       if (response.success) {
         // Add the progress parameter which isn't there initially
         response.data.new_task.progress = 0;
-        setBasicTasks([...basicTasks.filter(task => task.id != rerollTask.id), response.data.new_task]);
+        setBasicTasks([...basicTasks.filter(task => task.id != taskId), response.data.new_task]);
       }
     });
   };
 
-  const handleComplete = (task) => {};
+  const completeTask = (taskId) => {
+    putHTTP("user/tasks/basic/" + taskId + "/complete").then((response) => {
+      if (response.success) {
+        response.data.new_task.progress = 0;
+        setBasicTasks([...basicTasks.filter(task => task.id != taskId), response.data.new_task]);
+      }
+    });
+  }
 
   return (
     <div className="task-section">
@@ -100,7 +110,7 @@ const PersonalTaskCard = ({ ChangePage }) => {
               <div className="button-group-container">
                 <Button
                   className="reroll-button card-button"
-                  onClick={() => handleReroll(task)}
+                  onClick={ () => rerollTask(task.id) }
                   style={{ marginRight: "5px" }}
                 >
                   <FontAwesomeIcon icon={faRepeat} />
@@ -108,7 +118,7 @@ const PersonalTaskCard = ({ ChangePage }) => {
                 {(task.auto_completed == 0 || task.progress >= task.quantity) &&
                 <Button
                   className="complete-button card-button"
-                  onClick={handleComplete}
+                  onClick={ () => completeTask(task.id) }
                 >
                   <FontAwesomeIcon icon={faCheck} />
                 </Button>

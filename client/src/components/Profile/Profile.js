@@ -14,7 +14,9 @@ function Profile({ ChangePage }) {
 
   useEffect(() => {
     getHTTP("user").then((response) => {
-      setUser(response.data);
+      if (response.success) {
+        setUser(response.data);
+      }
     });
   }, []);
 

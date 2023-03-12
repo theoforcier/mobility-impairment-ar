@@ -25,7 +25,7 @@ export default function Info({ user, setUser }) {
     })
 
     putHTTP("user", payload).then((response) => {
-      if (response.success){
+      if (response.success) {
         setUser(response.data)
       }
     });
