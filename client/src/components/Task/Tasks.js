@@ -21,6 +21,8 @@ const Tasks = ({ ChangePage }) => {
           <PersonalTaskCard></PersonalTaskCard>
           <hr></hr>
           <CustomTaskCard></CustomTaskCard>
+          <br></br>
+          <br></br>
           <hr></hr>
           {/* 
           <GroupTaskCard></GroupTaskCard>

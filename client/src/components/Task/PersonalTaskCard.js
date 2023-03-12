@@ -105,12 +105,14 @@ const PersonalTaskCard = ({ ChangePage }) => {
                 >
                   <FontAwesomeIcon icon={faRepeat} />
                 </Button>
+                {(task.auto_completed == 0 || task.progress >= task.quantity) &&
                 <Button
                   className="complete-button card-button"
                   onClick={handleComplete}
                 >
                   <FontAwesomeIcon icon={faCheck} />
                 </Button>
+                }
               </div>
             </Card.Body>
           ))}

@@ -11,6 +11,7 @@ import { getHTTP, putHTTP, deleteHTTP } from "../../api/helpers";
 const CustomTaskCard = ({ ChangePage }) => {
   const [showModal, setShowModal] = useState(false);
   const [customTasks, setCustomTasks] = useState([]);
+  const [currentTask, setCurrentTask] = useState(null);
 
   useEffect(() => {
     getHTTP("user/tasks/custom").then((response) => {
@@ -25,16 +26,27 @@ const CustomTaskCard = ({ ChangePage }) => {
     setShowModal(false);
   };
 
-  const handleShowModal = () => {
+  const handleShowModal = (task) => {
+    setCurrentTask(task);
     setShowModal(true);
   };
-  const saveTask = () => {
-    console.log(JSON.parse(JSON.stringify(customTasks)));
+  const saveTask = (taskId) => {
+    let payload = {
+      description: currentTask.description
+    }
+    // Updating tasks and modifying database
+    putHTTP("user/tasks/custom/" + currentTask.id + "/rename", payload).then((response) => {
+      if (response.success) {
+        const updatedCustomTasks = [...customTasks];
+        const taskIndex = updatedCustomTasks.findIndex((task) => task.id == taskId);
+        updatedCustomTasks[taskIndex].description = currentTask.description;
+        setCustomTasks(updatedCustomTasks);
+      }
+    });
     setShowModal(false);
   };
 
   const deleteTask = (taskId) => {
-    console.log(taskId);
     deleteHTTP("user/tasks/custom/" + taskId).then((response) => {
       if (response.success) {
         setCustomTasks(customTasks.filter((task) => task.id != taskId));
@@ -44,72 +56,66 @@ const CustomTaskCard = ({ ChangePage }) => {
   };
 
   return (
-    <div className="task-section">
-      <Col>
-        <Card>
-          <CardHeader> Custom Tasks</CardHeader>
-          {customTasks.map((task) => (
-            <Card.Body>
-              <Card.Title>{task.name}</Card.Title>
-              <Card.Subtitle>
-                {task.description}<br></br>
-                {task.points_reward} points
-              </Card.Subtitle>
-              <Card.Text>
-                <div className="button-group-container">
-                  <Button
-                    className="card-button"
-                    onClick={handleShowModal}
-                    style={{ marginRight: "5px" }}
-                  >
-                    <FontAwesomeIcon icon={faPencilSquare} />
-                  </Button>
-                  <Button className="card-button">
-                    <FontAwesomeIcon icon={faCheck} />
-                  </Button>
-                </div>
-                <Modal show={showModal} onHide={handleCloseModal}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Edit Task</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <Form>
-                      <Form.Group controlId="formTaskName">
-                        <Form.Label>Task Name</Form.Label>
-                        <Form.Control
-                          type="text"
-                          defaultValue={task.name}
-                          //   value={editedName}
-                          //   onChange={(e) => setEditedName(e.target.value)}
-                        />
-                      </Form.Group>
-
-                      <Form.Group controlId="formTaskGoal">
-                        <Form.Label>Task Goal</Form.Label>
-                        <Form.Control
-                        type="test"
-                        defaultValue={task.description}
-                        //   type="number"
-                        //   value={editedGoal}
-                        //   onChange={(e) => setEditedGoal(e.target.value)}
-                        />
-                      </Form.Group>
-                    </Form>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="danger" onClick={ () => deleteTask(task.id) }>
-                      Delete
+    <div>
+      <div className="task-section">
+        <Col>
+          <Card>
+            <CardHeader> Custom Tasks</CardHeader>
+            {customTasks.map((task) => (
+              <Card.Body>
+                <Card.Title>{task.description}</Card.Title>
+                <Card.Subtitle>
+                  {task.points_reward} points
+                </Card.Subtitle>
+                <Card.Text>
+                  <div className="button-group-container">
+                    <Button
+                      className="card-button"
+                      onClick={() => handleShowModal(task)}
+                      style={{ marginRight: "5px" }}
+                    >
+                      <FontAwesomeIcon icon={faPencilSquare} />
                     </Button>
-                    <Button variant="primary" onClick={ () => saveTask() }>
-                      Save Changes
+                    <Button className="card-button">
+                      <FontAwesomeIcon icon={faCheck} />
                     </Button>
-                  </Modal.Footer>
-                </Modal>
-              </Card.Text>
-            </Card.Body>
-          ))}
-        </Card>
-      </Col>
+                  </div>
+                </Card.Text>
+              </Card.Body>
+            ))}
+          </Card>
+        </Col>
+      </div>
+      <div>
+        <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Task</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group controlId="formTaskGoal">
+                <Form.Label>Task Goal</Form.Label>
+                <Form.Control
+                type="test"
+                defaultValue={currentTask ? currentTask.description : ""}
+                onChange={(e) => {
+                  const newTask = { ...currentTask, description: e.target.value };
+                  setCurrentTask(newTask);
+                }}
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="danger" onClick={ () => deleteTask(currentTask.id) }>
+              Delete
+            </Button>
+            <Button variant="primary" onClick={ () => saveTask(currentTask.id) }>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     </div>
   );
 };
