@@ -24,7 +24,7 @@ const Progress = ({ progress, total }) => {
   );
 };
 
-const GroupTaskCard = ({ ChangePage }) => {
+const GroupTaskCard = () => {
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => {
     setShowModal(false);

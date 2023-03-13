@@ -5,13 +5,14 @@ import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-
 import './Profile.css'
 import { getHTTP } from "../../api/helpers";
 
 function Profile({ ChangePage }) {
+  // User information, will be passed to child components
   const [user, setUser] = useState({ bio: "", email: "", display_name: "", first_name: "", last_name: "", meter_traveled: "", point_total: "" });
 
+  // Fetch and store user information
   useEffect(() => {
     getHTTP("user").then((response) => {
       if (response.success) {

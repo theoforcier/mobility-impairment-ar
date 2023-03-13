@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faPencilSquare,
   faCheck,
   faRepeat,
 } from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +11,7 @@ import "./Tasks.css";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 import { getHTTP, putHTTP } from "../../api/helpers";
 
+// Progress bar component
 const Progress = ({ progress, total }) => {
   let percentage = Math.floor((progress / total) * 100);
   percentage = Math.min(percentage, 100);
@@ -23,22 +23,25 @@ const Progress = ({ progress, total }) => {
   );
 };
 
-const PersonalTaskCard = ({ ChangePage }) => {
+const PersonalTaskCard = () => {
+  // List of basic tasks
   const [basicTasks, setBasicTasks] = useState([]);
 
+  // Fetch and store a user's uncompleted basic tasks
   useEffect(() => {
     let payload = {
       completed: 0
     }
     getHTTP("user/tasks/basic", payload).then((response) => {
       if (response.success) {
-        // Adding progress to each task object
+        // Adding progress field to each task object
         response.data.tasks.map(task => {
           task.progress = 0;
           return task;
         });
-        // Setting basic task state
+
         setBasicTasks(response.data.tasks);
+
         // Updating progress for tasks that need it
         response.data.tasks.forEach(task => {
           if (task.label == "Add a friend") {
@@ -49,6 +52,7 @@ const PersonalTaskCard = ({ ChangePage }) => {
     });
   }, []);
   
+  // Verify progress for "add x friends" tasks
   const checkAddFriendProgress = (task) => {
     getHTTP('friends').then(response => {
       let progress = 0;
@@ -71,6 +75,7 @@ const PersonalTaskCard = ({ ChangePage }) => {
     })
   };
 
+  // Reroll task using task ID
   const rerollTask = (taskId) => {
     putHTTP("user/tasks/basic/" + taskId + "/reroll").then((response) => {
       if (response.success) {
@@ -81,9 +86,11 @@ const PersonalTaskCard = ({ ChangePage }) => {
     });
   };
 
+  // Complete task using task ID
   const completeTask = (taskId) => {
     putHTTP("user/tasks/basic/" + taskId + "/complete").then((response) => {
       if (response.success) {
+        // Add the progress parameter which isn't there initially
         response.data.new_task.progress = 0;
         setBasicTasks([...basicTasks.filter(task => task.id != taskId), response.data.new_task]);
       }

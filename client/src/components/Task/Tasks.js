@@ -6,7 +6,6 @@ import { Button } from "react-bootstrap";
 import "./Tasks.css";
 import PersonalTaskCard from "./PersonalTaskCard";
 import GroupTaskCard from "./GroupTaskCard";
-import CreateTaskBtn from "./CreateTaskBtn";
 import CustomTaskCard from "./CustomTaskCard";
 
 const Tasks = ({ ChangePage }) => {
@@ -44,7 +43,6 @@ const Tasks = ({ ChangePage }) => {
               <FontAwesomeIcon icon={faXmark} />{" "}
             </Button>
           </div>
-          <CreateTaskBtn></CreateTaskBtn>
         </div>
       </div>
     </div>

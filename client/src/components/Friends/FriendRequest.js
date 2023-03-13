@@ -8,14 +8,17 @@ import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { getHTTP, putHTTP, deleteHTTP } from "../../api/helpers";
 
 export default function FriendRequest({ friends, setFriends }) {
+  // User's current friend requests
   const [requests, setRequests] = useState( [] );
 
+  // Fetch and store friend requests
   useEffect(() => {
     getHTTP("friends/pending").then((response) => {
       setRequests(response.data.users);
     });
   }, []);
 
+  // Accept request, updating current requests/friends 
   function AcceptRequest(userId) {
     putHTTP("friends/" + userId).then((response) => {
       if (response.success) {
@@ -25,6 +28,7 @@ export default function FriendRequest({ friends, setFriends }) {
     });
   }
 
+  // Delete request, updating current requests
   function RejectRequest(userId) {
     deleteHTTP("friends/" + userId).then((response) => {
       if (response.success) {

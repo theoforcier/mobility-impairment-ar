@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Card, ListGroup, Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +8,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { getHTTP } from "../../api/helpers";
 
 export default function MyFriends({ friends, setFriends, ChangePage }) {
-
+  // Fetch and store user friends
   useEffect(() => {
     getHTTP("friends").then((response) => {
       if (response.success){
