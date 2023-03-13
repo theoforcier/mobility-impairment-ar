@@ -1,8 +1,5 @@
 import React from 'react'
-import {Button, Form, Card} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faUser,faUsers, faStar , faUserPlus} from "@fortawesome/free-solid-svg-icons"
 
 export default function Activity({ user }) {
     return (

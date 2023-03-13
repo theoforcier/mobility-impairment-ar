@@ -1,3 +1,4 @@
+// Enum containing all pages for the application
 export const PAGES = {
   LOGIN: "login",
   SIGNUP: "signup",

@@ -1,21 +1,35 @@
 .Tasks {
-    width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     background-image: linear-gradient(to bottom right, #5a7bd0, #fff);
+    background-attachment: fixed;
   }
-.edit-button,
-.complete-button {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  font-size: 16px;
-  margin: auto;
+
+.Tasks .task-section {
+  display: flex;
 }
+
 .button-group-container {
-    display: flex;
-    justify-content: flex-end;
+    display: inline;
     margin-top: 1rem;
   }
+
+.Tasks .card-button {
+  background-color: #5a7bd0;
+  width: 40px;
+  height: 40px;
+  border: none;
+  outline: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  scale: 0.8;
+}
+
+.Tasks .card-button:hover {
+  background-color: #334f98;
+}
+
+.progress-bar {
+  background-color: #5a7bd0;
+}
 
 .rounded-circle {
     margin-left: 10px;

@@ -2,21 +2,21 @@ import { useState } from "react";
 import React from 'react'
 import {Button, Container, Form, Alert} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
-
 import { postHTTP } from "../../api/helpers";
-import { text } from "@fortawesome/fontawesome-svg-core";
 
 export default function AddFriend() {
+  // New friend form state
   const [newFriend, setNewFriend] = useState({ display_name: "" });
+  // Success/error message when adding friends
   const [message, setMessage] = useState({ text: "", type: "" });
 
   // Send friend request through API
   const sendRequest = () => {
+    // If nothing is entered
     if (newFriend.display_name == "") {
       setMessage({ text: "Please enter a username.", type: "danger" });
       return;
     }
-  
     postHTTP("friends", newFriend).then((response) => {
       // If user exists, set success message
       if (response.success) {
@@ -28,6 +28,7 @@ export default function AddFriend() {
     });
   }
 
+  // Form handler
   const submitHandler = (e) => {
     e.preventDefault();
     sendRequest()

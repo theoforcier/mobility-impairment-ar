@@ -15,6 +15,7 @@ class BasicTaskResource extends JsonResource
             'label' => $this->taskType->description,
             'quantity' => $this->quantity(),
             'units' => $this->taskType->units,
+            'auto_completed' => $this->taskType->auto_completed,
             'points_reward' => $this->pointsReward(),
             'completed' => $this->completed,
             'created_at' => $this->created_at,

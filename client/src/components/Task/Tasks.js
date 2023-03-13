@@ -6,7 +6,7 @@ import { Button } from "react-bootstrap";
 import "./Tasks.css";
 import PersonalTaskCard from "./PersonalTaskCard";
 import GroupTaskCard from "./GroupTaskCard";
-import CreateTaskBtn from "./CreateTaskBtn";
+import CustomTaskCard from "./CustomTaskCard";
 
 const Tasks = ({ ChangePage }) => {
   return (
@@ -14,15 +14,19 @@ const Tasks = ({ ChangePage }) => {
       <div>
         <h1 style={{ textAlign: "center" }}>My Tasks</h1>
       </div>
-      <div className="row justify-content-center">
+      <div>
         <div>
           <br></br>
           <PersonalTaskCard></PersonalTaskCard>
+          <hr></hr>
+          <CustomTaskCard></CustomTaskCard>
+          <br></br>
           <br></br>
           <hr></hr>
+          {/* 
           <GroupTaskCard></GroupTaskCard>
           <br></br>
-          <br></br>
+          */}
           <div
             className="fixed-bottom"
             style={{
@@ -39,7 +43,6 @@ const Tasks = ({ ChangePage }) => {
               <FontAwesomeIcon icon={faXmark} />{" "}
             </Button>
           </div>
-          <CreateTaskBtn></CreateTaskBtn>
         </div>
       </div>
     </div>

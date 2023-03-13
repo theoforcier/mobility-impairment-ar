@@ -11,6 +11,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import './Friends.css';
 
 function Friends({ ChangePage }) {
+  // User's current friend, read/written to by children components
   const [friends, setFriends] = useState( [] );
 
   return (

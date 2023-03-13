@@ -10,22 +10,26 @@ export default function Info({ user, setUser }) {
   const [info, setInfo] = useState({ bio: "", email: "", display_name: "", first_name: "", last_name: "" });
   const [isEditing, setIsEditing] = useState(false);
 
+  // Store initial user information
   useEffect(() => {
     setInfo(user);
   }, [user]);
 
+  // Update user information on form submit
   const submitHandler = (e) => {
     e.preventDefault();
 
+    // Apply modifications
     let payload = {}
     const fields = ['first_name', 'last_name', 'bio', 'display_name', 'email']
     fields.forEach(field => {
-      if (info[field] != user[field])    // field has changed
+      if (info[field] != user[field])
         payload[field] = info[field]
     })
 
+    // Update database and component state
     putHTTP("user", payload).then((response) => {
-      if (response.success){
+      if (response.success) {
         setUser(response.data)
       }
     });

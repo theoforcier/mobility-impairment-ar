@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('base_points');
             $table->integer('base_quantity');
             $table->string('units');
+            $table->boolean('auto_completed');
         });
 
         DB::table('task_types')->insert([
@@ -26,25 +27,29 @@ return new class extends Migration
                 'description' => 'Travel',
                 'base_points' => 250,
                 'base_quantity' => 200,
-                'units' => 'meter'
+                'units' => 'meter',
+                'auto_completed' => true
             ],
             [ // id: 2
                 'description' => 'Add a friend',
                 'base_points' => 250,
                 'base_quantity' => 1,
-                'units' => 'friend'
+                'units' => 'friend',
+                'auto_completed' => true
             ],
             [ // id: 3
                 'description' => 'Talk to a friend',
                 'base_points' => 100,
                 'base_quantity' => 1,
-                'units' => 'friend'
+                'units' => 'friend',
+                'auto_completed' => false
             ],
             [ // id: 4
                 'description' => 'Make a craft',
                 'base_points' => 200,
                 'base_quantity' => 1,
-                'units' => 'craft'
+                'units' => 'craft',
+                'auto_completed' => false
             ]
         ]);
     }
