@@ -9,6 +9,7 @@ use App\Http\Controllers\API\FriendController;
 use App\Http\Controllers\API\CustomUserTaskController;
 use App\Http\Controllers\API\BasicUserTaskController;
 use App\Http\Controllers\API\UserDistanceController;
+use App\Http\Controllers\API\GroupController;
 
 
 /*
@@ -65,6 +66,11 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::prefix('distance')->group(function () {
         Route::get('/',      [UserDistanceController::class, 'show']);
         Route::post('/add',  [UserDistanceController::class, 'add']);
+    });
+
+    Route::prefix('groups')->group(function () {
+        Route::get('/',      [GroupController::class, 'show']);
+        Route::post('/',     [GroupController::class, 'store']);
     });
     
 });

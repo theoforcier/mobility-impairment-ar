@@ -134,4 +134,25 @@ class User extends Authenticatable
         return $this->distances->sum('meters');
     }
 
+    public function groups(): BelongsToMany
+    {
+        return $this->belongsToMany(Group::class, 'group_user')
+            ->withPivot([
+                'joined_at', 'left_at', 'invited_at', 'inviter_id'
+            ]);
+    }
+
+    public function activeGroups(): BelongsToMany
+    {
+        return $this->groups()
+            ->wherePivot('joined_at', '!=', null)
+            ->wherePivot('left_at', null);
+    }
+
+    public function groupInvites(): BelongsToMany
+    {
+        return $this->groups()
+            ->wherePivot('invited_at', '!=', null)
+            ->wherePivot('joined_at', null);
+    }
 }
