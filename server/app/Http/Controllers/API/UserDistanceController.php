@@ -24,6 +24,7 @@ class UserDistanceController extends BaseController
     public function show(ShowRequest $request): object
     {
         $record = $this->model->dateDistance($request->validated()['date']);
+        $record = $record ?? ['date' => $request->validated()['date'], 'meters' => 0];
         return $this->sendResponse($record);
     }
 
@@ -36,7 +37,7 @@ class UserDistanceController extends BaseController
             $record = $this->model->dateDistance($date);
             return $this->sendResponse($record);
         }
-        
+
         return $this->sendError("Unable to process request.");
     }
 
