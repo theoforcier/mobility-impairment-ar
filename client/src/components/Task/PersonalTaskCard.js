@@ -138,7 +138,9 @@ const PersonalTaskCard = () => {
                   </div>
                 </div>
 
-                <Progress progress={task.progress} total={task.quantity} />
+                {task.auto_completed == 1 && (
+                  <Progress progress={task.progress} total={task.quantity} />
+                )}
 
                 <div className="d-flex justify-content-between mt-3">
 
