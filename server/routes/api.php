@@ -52,6 +52,7 @@ Route::middleware('auth:sanctum')->group( function () {
         Route::get('/',       [UserController::class, 'show']);
         Route::get('/search', [UserController::class, 'index']);
         Route::put('/',       [UserController::class, 'update']);
+        Route::get('/points', [UserController::class, 'points']);
     });
 
     Route::prefix('friends')->group(function () {

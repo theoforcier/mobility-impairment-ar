@@ -23,7 +23,7 @@ function Profile({ ChangePage }) {
 
   return (
     <div className="Profile p-3">
-      <div class="row justify-content-center">
+      <div className="row justify-content-center">
         <div style={{minWidth: '40%', maxWidth: '500px'}}>
           <Info user={user} setUser={setUser} />
           <Activity user={user} />

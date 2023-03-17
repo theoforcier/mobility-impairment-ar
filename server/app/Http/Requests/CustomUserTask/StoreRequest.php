@@ -21,7 +21,7 @@ class StoreRequest extends BaseFormRequest
         $yesterday = Carbon::yesterday();
 
         $activeTasksCount = auth()->user()->customTasks()
-            ->where('completed', 0)
+            ->whereNull('completed_at')
             ->count();
 
         $recentTasksCount = auth()->user()->customTasks()

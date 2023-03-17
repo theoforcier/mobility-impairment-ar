@@ -52,7 +52,7 @@ class CustomUserTask extends Model
             // Update the user's points total            
             $task = $this->where('id', $taskId)->firstOrFail();
 
-            if ($task->completed)
+            if ($task->completed_at != null)
                 throw new Exception("Task is already marked as completed.");
 
             $affected = DB::table('users')
@@ -63,7 +63,8 @@ class CustomUserTask extends Model
                 throw new Exception("User points total could not be updated.");
 
             // Mark the task as complete!
-            $affected = $this->where('id', $taskId)->update(['completed' => 1]);
+            $now = now()->toDateString();
+            $affected = $this->where('id', $taskId)->update(['completed_at' => $now]);
 
             if ($affected != 1)
                 throw new Exception("Task completion status could not be updated.");

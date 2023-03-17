@@ -12,7 +12,7 @@ const Tasks = ({ ChangePage }) => {
   return (
     <div className="Tasks p-3">
 
-      <div class="row justify-content-center pb-4">
+      <div className="row justify-content-center pb-4">
         <div style={{minWidth: '40%', maxWidth: '500px'}}>
           <Card className="text-center p-2 pt-3">
             <h2>My Tasks</h2>

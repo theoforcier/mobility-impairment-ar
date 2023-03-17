@@ -31,17 +31,24 @@ class BasicUserTaskController extends BaseController
     
     public function index(IndexRequest $request)
     {
-        $tasks = $tasks = auth()->user()->basicTasks();
-        if (isset($request->validated()['completed']))
-            $tasks = auth()->user()->basicTasks()->where('completed', $request->validated()['completed']);
+        $tasks = auth()->user()->basicTasks();
+
+        if (isset($request->validated()['completed'])) {
+            $completed = (bool)$request->validated()['completed'];
             
+            if ($completed)
+                $tasks = $tasks->whereNotNull('completed_at');
+            else
+                $tasks = $tasks->whereNull('completed_at');
+        }
+
         return $this->sendResponse(new BasicTaskCollection($tasks->get()));
     }
     
     public function complete(BasicUserTask $task, UpdateRequest $request)
     {
         $newTask = $this->model->markCompleteAndCreateNew($task->id);
-        $task->completed = 1;
+        $task->completed_at = now()->toDateString();
 
         return $this->sendResponse([
             'completed_task' => new BasicTaskResource($task),

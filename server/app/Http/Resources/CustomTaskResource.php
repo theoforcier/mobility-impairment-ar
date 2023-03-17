@@ -13,7 +13,7 @@ class CustomTaskResource extends JsonResource
         return [
             'id' => $this->id,
             'description' => $this->description,
-            'completed' => $this->completed,
+            'completed_at' => $this->completed_at,
             'points_reward' => $this->points_reward,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at

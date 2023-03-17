@@ -17,7 +17,7 @@ function Friends({ ChangePage }) {
 
   return (
     <div className="Friend p-3">
-      <div class="row justify-content-center">
+      <div className="row justify-content-center">
         <div style={{minWidth: '40%', maxWidth: '500px'}}>
 
           <Card className="text-center pt-3 mb-3">

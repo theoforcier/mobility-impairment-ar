@@ -36,9 +36,16 @@ class CustomUserTaskController extends BaseController
     public function index(IndexRequest $request)
     {
         $tasks = $tasks = auth()->user()->customTasks();
-        if (isset($request->validated()['completed']))
-            $tasks = auth()->user()->customTasks()->where('completed', $request->validated()['completed']);
+        
+        if (isset($request->validated()['completed'])) {
+            $completed = (bool)$request->validated()['completed'];
             
+            if ($completed)
+                $tasks = $tasks->whereNotNull('completed_at');
+            else
+                $tasks = $tasks->whereNull('completed_at');
+        }
+
         return $this->sendResponse(new CustomTaskCollection($tasks->get()));
     }
 
