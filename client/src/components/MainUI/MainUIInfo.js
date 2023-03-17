@@ -5,17 +5,33 @@ import './MainUIInfo.css'
 
 const MainUIInfo = () => {
 
-    const [points, setPoints] = useState(0);
+  const [todaysInfo, setTodaysInfo] = useState({ distance: "", points: "" });
 
-    useEffect(() => {
+  useEffect(() => {
+    const getTodaysInfo = () => {
+      let payload = {
+        date: getFormattedDate()
+      };
+  
+      getHTTP("distance", payload).then((response) => {
+        if (response.success){
+          setTodaysInfo({ distance: response.data.meters });
+        }
+      });
 
-      // Fetch points
-      const payload = { from_date: "2023-03-17" }           // insert today's date in YYYY-MM-DD (in UTC time zone)
       getHTTP("user/points", payload).then(response => {
         if (response.success)
-          setPoints(response.data.points)
+          setTodaysInfo({ points: response.data.points })
       })
-    }, [])
+    }
+    getTodaysInfo();
+    const interval = setInterval(() => {
+      getTodaysInfo();
+    }, 5 * 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+
 
     return (
       <div className="d-flex justify-content-center">
@@ -24,7 +40,7 @@ const MainUIInfo = () => {
           <div style={{ color: "#5a7bd0", textAlign: "center"}} ><br/>
             <b>Distance Travelled</b>
             <h1 style={{ color: "#5a7bd0", textAlign: "center", textShadow: "1px 1px 1px #000", fontSize: "33px"}}>
-              1234
+              {todaysInfo.distance}
             </h1>
           </div>
         </div>
@@ -33,7 +49,7 @@ const MainUIInfo = () => {
           <div style={{ color: "#5a7bd0", textAlign: "center"}}><br/>
             <b>Points Earned</b>
             <h1 style={{ color: "#5a7bd0", textAlign: "center",textShadow: "1px 1px 1px #000", fontSize: "33px"}}>
-              {points}
+              {todaysInfo.points}
             </h1>
           </div>
         
