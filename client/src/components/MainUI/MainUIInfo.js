@@ -6,6 +6,7 @@ import './MainUIInfo.css'
 const MainUIInfo = () => {
 
   const [todaysInfo, setTodaysInfo] = useState({ distance: 0, points: 0 });
+  const [intervalId, setIntervalId] = useState(null);
 
   useEffect(() => {
     const getTodaysInfo = () => {
@@ -33,11 +34,17 @@ const MainUIInfo = () => {
       });
 
     }
-    getTodaysInfo();
-    const interval = setInterval(() => {
+
+    // Set up the interval
+    const newIntervalId = setInterval(() => {
       getTodaysInfo();
-    }, 5 * 1000);
-    return () => clearInterval(interval);
+    }, 10 * 1000);
+    setIntervalId(newIntervalId);
+
+    // Clean up the interval
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []);
 
   return (
