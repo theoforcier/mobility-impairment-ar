@@ -18,7 +18,7 @@ const MainUIInfo = () => {
         date: getFormattedDateUTC()
       }
   
-      getHTTP("distance", payload).then((response) => {
+      getHTTP("distance", payloadUTC).then((response) => {
         if (response.success){
           setTodaysInfo(currentTodaysInfo => {
             return { ...currentTodaysInfo, distance: response.data.meters }
@@ -35,10 +35,11 @@ const MainUIInfo = () => {
 
     }
 
+    getTodaysInfo();
     // Set up the interval
     const newIntervalId = setInterval(() => {
       getTodaysInfo();
-    }, 10 * 1000);
+    }, 8 * 1000);
     setIntervalId(newIntervalId);
 
     // Clean up the interval
