@@ -105,37 +105,51 @@ const CustomTaskCard = () => {
           <Card>
             <CardHeader className="d-flex justify-content-between align-items-center"> 
               <span>Custom Tasks</span>
-              <div>
-                <Button className="card-button" onClick={ () => handleCreate() }>
-                  <FontAwesomeIcon icon={faPlus}/>
+              <span>
+                <Button className="btn-main"onClick={ () => handleCreate() }>
+                  <FontAwesomeIcon icon={faPlus} />
                 </Button>
-              </div>
+              </span>
             </CardHeader>
-            {customTasks.map((task) => (
-              <Card.Body>
-                <Card.Title>{task.description}</Card.Title>
-                <Card.Subtitle>
-                  {task.points_reward} points
-                </Card.Subtitle>
-                <Card.Text>
-                  <div className="button-group-container">
-                    <Button
-                      className="card-button"
-                      onClick={ () => handleEdit(task) }
-                      style={{ marginRight: "5px" }}
-                    >
-                      <FontAwesomeIcon icon={faPencilSquare} />
-                    </Button>
-                    <Button 
-                      className="card-button"
-                      onClick={ () => completeTask(task.id) }
-                    >
-                      <FontAwesomeIcon icon={faCheck} />
-                    </Button>
+            <Card.Body>
+              {customTasks.map((task, index) => (
+                <div key={task.id}>
+
+                  <div className="d-flex justify-content-between mt-2">
+
+                    <div>
+                      <Card.Title>{task.description}</Card.Title>
+                      <Card.Subtitle>
+                        {task.points_reward} points
+                      </Card.Subtitle>
+                    </div>
+
+                    <Card.Text>
+                      <span>
+                        <Button
+                          className="btn-main"
+                          onClick={ () => handleEdit(task) }
+                          style={{ marginRight: "5px" }}
+                        >
+                          <FontAwesomeIcon icon={faPencilSquare} className="me-2" />
+                          Edit
+                        </Button>
+                        <Button 
+                          className="btn-main"
+                          onClick={ () => completeTask(task.id) }
+                        >
+                          <FontAwesomeIcon icon={faCheck} />
+                        </Button>
+                      </span>
+                    </Card.Text>
+
                   </div>
-                </Card.Text>
-              </Card.Body>
-            ))}
+
+                  { (index != (customTasks.length - 1)) ? <hr/> : null }
+
+                </div>
+              ))}
+            </Card.Body>
           </Card>
         </Col>
       </div>
@@ -188,7 +202,7 @@ const CustomTaskCard = () => {
                 </Form>
               </Modal.Body>
               <Modal.Footer>
-                <Button variant="primary" onClick={ () => addTask() }>
+                <Button className="btn-main" onClick={ () => addTask() }>
                   Add Task
                 </Button>
               </Modal.Footer>

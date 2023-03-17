@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Http\Requests\User\IndexRequest;
 use App\Http\Requests\User\UpdateRequest;
+use App\Http\Requests\User\PointsRequest;
 
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
@@ -43,6 +44,14 @@ class UserController extends BaseController
     {
         auth()->user()->update($request->input());
         return $this->show();
+    }
+
+    public function points(PointsRequest $request)
+    {
+        $fromDate = isset($request->validated()['from_date']) ? $request->validated()['from_date'] : null;
+        $toDate = isset($request->validated()['to_date']) ? $request->validated()['to_date'] : null;
+        $pointsTotal = $this->model->calculatePoints($fromDate, $toDate);
+        return $this->sendResponse(['points' => $pointsTotal]);
     }
 
 }

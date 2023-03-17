@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('task_type_id')->constrained('task_types');
             $table->foreignId('task_difficulty_id')->constrained('task_difficulties');
             $table->integer('points_reward')->default(0);
-            $table->boolean('completed')->default(0);
+            $table->date('completed_at')->nullable();
             $table->timestamps();
         });
     }

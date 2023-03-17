@@ -1,23 +1,43 @@
 import React from 'react'
+import {Card} from 'react-bootstrap';
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMap, faStar } from "@fortawesome/free-solid-svg-icons";
+
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Activity({ user }) {
     return (
-        <div className="activity">
-            <h1>Total Activity</h1>
+        <Card>
+            <Card.Header>
+                Total Activity
+            </Card.Header>
 
-            <div className="d-flex justify-content-center">
-                <div style={{width: '75%'}}>
-                    <div className="d-flex justify-content-between">
-                        <strong>Distance Travelled: </strong>
-                        <span>{user.meters_travelled}</span>
-                    </div>
-                    <div className="d-flex justify-content-between">
-                        <strong>Points Earned: </strong>
-                        <span>{user.points_total}</span>
+            <Card.Body>
+
+                <div className="d-flex justify-content-center">
+                    <div style={{width: '90%'}}>
+
+                        <div className="d-flex justify-content-between">
+                            <div>
+                                <FontAwesomeIcon icon={faMap} className="me-2" size="sm" />
+                                <strong>Distance Travelled</strong>
+                            </div>
+                            <strong>{user.meters_travelled}</strong>
+                        </div>
+
+                        <div className="d-flex justify-content-between">
+                            <div>
+                                <FontAwesomeIcon icon={faStar} className="me-2" size="sm" />
+                                <strong>Points Earned</strong>
+                            </div>
+                            <strong>{user.points_total}</strong>
+                        </div>
+
                     </div>
                 </div>
-            </div>
-        </div>
+            
+            </Card.Body>
+        </Card>
     )
 }

@@ -109,6 +109,29 @@ class User extends Authenticatable
             ->get();
     }
 
+    public function calculatePoints($fromDate, $toDate)
+    {
+
+        // Get tasks points totals
+        $customTasks = auth()->user()->customTasks();
+        $basicTasks = auth()->user()->basicTasks();
+
+        if ($fromDate) {
+            $customTasks = $customTasks->where('completed_at', '>=', $fromDate);
+            $basicTasks = $basicTasks->where('completed_at', '>=', $fromDate);
+        }
+        if ($toDate) {
+            $customTasks = $customTasks->where('completed_at', '<=', $toDate);
+            $basicTasks = $basicTasks->where('completed_at', '<=', $toDate);
+        }
+
+        $customTasksPoints = $customTasks->sum('points_reward');
+        $basicTasksPoints = $basicTasks->sum('points_reward');
+
+        // Return result
+        return $customTasksPoints + $basicTasksPoints;
+    }
+
     public function customTasks(): HasMany
     {
         return $this->HasMany(CustomUserTask::class);

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('description');
-            $table->boolean('completed')->default(0);
+            $table->date('completed_at')->nullable();
             $table->integer('points_reward')->default(config('constants.tasks.user_custom.points_reward'));
             $table->timestamps();
         });

@@ -65,6 +65,7 @@ const PersonalTaskCard = () => {
         })
         progress = Math.min(recentFriends.length, task.quantity);
       } 
+
       // Updating basic task state (use callback function to get most recent version)
       setBasicTasks(updatedTasks => {return updatedTasks.map(t => {
         if (t.id == task.id) {
@@ -77,6 +78,11 @@ const PersonalTaskCard = () => {
 
   // Reroll task using task ID
   const rerollTask = (taskId) => {
+
+    if (!window.confirm("Are you sure that you want to re-roll this task? \nAny progress made in this task so far will be deleted.")) {
+      return
+    }
+
     putHTTP("user/tasks/basic/" + taskId + "/reroll").then((response) => {
       if (response.success) {
         // Add the progress parameter which isn't there initially
@@ -102,37 +108,56 @@ const PersonalTaskCard = () => {
       <Col>
         <Card>
           <CardHeader> Personal Tasks</CardHeader>
-          {basicTasks.map((task) => (
-            <Card.Body>
-              <Card.Title>{task.label}</Card.Title>
-              <Card.Subtitle>{task.points_reward} points</Card.Subtitle>
-              {task.auto_completed == 1 ? (
-                <Card.Subtitle>
-                  {task.progress} of {task.quantity} {task.units}s
-                  <Progress progress={task.progress} total={task.quantity} />
-                </Card.Subtitle>
-              ) : (
-                <Card.Subtitle>Ready to complete</Card.Subtitle>
-              )}
-              <div className="button-group-container">
-                <Button
-                  className="reroll-button card-button"
-                  onClick={ () => rerollTask(task.id) }
-                  style={{ marginRight: "5px" }}
-                >
-                  <FontAwesomeIcon icon={faRepeat} />
-                </Button>
-                {(task.auto_completed == 0 || task.progress >= task.quantity) &&
-                <Button
-                  className="complete-button card-button"
-                  onClick={ () => completeTask(task.id) }
-                >
-                  <FontAwesomeIcon icon={faCheck} />
-                </Button>
-                }
+          <Card.Body>
+            {basicTasks.map((task, index) => (
+              
+              <div key={task.id}>
+
+                <div className="d-flex justify-content-between align-items-center mb-3">
+
+                  <Card.Title className="mt-2">{task.label}</Card.Title>
+
+                  <div>
+                    <Button
+                        className="reroll-button btn-main"
+                        onClick={ () => rerollTask(task.id) }
+                        style={{ marginRight: "5px" }}
+                      >
+                      <FontAwesomeIcon icon={faRepeat} className="me-2" />
+                      Re-Roll
+                    </Button>
+
+                    {(task.auto_completed == 0 || task.progress >= task.quantity) &&
+                      <Button
+                        className="complete-button btn-main"
+                        onClick={ () => completeTask(task.id) }
+                      >
+                      <FontAwesomeIcon icon={faCheck} />
+                    </Button>
+                    }
+                  </div>
+                </div>
+
+                <Progress progress={task.progress} total={task.quantity} />
+
+                <div className="d-flex justify-content-between mt-3">
+
+                  {task.auto_completed == 1 ? (
+                    <Card.Subtitle>
+                      {task.progress} of {task.quantity} {task.units}s
+                    </Card.Subtitle>
+                  ) : (
+                    <Card.Subtitle>Ready to complete</Card.Subtitle>
+                  )}
+
+                  <Card.Subtitle>{task.points_reward} points</Card.Subtitle>
+                </div>
+
+                { (index != (basicTasks.length - 1)) ? <hr/> : null }
               </div>
-            </Card.Body>
-          ))}
+            ))}
+
+          </Card.Body>
         </Card>
       </Col>
     </div>
