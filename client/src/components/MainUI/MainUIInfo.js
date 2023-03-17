@@ -6,6 +6,7 @@ import './MainUIInfo.css'
 const MainUIInfo = () => {
 
   const [todaysInfo, setTodaysInfo] = useState({ distance: 0, points: 0 });
+  const [intervalId, setIntervalId] = useState(null);
 
   useEffect(() => {
     const getTodaysInfo = () => {
@@ -17,7 +18,7 @@ const MainUIInfo = () => {
         date: getFormattedDateUTC()
       }
   
-      getHTTP("distance", payload).then((response) => {
+      getHTTP("distance", payloadUTC).then((response) => {
         if (response.success){
           setTodaysInfo(currentTodaysInfo => {
             return { ...currentTodaysInfo, distance: response.data.meters }
@@ -33,11 +34,18 @@ const MainUIInfo = () => {
       });
 
     }
+
     getTodaysInfo();
-    const interval = setInterval(() => {
+    // Set up the interval
+    const newIntervalId = setInterval(() => {
       getTodaysInfo();
-    }, 5 * 1000);
-    return () => clearInterval(interval);
+    }, 8 * 1000);
+    setIntervalId(newIntervalId);
+
+    // Clean up the interval
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []);
 
   return (
