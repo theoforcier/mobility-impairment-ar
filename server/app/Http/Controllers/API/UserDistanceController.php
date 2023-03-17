@@ -23,14 +23,21 @@ class UserDistanceController extends BaseController
     
     public function show(ShowRequest $request): object
     {
-        $record = $this->model->onDate($request->validated()['date']);
+        $record = $this->model->dateDistance($request->validated()['date']);
+        $record = $record ?? ['date' => $request->validated()['date'], 'meters' => 0];
         return $this->sendResponse($record);
     }
 
     public function add(AddRequest $request): object
     {
-        if ($this->model->addDistance($request->validated()['meters']));
-            return $this->sendResponse($this->model->today());
+        $date = $request->validated()['date'];
+        $meters = $request->validated()['meters'];
+
+        if ($this->model->addDistance($date, $meters)) {
+            $record = $this->model->dateDistance($date);
+            return $this->sendResponse($record);
+        }
+
         return $this->sendError("Unable to process request.");
     }
 

@@ -11,6 +11,7 @@ import Profile from "./components/Profile/Profile";
 import Friends from "./components/Friends/Friends";
 import FriendProfile from "./components/Profile/FriendProfile";
 import Tasks from "./components/Task/Tasks";
+import DistanceTracker from "./DistanceTracker";
 
 function App() {
   // Stores user data after logging in / signing up
@@ -19,10 +20,22 @@ function App() {
   const [page, setPage] = useState({ current: PAGES.LOGIN, modifier: "" });
   // Catch invalid login/signup
   const [error, setError] = useState("");
+  // Boolean for distance tracking
+  const [trackDistance, setTrackDistance] = useState(false);
 
   // ChangePage function
   const ChangePage = (newPage, mod) => {
     setError("");
+    if (newPage == PAGES.MAIN ||
+        newPage == PAGES.FRIENDS ||
+        newPage == PAGES.FRIEND_PROFILE ||
+        newPage == PAGES.TASKS ||
+        newPage == PAGES.PROFILE) {
+          setTrackDistance(true);
+    }
+    else {
+      setTrackDistance(false);
+    }
     setPage({ current: newPage, modifier: mod });
   };
 
@@ -91,6 +104,7 @@ function App() {
   // Display appropriate page/form
   return (
     <div className="App">
+      {trackDistance && <DistanceTracker/>}
       {page.current == PAGES.MAIN ? (
         <GeoMap className="MapContainers" ChangePage={ChangePage} />
       ) : page.current == PAGES.PROFILE ? (
