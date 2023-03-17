@@ -64,9 +64,11 @@ const GeoMap = ({ ChangePage }) => {
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
       <LocationMarker />
-      <ZoomControl position='bottomright'/>
+      <ZoomControl position='bottomleft'/>
+
       <MainUIBtn ChangePage={ChangePage} />
       <MainUIInfo></MainUIInfo>
+      
     </MapContainer>
   );
 };

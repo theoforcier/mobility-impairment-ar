@@ -24,13 +24,15 @@ function FriendProfile({ ChangePage, page }) {
         <Activity user={page.modifier} />
         <br></br>
 
-        <div className="d-flex justify-content-left">
-          <Button className="rounded-circle" onClick={() => ChangePage("friends", "")}> <FontAwesomeIcon icon={faXmark}/> </Button>
+        <div className="fixed-bottom d-flex justify-content-end m-4">
+          <Button
+            className="rounded-circle"
+            onClick={() => ChangePage("main", "")}
+          >
+            <FontAwesomeIcon icon={faXmark} />{" "}
+          </Button>
         </div>
 
-        <br></br>
-        <br></br>
-        <br></br>
     </div>
   );
 }

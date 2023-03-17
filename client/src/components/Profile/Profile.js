@@ -22,18 +22,24 @@ function Profile({ ChangePage }) {
   }, []);
 
   return (
-    <div className="Profile">
-        <Info user={user} setUser={setUser} />
-        <Activity user={user} />
-        <br></br>
-        
-        <div className="d-flex justify-content-left">
-          <Button className="rounded-circle" onClick={() => ChangePage("main", "")}> <FontAwesomeIcon icon={faXmark}/> </Button>
+    <div className="Profile p-3">
+      <div class="row justify-content-center">
+        <div style={{minWidth: '40%', maxWidth: '500px'}}>
+          <Info user={user} setUser={setUser} />
+          <Activity user={user} />
+          <br></br>
+          
+          <div className="fixed-bottom d-flex justify-content-end m-4">
+            <Button
+              className="rounded-circle"
+              onClick={() => ChangePage("main", "")}
+            >
+              <FontAwesomeIcon icon={faXmark} size="xl" />{" "}
+            </Button>
+          </div>
         </div>
+      </div>
         
-        <br></br>
-        <br></br>
-        <br></br>
     </div>
   );
 }

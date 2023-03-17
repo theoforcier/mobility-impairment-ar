@@ -39,23 +39,33 @@ export default function FriendRequest({ friends, setFriends }) {
 
   return (
     <div className="friendRequest">
-      <h1>Friend Requests</h1>
 
       <Card className="friendRequestCard">
+
+        <Card.Header>Friend Requests</Card.Header>
+
         <Card.Body className="overflow-auto"> 
-          <ListGroup variant="flush">
-            {requests.map((request) => (
-              <ListGroup.Item className="d-flex justify-content-between align-items-center" key={request.id}>
-                <span>
-                  {request.display_name}
-                </span>
-                <div>
-                  <Button className="card-button" onClick={ () => AcceptRequest(request.id) } > <FontAwesomeIcon icon={faCheck} /></Button>
-                  <Button className="card-button" onClick={ () => RejectRequest(request.id) } > <FontAwesomeIcon icon={faXmark} /></Button>
-                </div>
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
+
+          { requests.length ? 
+
+            <ListGroup variant="flush">
+              {requests.map((request) => (
+                <ListGroup.Item className="d-flex justify-content-between align-items-center" key={request.id}>
+                  <span>
+                    {request.display_name}
+                  </span>
+                  <div>
+                    <Button className="card-button" onClick={ () => AcceptRequest(request.id) } > <FontAwesomeIcon icon={faCheck} /></Button>
+                    <Button className="card-button" onClick={ () => RejectRequest(request.id) } > <FontAwesomeIcon icon={faXmark} /></Button>
+                  </div>
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+
+          : <div className="text-center">No requests found.</div>
+
+          }
+          
         </Card.Body>
       </Card>
 

@@ -1,4 +1,4 @@
-import { useState, useTransition } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -13,15 +13,17 @@ import FriendProfile from "./components/Profile/FriendProfile";
 import Tasks from "./components/Task/Tasks";
 import DistanceTracker from "./DistanceTracker";
 
+
 function App() {
   // Stores user data after logging in / signing up
   const [user, setUser] = useState({ token: "" });
   // Keeps track of current page
-  const [page, setPage] = useState({ current: PAGES.LOGIN, modifier: "" });
+  const [page, setPage] = useState({ current: PAGES.SIGNUP, modifier: "" });
   // Catch invalid login/signup
   const [error, setError] = useState("");
   // Boolean for distance tracking
   const [trackDistance, setTrackDistance] = useState(false);
+
 
   // ChangePage function
   const ChangePage = (newPage, mod) => {
@@ -100,6 +102,13 @@ function App() {
       }
     });
   };
+
+
+  // If a user token exists, send us straight to the home page
+  useEffect(() => {
+    if (localStorage.getItem('token') !== null)
+      ChangePage(PAGES.MAIN, "");
+  }, []);
 
   // Display appropriate page/form
   return (
