@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function LoginForm({ Login, ChangePage, error }) {
+function LoginForm({ Login, ChangePage, error, setError }) {
   // Login details
   const [details, setDetails] = useState({
     email: "",
@@ -11,7 +11,13 @@ function LoginForm({ Login, ChangePage, error }) {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    Login(details);
+    // Empty fields
+    if (Object.values(details).includes("")) {
+      setError("Please fill out every field!");
+    }
+    else {
+      Login(details);
+    }
   };
 
   const switchForm = (e) => {

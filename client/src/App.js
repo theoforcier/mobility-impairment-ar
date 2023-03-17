@@ -118,11 +118,11 @@ function App() {
       ) : // Must pass login/signup/changepage functions and error to our forms
       page.current == PAGES.LOGIN ? (
         <div className="Landing">
-          <LoginForm Login={Login} ChangePage={ChangePage} error={error} />
+          <LoginForm Login={Login} ChangePage={ChangePage} error={error} setError={setError} />
         </div>
       ) : (
         <div className="Landing">
-          <SignupForm Signup={Signup} ChangePage={ChangePage} error={error} />
+          <SignupForm Signup={Signup} ChangePage={ChangePage} error={error} setError={setError} />
         </div>
       )}
     </div>
