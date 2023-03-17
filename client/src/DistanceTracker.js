@@ -16,7 +16,7 @@ function DistanceTracker() {
           Math.sin(dLon / 2) * Math.sin(dLon / 2);
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         const d = R * c; // Distance in km
-        console.log(d);
+        //console.log(d);
 
       return d;
     }
@@ -26,34 +26,29 @@ function DistanceTracker() {
     };
 
     // update our locally stored distance
-    let lastPosition;
 
-    function calculateDistance(position) {
-      let lat2 = position.coords.latitude;
-      let lon2 = position.coords.longitude;
-
-      if (lastPosition) {
-        let lat1 = lastPosition.coords.latitude;
-        let lon1 = lastPosition.coords.longitude;
-        //let distance = calcCrow(lat1, lon1, lat2, lon2);
-
-        let distance = calcCrow(52.5200,13.4050,51.5074, -0.1278);
-
-        // update distance
-        let currentDistance = localStorage.getItem("metersTravelled");
-        currentDistance = currentDistance ? parseInt(currentDistance) : 0; // 0 if not exists
-
-        let newDistance = currentDistance + distance;
-        localStorage.setItem("metersTravelled", newDistance);
-      }
-
-      lastPosition = position;
-
-      // update distance travelled every 5 seconds (5 * 1000 milliseconds)
-      setTimeout(function () {
-        navigator.geolocation.getCurrentPosition(calculateDistance);
-      }, 5 * 1000);
-    }
+    function calculateDistance() {
+      let prevLat, prevLon;
+      let totalDistance = 0;
+      setInterval(() => {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            if (prevLat && prevLon) {
+              const distance = calcCrow(prevLat, prevLon, latitude, longitude) * 1000; // convert to meters
+              totalDistance += distance;
+              //console.log(totalDistance);
+              localStorage.setItem("metersTravelled", totalDistance);
+            }
+            prevLat = latitude;
+            prevLon = longitude;
+          },
+          (error) => console.error(error),
+          { enableHighAccuracy: true }
+        );
+      }, 5000);
+       // update every 5 seconds
+    } 
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(calculateDistance);
@@ -63,7 +58,7 @@ function DistanceTracker() {
 
     // update the distance at the API
     function updateDistance() {
-      const distance = localStorage.getItem("metersTravelled");
+      const distance = parseInt(localStorage.getItem("metersTravelled"));
       
       //const distance = 100;
       //console.log(distance);
@@ -75,12 +70,14 @@ function DistanceTracker() {
       const payload = { meters: distance, date: formattedDate };
       const payload1 = { date: formattedDate };
       postHTTP("distance/add", payload).then((response) => {
+        console.log(response)
         if (response.success) {
           // update the distance
           let recentDistance = localStorage.getItem("metersTravelled");
           recentDistance = recentDistance ? parseInt(recentDistance) : 0; // 0 if not exists
           let newDistance = Math.max(0, recentDistance - distance);
           localStorage.setItem("metersTravelled", newDistance);
+          console.log(newDistance);
         }
       });
       getHTTP("distance", payload1 ).then((response) => {
