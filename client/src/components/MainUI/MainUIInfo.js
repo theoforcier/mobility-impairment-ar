@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getHTTP } from "../../api/helpers";
-import { getFormattedDate, getFormattedDateUTC } from "../../scripts/date";
+import {getFormattedDateUTC } from "../../scripts/date";
 import './MainUIInfo.css'
 
 const MainUIInfo = () => {
@@ -10,7 +10,7 @@ const MainUIInfo = () => {
   useEffect(() => {
     const getTodaysInfo = () => {
       const payload = {
-        date: getFormattedDate()
+        date: getFormattedDateUTC()
       };
 
       const payloadUTC = {
