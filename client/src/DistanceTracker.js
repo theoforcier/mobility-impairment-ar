@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { postHTTP } from "./api/helpers";
-
 import { getHTTP } from "./api/helpers";
+import { getFormattedDate } from "./scripts/date";
+
 function DistanceTracker() {
   useEffect(() => {
     // calculate distance between two points on a spherical plane
@@ -59,14 +60,7 @@ function DistanceTracker() {
     // update the distance at the API
     function updateDistance() {
       const distance = parseInt(localStorage.getItem("metersTravelled"));
-      
-      //const distance = 100;
-      //console.log(distance);
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = String(today.getMonth() + 1).padStart(2, '0');
-      const day = String(today.getDate()).padStart(2, '0');
-      const formattedDate = `${year}-${month}-${day}`;
+      const formattedDate = getFormattedDate();
       const payload = { meters: distance, date: formattedDate };
       const payload1 = { date: formattedDate };
       postHTTP("distance/add", payload).then((response) => {

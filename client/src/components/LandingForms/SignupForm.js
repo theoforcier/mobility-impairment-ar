@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function SignupForm({ Signup, ChangePage, error }) {
+function SignupForm({ Signup, ChangePage, error, setError }) {
   // Login details
   const [details, setDetails] = useState({
     username: "",
@@ -14,8 +14,17 @@ function SignupForm({ Signup, ChangePage, error }) {
   // Pass details to our login function upon submit event
   const submitHandler = (e) => {
     e.preventDefault();
-
-    Signup(details);
+    // Empty fields
+    if (Object.values(details).includes("")) {
+      setError("Please fill out every field!");
+    }
+    // Non matching passwords
+    else if (details.password != details.confirmPass) {
+      setError("Passwords do not match!");
+    }
+    else {
+      Signup(details);
+    }
   };
 
   const switchForm = (e) => {
