@@ -4,7 +4,7 @@ import Activity from './Activity'
 import { Card, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faDoorOpen } from "@fortawesome/free-solid-svg-icons";
 import './Profile.css'
 import { getHTTP } from "../../api/helpers";
 
@@ -21,6 +21,11 @@ function Profile({ ChangePage }) {
     });
   }, []);
 
+  const logout = () => {
+    localStorage.removeItem('token');
+    ChangePage("login", "");
+  }
+
   return (
     <div className="Profile p-3">
       <div className="row justify-content-center">
@@ -31,7 +36,12 @@ function Profile({ ChangePage }) {
           <Info user={user} setUser={setUser} />
           <Activity user={user} />
           <br></br>
-          
+          <div className="pb-4" >
+            <Button className="logout-text" variant="primary" type="button" size="sm" onClick={() => logout()}>
+              <FontAwesomeIcon icon={faDoorOpen} size="sm" />
+              <span className="ms-2">Logout</span>
+            </Button>
+          </div>
           <div className="fixed-bottom d-flex justify-content-end m-4">
             <Button
               className="rounded-circle"

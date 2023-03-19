@@ -15,8 +15,6 @@ import DistanceTracker from "./DistanceTracker";
 
 
 function App() {
-  // Stores user data after logging in / signing up
-  const [user, setUser] = useState({ token: "" });
   // Keeps track of current page
   const [page, setPage] = useState({ current: PAGES.SIGNUP, modifier: "" });
   // Catch invalid login/signup
@@ -57,7 +55,6 @@ function App() {
         if ('token' in response.data && response.data.token) {
           const userToken = response.data.token.split('|')[1];
           localStorage.setItem('token', userToken);
-          setUser({ token: userToken });
           ChangePage(PAGES.MAIN, "");
         } 
       // If login fails, set error message
@@ -65,12 +62,6 @@ function App() {
         setError("Email or password is incorrect!");
       }
     });
-  };
-
-  // Logout function, return to login page
-  const Logout = () => {
-    setUser({ token: "" });
-    ChangePage(PAGES.LOGIN, "");
   };
 
   // Signup function
@@ -93,7 +84,6 @@ function App() {
         if ('token' in response.data && response.data.token) {
           const userToken = response.data.token.split('|')[1];
           localStorage.setItem('token', userToken);
-          setUser({ token: userToken });
           ChangePage(PAGES.MAIN, "");
         } 
         // If register fails, set error message
