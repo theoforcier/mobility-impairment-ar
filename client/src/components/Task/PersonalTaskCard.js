@@ -1,15 +1,13 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faRepeat,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faRepeat } from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button , Card, ProgressBar, Col, Spinner } from "react-bootstrap";
 import "./Tasks.css";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 import { getHTTP, putHTTP } from "../../api/helpers";
+import { getFormattedDateUTC } from "../../scripts/date";
 
 // Progress bar component
 const Progress = ({ progress, total }) => {
@@ -18,7 +16,11 @@ const Progress = ({ progress, total }) => {
 
   return (
     <div style={{ minWidth: "350px" }}>
-        <ProgressBar variant="custom-bar" now={percentage} label={`${percentage}%`}/>
+      <ProgressBar
+        variant="custom-bar"
+        now={percentage}
+        label={`${percentage}%`}
+      />
     </div>
   );
 };
@@ -30,12 +32,12 @@ const PersonalTaskCard = () => {
   // Fetch and store a user's uncompleted basic tasks
   useEffect(() => {
     let payload = {
-      completed: 0
-    }
+      completed: 0,
+    };
     getHTTP("user/tasks/basic", payload).then((response) => {
       if (response.success) {
         // Adding progress field to each task object
-        response.data.tasks.map(task => {
+        response.data.tasks.map((task) => {
           task.progress = 0;
           return task;
         });
@@ -43,37 +45,65 @@ const PersonalTaskCard = () => {
         setBasicTasks(response.data.tasks);
 
         // Updating progress for tasks that need it
-        response.data.tasks.forEach(task => {
+        response.data.tasks.forEach((task) => {
           if (task.label == "Add a friend") {
             checkAddFriendProgress(task);
+          }
+          if (task.label == "Travel") {
+            checkTravelProgress(task);
           }
         });
       }
     });
   }, []);
-  
+
   // Verify progress for "add x friends" tasks
   const checkAddFriendProgress = (task) => {
-    getHTTP('friends').then(response => {
+    getHTTP("friends").then((response) => {
       let progress = 0;
       // Calculate progress
       if (response.success) {
-        const recentFriends = response.data.users.filter(friend => {
+        const recentFriends = response.data.users.filter((friend) => {
           let friendDate = new Date(friend.created_at);
           let taskDate = new Date(task.created_at);
-          return (friendDate >= taskDate);
-        })
+          return friendDate >= taskDate;
+        });
         progress = Math.min(recentFriends.length, task.quantity);
-      } 
+      }
 
       // Updating basic task state (use callback function to get most recent version)
-      setBasicTasks(updatedTasks => {return updatedTasks.map(t => {
-        if (t.id == task.id) {
-          return {...t, progress: progress};
-        }
-        return t;
-      })});
-    })
+      setBasicTasks((updatedTasks) => {
+        return updatedTasks.map((t) => {
+          if (t.id == task.id) {
+            return { ...t, progress: progress };
+          }
+          return t;
+        });
+      });
+    });
+  };
+
+  // Verify progress for "travel x meters" tasks
+  const checkTravelProgress = (task) => {
+    let payload = {
+      date: getFormattedDateUTC(),
+    };
+    getHTTP("distance", payload).then((response) => {
+      let progress = 0;
+      if (response.success) {
+        progress = Math.min(response.data.meters, task.quantity);
+      }
+
+      // Updating basic task state (use callback function to get most recent version)
+      setBasicTasks((updatedTasks) => {
+        return updatedTasks.map((t) => {
+          if (t.id == task.id) {
+            return { ...t, progress: progress };
+          }
+          return t;
+        });
+      });
+    });
   };
 
   const markTaskUpdating = (taskId, value) => {
@@ -86,9 +116,12 @@ const PersonalTaskCard = () => {
 
   // Reroll task using task ID
   const rerollTask = (taskId) => {
-
-    if (!window.confirm("Are you sure that you want to re-roll this task? \nAny progress made in this task so far will be deleted.")) {
-      return
+    if (
+      !window.confirm(
+        "Are you sure that you want to re-roll this task? \nAny progress made in this task so far will be deleted."
+      )
+    ) {
+      return;
     }
 
     markTaskUpdating(taskId, true)
@@ -97,10 +130,15 @@ const PersonalTaskCard = () => {
       if (response.success) {
         // Add the progress parameter which isn't there initially
         response.data.new_task.progress = 0;
-        setBasicTasks([...basicTasks.filter(task => task.id != taskId), response.data.new_task]);
+
+        setBasicTasks([
+          ...basicTasks.filter((task) => task.id != taskId),
+          response.data.new_task,
+        ]);
 
       } else {
         markTaskUpdating(taskId, false)
+
       }
     });
   };
@@ -114,12 +152,16 @@ const PersonalTaskCard = () => {
       if (response.success) {
         // Add the progress parameter which isn't there initially
         response.data.new_task.progress = 0;
-        setBasicTasks([...basicTasks.filter(task => task.id != taskId), response.data.new_task]);
+
+        setBasicTasks([
+          ...basicTasks.filter((task) => task.id != taskId),
+          response.data.new_task,
+        ]);
       } else {
         markTaskUpdating(taskId, false)
       }
     });
-  }
+  };
 
   return (
     <div className="task-section">
@@ -181,12 +223,10 @@ const PersonalTaskCard = () => {
                     <Card.Subtitle>{task.points_reward} points</Card.Subtitle>
                   </div>
   
-                  { (index != (basicTasks.length - 1)) ? <hr/> : null }
+                  { (index != basicTasks.length - 1) ? <hr/> : null }
                 </div>
               ))
-
             : "Loading..."}
-
           </Card.Body>
         </Card>
       </Col>
