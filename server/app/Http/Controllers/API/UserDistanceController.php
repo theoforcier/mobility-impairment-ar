@@ -30,7 +30,10 @@ class UserDistanceController extends BaseController
 
     public function add(AddRequest $request): object
     {
-        if ($this->model->addDistance($request->validated()['meters'])) {
+        $date = $request->validated()['date'];
+        $distance = $request->validated()['meters'];
+
+        if ($this->model->addDistance($distance, $date)) {
             $date = now()->toDateString();
             $record = $this->model->dateDistance($date);
             return $this->sendResponse($record);

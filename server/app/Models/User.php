@@ -113,8 +113,8 @@ class User extends Authenticatable
     {
 
         // Get tasks points totals
-        $customTasks = auth()->user()->customTasks();
-        $basicTasks = auth()->user()->basicTasks();
+        $customTasks = auth()->user()->customTasks;
+        $basicTasks = auth()->user()->basicTasks;
 
         if ($fromDate) {
             $customTasks = $customTasks->where('completed_at', '>=', $fromDate);

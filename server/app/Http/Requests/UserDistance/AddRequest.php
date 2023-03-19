@@ -19,6 +19,7 @@ class AddRequest extends BaseFormRequest
         $maxDistanceIncrement = config('constants.distance.max_increment');
 
         return [
+            'date' => 'required|date',
             'meters' => 'required|integer|gt:0|lte:'.$maxDistanceIncrement
         ];
     }
