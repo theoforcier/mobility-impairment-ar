@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { postHTTP } from "./api/helpers";
 import { getHTTP } from "./api/helpers";
-import { getFormattedDateUTC } from "./scripts/date";
+import { getFormattedDate } from "./scripts/date";
 
 function DistanceTracker() {
   useEffect(() => {
@@ -60,9 +60,11 @@ function DistanceTracker() {
     // update the distance at the API
     function updateDistance() {
       const distance = parseInt(localStorage.getItem("metersTravelled"));
-      const formattedDate = getFormattedDateUTC();
-      const payload = { meters: distance };
-      const payload1 = { date: formattedDate };
+      const formattedDate = getFormattedDate();
+      const payload = {
+        meters: distance,
+        date: formattedDate
+      };
 
       postHTTP("distance/add", payload).then((response) => {
         console.log(response)

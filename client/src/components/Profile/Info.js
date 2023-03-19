@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Card, Button, Form, Spinner} from 'react-bootstrap';
+import {Card, Button, Form, Spinner, Alert} from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faSave, faPencil } from "@fortawesome/free-solid-svg-icons";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,6 +9,8 @@ import { putHTTP } from '../../api/helpers';
 export default function Info({ user, setUser }) {
   const [info, setInfo] = useState({ bio: "", email: "", display_name: "", first_name: "", last_name: "" });
   const [isEditing, setIsEditing] = useState(false);
+  // Success/error message when modifying profile
+  const [message, setMessage] = useState({ text: "", type: "" });
 
   // Store initial user information
   useEffect(() => {
@@ -35,8 +37,14 @@ export default function Info({ user, setUser }) {
 
     // Update database and component state
     putHTTP("user", payload).then((response) => {
+      console.log(payload)
       if (response.success) {
         setUser(response.data)
+        setMessage({ text: "Information updated.", type: "success" })
+      }
+      else {
+        setUser({... user})
+        setMessage({ text: "Username or email already in use.", type: "danger" })
       }
 
       markUpdating(false)
@@ -145,9 +153,13 @@ export default function Info({ user, setUser }) {
               </div>
             </div>
           </Card.Body>
-        </Card>      
+        </Card>  
     
       </Form>
+
+      <div className="text-center mt-2 mb-2">
+        {message.text != "" ? <Alert key={message.type} variant={message.type} className="py-2">{message.text}</Alert> : ""}
+      </div>
 
       <hr style={{ border: "1px solid black" }} />
     </div>
