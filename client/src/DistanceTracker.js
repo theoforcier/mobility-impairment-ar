@@ -63,6 +63,7 @@ function DistanceTracker() {
       const formattedDate = getFormattedDateUTC();
       const payload = { meters: distance };
       const payload1 = { date: formattedDate };
+
       postHTTP("distance/add", payload).then((response) => {
         console.log(response)
         if (response.success) {
@@ -71,11 +72,7 @@ function DistanceTracker() {
           recentDistance = recentDistance ? parseInt(recentDistance) : 0; // 0 if not exists
           let newDistance = Math.max(0, recentDistance - distance);
           localStorage.setItem("metersTravelled", newDistance);
-          console.log(newDistance);
         }
-      });
-      getHTTP("distance", payload1 ).then((response) => {
-        console.log(response)
       });
     }
 

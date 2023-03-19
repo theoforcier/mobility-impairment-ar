@@ -10,7 +10,7 @@ import { getHTTP } from "../../api/helpers";
 
 function Profile({ ChangePage }) {
   // User information, will be passed to child components
-  const [user, setUser] = useState({ bio: "", email: "", display_name: "", first_name: "", last_name: "", meter_traveled: "", point_total: "" });
+  const [user, setUser] = useState({ bio: "---", email: "---", display_name: "---", first_name: "---", last_name: "---", meters_travelled: "---", points_total: "---" });
 
   // Fetch and store user information
   useEffect(() => {
