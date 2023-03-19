@@ -5,44 +5,42 @@ import './MainUIInfo.css'
 
 const MainUIInfo = () => {
 
-  const [todaysInfo, setTodaysInfo] = useState({ distance: 0, points: 0 });
-  const [intervalId, setIntervalId] = useState(null);
+  const [todaysInfo, setTodaysInfo] = useState({ distance: '---', points: '---' });
 
   useEffect(() => {
     const getTodaysInfo = () => {
-      const payload = {
-        date: getFormattedDateUTC()
-      };
 
-      const payloadUTC = {
-        date: getFormattedDateUTC()
-      }
-  
-      getHTTP("distance", payloadUTC).then((response) => {
-        if (response.success){
-          setTodaysInfo(currentTodaysInfo => {
-            return { ...currentTodaysInfo, distance: response.data.meters }
-          })
-        }
-      });
+      const dateNow = getFormattedDateUTC();
 
-      getHTTP("user/points", payloadUTC).then(response => {
-        if (response.success)
-          setTodaysInfo(currentTodaysInfo => {
-            return { ...currentTodaysInfo, points: response.data.points }
-          })
-      });
+      const promises = [
+        getHTTP("distance", { date: dateNow }),
+        getHTTP("user/points", { from_date: dateNow })
+      ]
+
+      Promise.all(promises).then(responses => {
+
+        let distance = '---'
+        let points = '---'
+
+        if (responses[0].success)
+          distance = responses[0].data.meters
+        if (responses[1].success)
+          points = responses[1].data.points
+
+        setTodaysInfo({distance, points})
+
+      })
 
     }
 
     getTodaysInfo();
-    // Set up the interval
-    const newIntervalId = setInterval(() => {
-      getTodaysInfo();
-    }, 8 * 1000);
-    setIntervalId(newIntervalId);
 
-    // Clean up the interval
+    // Set up the interval
+    const intervalId = setInterval(() => {
+      getTodaysInfo();
+    }, 15 * 1000);
+
+    // Clean up the interval on unmount
     return () => {
       clearInterval(intervalId);
     };

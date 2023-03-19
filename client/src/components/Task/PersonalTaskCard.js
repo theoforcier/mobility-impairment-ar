@@ -6,7 +6,7 @@ import {
   faRepeat,
 } from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.css";
-import { Button , Card, ProgressBar, Col } from "react-bootstrap";
+import { Button , Card, ProgressBar, Col, Spinner } from "react-bootstrap";
 import "./Tasks.css";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 import { getHTTP, putHTTP } from "../../api/helpers";
@@ -25,7 +25,7 @@ const Progress = ({ progress, total }) => {
 
 const PersonalTaskCard = () => {
   // List of basic tasks
-  const [basicTasks, setBasicTasks] = useState([]);
+  const [basicTasks, setBasicTasks] = useState(null);
 
   // Fetch and store a user's uncompleted basic tasks
   useEffect(() => {
@@ -76,6 +76,14 @@ const PersonalTaskCard = () => {
     })
   };
 
+  const markTaskUpdating = (taskId, value) => {
+    setBasicTasks(basicTasks.map(task => {
+      if (task.id == taskId)
+        task.updating = value;
+      return task;
+    }))
+  }
+
   // Reroll task using task ID
   const rerollTask = (taskId) => {
 
@@ -83,22 +91,32 @@ const PersonalTaskCard = () => {
       return
     }
 
+    markTaskUpdating(taskId, true)
+
     putHTTP("user/tasks/basic/" + taskId + "/reroll").then((response) => {
       if (response.success) {
         // Add the progress parameter which isn't there initially
         response.data.new_task.progress = 0;
         setBasicTasks([...basicTasks.filter(task => task.id != taskId), response.data.new_task]);
+
+      } else {
+        markTaskUpdating(taskId, false)
       }
     });
   };
 
   // Complete task using task ID
   const completeTask = (taskId) => {
+
+    markTaskUpdating(taskId, true)
+
     putHTTP("user/tasks/basic/" + taskId + "/complete").then((response) => {
       if (response.success) {
         // Add the progress parameter which isn't there initially
         response.data.new_task.progress = 0;
         setBasicTasks([...basicTasks.filter(task => task.id != taskId), response.data.new_task]);
+      } else {
+        markTaskUpdating(taskId, false)
       }
     });
   }
@@ -109,55 +127,65 @@ const PersonalTaskCard = () => {
         <Card>
           <CardHeader> Personal Tasks</CardHeader>
           <Card.Body>
-            {basicTasks.map((task, index) => (
+            { (basicTasks != null) ? 
+              basicTasks.map((task, index) => (
               
-              <div key={task.id}>
+                <div key={task.id}>
+  
+                  <div className="d-flex justify-content-between align-items-center mb-3">
+  
+                    <Card.Title className="mt-2">{task.label}</Card.Title>
+  
+                    <div>
 
-                <div className="d-flex justify-content-between align-items-center mb-3">
+                      {task.updating && 
+                        <Spinner animation="border" variant="primary" size="sm" className="me-2" />
+                      }
 
-                  <Card.Title className="mt-2">{task.label}</Card.Title>
-
-                  <div>
-                    <Button
-                        className="reroll-button btn-main"
-                        onClick={ () => rerollTask(task.id) }
-                        style={{ marginRight: "5px" }}
-                      >
-                      <FontAwesomeIcon icon={faRepeat} className="me-2" />
-                      Re-Roll
-                    </Button>
-
-                    {(task.auto_completed == 0 || task.progress >= task.quantity) &&
                       <Button
-                        className="complete-button btn-main"
-                        onClick={ () => completeTask(task.id) }
-                      >
-                      <FontAwesomeIcon icon={faCheck} />
-                    </Button>
-                    }
+                          className="reroll-button btn-main"
+                          disabled={task.updating}
+                          onClick={ () => rerollTask(task.id) }
+                          style={{ marginRight: "5px" }}
+                        >
+                        <FontAwesomeIcon icon={faRepeat} className="me-2" />
+                        Re-Roll
+                      </Button>
+  
+                      {(task.auto_completed == 0 || task.progress >= task.quantity) &&
+                        <Button
+                          className="complete-button btn-main"
+                          disabled={task.updating}
+                          onClick={ () => completeTask(task.id) }
+                        >
+                        <FontAwesomeIcon icon={faCheck} />
+                      </Button>
+                      }
+                    </div>
                   </div>
-                </div>
-
-                {task.auto_completed == 1 && (
-                  <Progress progress={task.progress} total={task.quantity} />
-                )}
-
-                <div className="d-flex justify-content-between mt-3">
-
-                  {task.auto_completed == 1 ? (
-                    <Card.Subtitle>
-                      {task.progress} of {task.quantity} {task.units}s
-                    </Card.Subtitle>
-                  ) : (
-                    <Card.Subtitle>Ready to complete</Card.Subtitle>
+  
+                  {task.auto_completed == 1 && (
+                    <Progress progress={task.progress} total={task.quantity} />
                   )}
-
-                  <Card.Subtitle>{task.points_reward} points</Card.Subtitle>
+  
+                  <div className="d-flex justify-content-between mt-3">
+  
+                    {task.auto_completed == 1 ? (
+                      <Card.Subtitle>
+                        {task.progress} of {task.quantity} {task.units}s
+                      </Card.Subtitle>
+                    ) : (
+                      <Card.Subtitle>Ready to complete</Card.Subtitle>
+                    )}
+  
+                    <Card.Subtitle>{task.points_reward} points</Card.Subtitle>
+                  </div>
+  
+                  { (index != (basicTasks.length - 1)) ? <hr/> : null }
                 </div>
+              ))
 
-                { (index != (basicTasks.length - 1)) ? <hr/> : null }
-              </div>
-            ))}
+            : "Loading..."}
 
           </Card.Body>
         </Card>
