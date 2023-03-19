@@ -53,7 +53,7 @@ const MainUIInfo = () => {
         <div style={{ color: "#5a7bd0", textAlign: "center"}} ><br/>
           <b>Distance Travelled</b>
           <h1 style={{ color: "#5a7bd0", textAlign: "center", textShadow: "1px 1px 1px #000", fontSize: "33px"}}>
-            {todaysInfo.distance}
+            {todaysInfo.distance}m
           </h1>
         </div>
       </div>
