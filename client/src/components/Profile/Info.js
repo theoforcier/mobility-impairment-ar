@@ -36,7 +36,7 @@ export default function Info({ user, setUser }) {
   }
 
   return (
-    <div className="info mt-5">
+    <div className="info mt-4">
 
       <FontAwesomeIcon className="profile-icon" icon={faUser} size="5x" />
 

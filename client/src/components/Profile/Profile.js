@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Info from './Info';
 import Activity from './Activity'
-import { Button } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +23,11 @@ function Profile({ ChangePage }) {
 
   return (
     <div className="Profile p-3">
+
+      <Card className="text-center pt-3">
+        <h1>Profile</h1>
+      </Card>
+
       <div className="row justify-content-center">
         <div style={{minWidth: '40%', maxWidth: '500px'}}>
           <Info user={user} setUser={setUser} />
