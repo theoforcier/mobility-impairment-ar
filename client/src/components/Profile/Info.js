@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Card, Button, Form} from 'react-bootstrap';
+import {Card, Button, Form, Spinner} from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faSave, faPencil } from "@fortawesome/free-solid-svg-icons";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -15,6 +15,10 @@ export default function Info({ user, setUser }) {
     setInfo(user);
   }, [user]);
 
+  const markUpdating = (value) => {
+    setInfo({...info, updating: value})
+  }
+
   // Update user information on form submit
   const submitHandler = (e) => {
     e.preventDefault();
@@ -27,11 +31,15 @@ export default function Info({ user, setUser }) {
         payload[field] = info[field]
     })
 
+    markUpdating(true)
+
     // Update database and component state
     putHTTP("user", payload).then((response) => {
       if (response.success) {
         setUser(response.data)
       }
+
+      markUpdating(false)
     });
   }
 
@@ -59,19 +67,27 @@ export default function Info({ user, setUser }) {
 
               <span>Personal Information</span>
 
-              {isEditing ? (
-                <Button className="edit-text" variant="primary" type="button" size="sm" onClick={() => setIsEditing(!isEditing)}>
-                  <FontAwesomeIcon icon={faSave} size="sm" />
-                  <span className="ms-2">Save</span>
-                </Button>
-              ) : user.isLoading ? 
-                null
-              : (
-                <Button className="edit-text" variant="primary" type="submit" size="sm" disabled={user.isLoading} onClick={() => setIsEditing(!isEditing)}>
-                  <FontAwesomeIcon icon={faPencil} size="sm" />
-                  <span className="ms-2">Edit</span>
-                </Button>
-              )}
+              <div>
+                {(user.isLoading || info.updating) && 
+                  <Spinner animation="border" variant="primary" size="sm" className="me-2" />
+                }
+
+                {isEditing ? (
+                  <Button className="edit-text" variant="primary" type="button" size="sm" onClick={() => setIsEditing(!isEditing)}>
+                    <FontAwesomeIcon icon={faSave} size="sm" />
+                    <span className="ms-2">Save</span>
+                  </Button>
+                ) : user.isLoading ? 
+                  null
+                : (
+                  <Button className="edit-text" variant="primary" type="submit" size="sm" disabled={info.updating} onClick={() => setIsEditing(!isEditing)}>
+                    <FontAwesomeIcon icon={faPencil} size="sm" />
+                    <span className="ms-2">Edit</span>
+                  </Button>
+                )}
+              </div>
+
+              
             </div>
 
           </Card.Header>
