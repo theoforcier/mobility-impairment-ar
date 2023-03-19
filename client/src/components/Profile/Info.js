@@ -64,8 +64,10 @@ export default function Info({ user, setUser }) {
                   <FontAwesomeIcon icon={faSave} size="sm" />
                   <span className="ms-2">Save</span>
                 </Button>
-              ) : (
-                <Button className="edit-text" variant="primary" type="submit" size="sm" onClick={() => setIsEditing(!isEditing)}>
+              ) : user.isLoading ? 
+                null
+              : (
+                <Button className="edit-text" variant="primary" type="submit" size="sm" disabled={user.isLoading} onClick={() => setIsEditing(!isEditing)}>
                   <FontAwesomeIcon icon={faPencil} size="sm" />
                   <span className="ms-2">Edit</span>
                 </Button>
