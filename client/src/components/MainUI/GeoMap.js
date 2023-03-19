@@ -35,10 +35,10 @@ const LocationMarker = () => {
     };
     // Find initial position
     updatePosition();
-    // Update position every second
+    // Update position every 5 seconds
     const interval = setInterval(() => {
       updatePosition();
-    }, 1 * 1000);
+    }, 5 * 1000);
     return () => clearInterval(interval);
   }, [map]);
 
