@@ -56,6 +56,7 @@ class BasicUserTask extends Model
         $task->user_id = $user->id;
         $task->task_type_id = $type->id;
         $task->task_difficulty_id = $difficulty->id;
+        $task->points_reward = $task->pointsReward();
         $task->save();
 
         return $task;

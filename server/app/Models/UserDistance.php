@@ -26,10 +26,9 @@ class UserDistance extends Model
             ->first();
     }
 
-    public function addDistance($meters)
+    public function addDistance($meters, $date)
     {
 
-        $date = now()->toDateString();
         $dateRecord = $this->dateDistance($date);
 
         if (is_null($dateRecord)) {
