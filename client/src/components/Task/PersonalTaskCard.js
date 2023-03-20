@@ -9,22 +9,6 @@ import CardHeader from "react-bootstrap/esm/CardHeader";
 import { getHTTP, putHTTP } from "../../api/helpers";
 import { getFormattedDateUTC } from "../../scripts/date";
 
-// Progress bar component
-const Progress = ({ progress, total }) => {
-  let percentage = Math.floor((progress / total) * 100);
-  percentage = Math.min(percentage, 100);
-
-  return (
-    <div style={{ minWidth: "350px" }}>
-      <ProgressBar
-        variant="custom-bar"
-        now={percentage}
-        label={`${percentage}%`}
-      />
-    </div>
-  );
-};
-
 const PersonalTaskCard = () => {
   // List of basic tasks
   const [basicTasks, setBasicTasks] = useState(null);
@@ -207,7 +191,7 @@ const PersonalTaskCard = () => {
                   </div>
   
                   {task.auto_completed == 1 && (
-                    <ProgressBar now={task.progress} total={task.quantity} />
+                    <ProgressBar now={task.progress} max={task.quantity} />
                   )}
   
                   <div className="d-flex justify-content-between mt-3">
