@@ -36,7 +36,7 @@ function Profile({ ChangePage }) {
           <Info user={user} setUser={setUser} />
           <Activity user={user} />
           <br></br>
-          <div className="mb-5 pb-5" >
+          <div className="mb-5 pb-5">
             <Button className="logout-text" variant="primary" type="button" size="sm" onClick={() => logout()}>
               <FontAwesomeIcon icon={faDoorOpen} size="sm" />
               <span className="ms-2">Logout</span>
@@ -44,6 +44,7 @@ function Profile({ ChangePage }) {
           </div>
           <div className="fixed-bottom d-flex justify-content-end m-4">
             <Button
+              style={{zIndex: 7000}}
               className="rounded-circle"
               onClick={() => ChangePage("main", "")}
             >
