@@ -29,7 +29,7 @@ const Tasks = ({ ChangePage }) => {
               <GroupTaskCard></GroupTaskCard>
               <br></br>
               */}
-              <div className="fixed-bottom d-flex justify-content-end m-4">
+              <div className="exit-container fixed-bottom d-flex justify-content-end m-4">
                 <Button
                   className="rounded-circle"
                   onClick={() => ChangePage("main")}

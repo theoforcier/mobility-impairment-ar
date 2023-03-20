@@ -62,7 +62,7 @@ function DistanceTracker() {
       const distance = parseInt(localStorage.getItem("metersTravelled"));
       const formattedDate = getFormattedDate();
       const payload = {
-        meters: distance,
+        meters: Math.min(distance, 1000),     // max of 1000
         date: formattedDate
       };
 
