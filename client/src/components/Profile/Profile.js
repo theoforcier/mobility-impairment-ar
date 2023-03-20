@@ -36,7 +36,7 @@ function Profile({ ChangePage }) {
           <Info user={user} setUser={setUser} />
           <Activity user={user} />
           <br></br>
-          <div className="pb-4" >
+          <div className="mb-5 pb-5" >
             <Button className="logout-text" variant="primary" type="button" size="sm" onClick={() => logout()}>
               <FontAwesomeIcon icon={faDoorOpen} size="sm" />
               <span className="ms-2">Logout</span>

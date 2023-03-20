@@ -6,6 +6,7 @@
 
 .Tasks .task-section {
   display: flex;
+  max-width: 100%;
 }
 
 .card-button {
@@ -32,11 +33,11 @@
 
 .progress-bar {
   background-color: #5a7bd0;
+  max-width: 20px;
 }
 
 .rounded-circle {
     margin-left: 10px;
-    bottom: 0;
     right: 0;
     width: 65px;
     height: 65px;
